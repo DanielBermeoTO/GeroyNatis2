@@ -72,6 +72,7 @@
       } else {
           // Si no hay búsqueda, mostrar todos los productos
           $consulta = Conectarse()->query("SELECT * FROM producto");
+          A
       }
 
       // Mostrar los resultados
