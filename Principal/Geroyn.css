@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+.container-fluid {
+  background: linear-gradient(70deg, #b93f39, #c2a8a1);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 25px;
+  justify-content: center !important;
+  border: 2px solid black;
+}
+
+.navbar-nav .nav-link {
+  color: #000 !important;
+  /* Negro */
+}
+
+
+.navbar-nav .nav-link span {
+  display: inline-block;
+  opacity: 0;
+  position: relative;
+  left: 40px;
+  top: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(-10px);
+}
+
+.navbar-nav .nav-link:hover span {
+  opacity: 1;
+  transform: translateX(0);
+  padding: 0 50px 0 0;
+}
+
+.navbar-nav .nav-link:hover i {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.navbar-brand {
+  color: #707070 !important;
+  /* Negro para el texto del logo, si hay */
+}
+
+.pie {
+  background: black;
+}
+
+.pie p {
+  padding: 20px;
+  text-align: center !;
+  color: white;
+}
+
+.vertical-line {
+  width: 1px;
+  /* Ancho de la línea */
+  height: 100px;
+  /* Altura de la línea */
+  background-color: white;
+  /* Color de la línea */
+  margin-left: 20px;
+  /* Margen a la izquierda (opcional) */
+  margin-right: 20px;
+  /* Margen a la derecha (opcional) */
+}
+
+.row {
+  justify-content: space-between;
+  /* Espacio entre los elementos */
+  align-items: flex-start;
+  /* Alinear al inicio */
+}
+
+.colForm1 {
+  color: white;
+  /* Cambia el color del texto a blanco */
+  padding: 20px 0 0 0;
+  font-family: "Oswald", sans-serif;
+}
+
+.social-links {
+  color: white;
+  /* Cambia el color del texto a blanco */
+  padding: 20px 0 0 0;
+  font-family: "Oswald", sans-serif;
+}
+
+.derechos {
+  text-align: center;
+}
+
+.acciones {
+  font-family: "Oswald", sans-serif;
+  background-color: black;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.aña,
+.edi,
+.tus {
+  text-decoration: none;
+  color: white;
+  padding: 0 30px 0 0;
+  font-size: 20px;
+}
+
+.formulario-inicio {
+  position: absolute;
+  top: 35%;
+  left: 60%;
+  width: 400px;
+  background: radial-gradient(circle, #ffffff, #808080);
+  padding: 40px;
+  border-radius: 20px;
+  color: black;
+  font-family: "Oswald", sans-serif;
+}
+
+.formulario-inicio:hover {
+  box-shadow: 0px 0px 20px #000000;
+  transform: scale(1.05);
+}
+
+.formulario-inicio h1 {
+  text-align: center;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid black;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.formulario-inicio form {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+form .correo,
+form .contraseña {
+  position: relative;
+  border-bottom: 2px solid black;
+  margin: 20px 0;
+}
+
+.correo input,
+.contraseña input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.correo label,
+.contraseña label {
+  position: absolute;
+  top: 50%;
+  /* Ajusta este valor para el alineamiento vertical */
+  left: 5px;
+  color: #4e4e4e;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: top 0.5s ease, color 0.5s ease;
+}
+
+.correo input:focus~label,
+.contraseña input:focus~label {
+  top: -4px;
+  /* Ajusta este valor según el diseño deseado */
+  color: black;
+}
+
+input:focus~label,
+input:valid~label {
+  top: -5px;
+}
+
+.correo span::before,
+.contraseña span::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: width 0.5s ease;
+}
+
+.correo input:focus~span::before,
+.contraseña input:focus~span::before {
+  width: 100%;
+}
+
+.upload-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-label {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #c2b6b6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /*cambia el cursor por una manito*/
+  overflow: hidden;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /*Hace que la imagen reduzca su tamaño o mejor dicho que el contenedor no cambie de forma*/
+  display: none;
+  /*se usa para ocultar la vista previa de la imagen hasta que se selecciona un archivo. */
+}
+
+
+/*---------------------------------------Inventario----------------------------------------------*/
+table.edit {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: center;
+  overflow-x: auto;
+  /* Permite desplazamiento horizontal */
+}
+
+table.edit th,
+table.edit td {
+  padding: 0 20px 0 20px;
+  border: 2px solid #000000;
+}
+
+table.edit thead th {
+  background: #c24a46;
+  font-family: "Bebas Neue", sans-serif;
+  color: black;
+}
+
+table.edit tbody td {
+  vertical-align: middle;
+  font-family: "Oswald", sans-serif;
+}
+
+table.edit tbody img {
+  max-width: 100px;
+  height: auto;
+}
+
+tbody.cont tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody.cont tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+@media only screen and (max-width: 768px) {
+  table.edit {
+    font-size: 14px;
+    /* Reduce el tamaño del texto */
+  }
+
+  table.edit thead th,
+  table.edit tbody td {
+    padding: 10px 5px;
+    /* Reduce el espacio de padding */
+  }
+
+  table.edit tbody img {
+    max-width: 60px;
+    /* Reduce el tamaño de las imágenes */
+  }
+}
+
+.product-item {
+  display: flex;
+  gap: 20px;
+  /* Espacio entre los elementos */
+  margin-bottom: 10px;
+  /* Espacio inferior entre productos */
+}
+
+.product-item .correo {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  /* Para que el label se mantenga arriba */
+  position: relative;
+}
+
+.product-item input {
+  padding: 10px;
+}
+
+.product-item label {
+  font-size: 18px;
+  color: #666;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 0 5px;
+}
+
+.card-text-inline {
+  display: inline-block;
+  margin-right: 10px;
+  /* Ajusta el espacio entre los elementos según lo necesites */
+  margin-bottom: 10px;
+  /* Asegura un pequeño margen inferior */
+}
+
+
+.code-container {
+  display: flex;
+  gap: 10px;
+}
+
+.code-input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 24px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.code-input:focus {
+  border-color: #007bff;
+}
+
+.code-input::placeholder {
+  color: transparent;
+}
