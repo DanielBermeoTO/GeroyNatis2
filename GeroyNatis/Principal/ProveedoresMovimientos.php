@@ -74,6 +74,7 @@
                 <th>Entrada</th>
                 <th>Producto</th>
                 <th>Cantidad</th>
+                <th>Precio</th>
                 <th>Total</th>
                 <th>Tipo</th>
                 <th>Proveedor</th>
@@ -106,16 +107,15 @@ if (count($productosFiltrados) > 0) {
                       <thead>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Precio</th>
                       </thead>
                       <tbody>
                         <td>' . ($row['ProductoidProducto']) . '</td>
                         <td>' . ($row['producto']) . '</td>
-                        <td>$' . number_format($row['precio']) . '</td>
                       </tbody>
                     </table>
                   </td>
                   <td>' . ($row['entradaproducto']) . '</td>
+                  <td>$'.number_format ($row['precioproveedor']) .'</td>
                   <td>$' .number_format ($row['total']) . '</td>
                   <td>' . ($row['anadido']) . '</td>
                   <td>' . ($row['proveedor']) . '</td>

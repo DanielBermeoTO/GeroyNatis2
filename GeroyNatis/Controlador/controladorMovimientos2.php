@@ -1,5 +1,10 @@
 <?php
-require_once "../Modelo/movimientos.php";
+// Mostrar todos los errores
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once "../Modelo/Movimientos.php";
 
 $movimiento = new Movimientos();
 $elegirAcciones = isset($_POST['Acciones']) ? $_POST['Acciones'] : "Cargar";
@@ -11,6 +16,7 @@ if ($elegirAcciones == 'Crear Movimiento') {
         $_POST['fecha_entrada'],            // Fecha de entrada
         $_POST['ProductoidProducto'],       // ID del producto
         $_POST['ProveedoridProveedor'],     // ID del proveedor
+        $_POST['precioproveedor'],
         6,                                  // Valor de 'anadido', que será siempre 6
         0                                   // Valor temporal de 'total', se calcula en la función
     );

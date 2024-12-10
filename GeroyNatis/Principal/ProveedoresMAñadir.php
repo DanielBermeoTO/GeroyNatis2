@@ -100,6 +100,12 @@ $respuestaproducto = $Conexion->query($sqlproducto);
                 </div>
               </div>
               <div class="correo">
+              <input type="number" name="precioproveedor" id="precioproveedor" required step="1"
+                  title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
+                  inputmode="numeric">
+                  <label for="nombreproducto">Precio Proveedor</label>
+              </div>
+              <div class="correo">
                 <input type="number" name="entradaproducto" id="entradaproducto" required step="1"
                   title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
                   inputmode="numeric">

@@ -58,7 +58,7 @@ ORDER BY
         $this->Conexion->close();
         return $resultado;
     }
-    public function añadirProducto($imagen, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla, $fechaEntrada, $proveedorId)
+    public function añadirProducto($imagen, $nombreProducto, $cantidadp, $precio, $precioproveedor, $color, $iva, $categoria, $estado, $talla, $fechaEntrada, $proveedorId)
     {
         // Iniciar transacción
         $this->Conexion->begin_transaction();
@@ -76,7 +76,7 @@ ORDER BY
             $stmt->close();
 
             // Calcular el total (precio del producto * cantidad de productos ingresados)
-            $total = $precio * $cantidadp;
+            $total = $precioproveedor * $cantidadp;
 
             // Definir el valor de 'anadido' como 5
             $anadido = 5;

@@ -1,4 +1,9 @@
 <?php
+// Mostrar todos los errores
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once "../Modelo/Producto.php";
 
 $producto = new Producto();
@@ -28,7 +33,7 @@ if ($elegirAcciones == 'Crear Producto') {
             }
 
             // Creamos un nombre único para la imagen para evitar sobrescribir archivos existentes
-            $nombreImagen = uniqid() . "_" . basename($imagen['name']);
+            $nombreImagen = basename($imagen['name']);
             $carpetaDestino = '../Imagenes/';
             $rutaImagen = $carpetaDestino . $nombreImagen;
 
@@ -40,6 +45,7 @@ if ($elegirAcciones == 'Crear Producto') {
                     $_POST['nombreproducto'],
                     $_POST['cantidadp'],
                     $_POST['precio'],
+                    $_POST['precioproveedor'],
                     $_POST['color'],
                     $_POST['iva'],
                     $_POST['categoria'],
@@ -66,6 +72,7 @@ if ($elegirAcciones == 'Crear Producto') {
                 $_POST['nombreproducto'],
                 $_POST['cantidadp'],
                 $_POST['precio'],
+                $_POST['precioproveedor'],
                 $_POST['color'],
                 $_POST['iva'],
                 $_POST['categoria'],
