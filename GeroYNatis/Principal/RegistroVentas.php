@@ -180,7 +180,8 @@
 if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
     $busqueda = strtolower(trim($_GET['busqueda'])); // Convierte a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
     $ventasFiltradas = array_filter(iterator_to_array($resultado), function($ventas) use ($busqueda) {
-        return strpos(strtolower($ventas['idFactura']), $busqueda) !== false;
+        return strpos(strtolower($ventas['idFactura']), $busqueda) !== false ||
+        strpos(strtolower($ventas['fechaventa']), $busqueda) !== false;
     });
 } else {
     // Si no hay búsqueda, mostrar todos los productos

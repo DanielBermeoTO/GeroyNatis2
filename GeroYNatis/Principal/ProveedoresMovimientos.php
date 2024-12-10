@@ -47,9 +47,9 @@
               <a class="nav-link" href="../Controlador/controladorVentas.php"><i class="bi bi-clipboard2-pulse-fill"></i><span>Registro de ventas</span></a>
             </li>
           </ul>
-          <form class="d-flex ms-lg-4">
-            <input class="form-control me-2" type="search" placeholder="Buscar Movimientos" aria-label="Search">
-            <button style="color: white; background: rgb(49, 44, 44); border: black; border-radius: 50px;" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+          <form action="" method="get" class="d-flex ms-lg-4">
+            <input class="form-control me-2" type="search" placeholder="Buscar Movimiento" aria-label="Search" name="busqueda">
+            <button style="color: white; background: rgb(49, 44, 44); border: black; border-radius: 50px;" class="btn btn-outline-success" type="submit" name="enviar" value="buscar"><i class="bi bi-search"></i></button>
           </form>
         </div>
       </div>
@@ -80,8 +80,24 @@
               </tr>
             </thead>
             <tbody>
-              <?php
-              while ($row = mysqli_fetch_assoc($resultado)) {
+            <?php
+// Verificar si se realizó una búsqueda
+if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
+    $busqueda = strtolower(trim($_GET['busqueda'])); // Convierte a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
+    $productosFiltrados = array_filter(iterator_to_array($resultado), function($movimientos) use ($busqueda) {
+        return strpos(strtolower($movimientos['proveedor']), $busqueda) !== false ||
+        strpos(strtolower($movimientos['idProceso']), $busqueda) !== false;
+    });
+} else {
+    // Si no hay búsqueda, mostrar todos los productos
+    $productosFiltrados = iterator_to_array($resultado);
+}
+
+// Mostrar los productos
+if (count($productosFiltrados) > 0) {
+    foreach ($productosFiltrados as $row) {
+?>
+<?php
                 echo '<tr>
                   <td>' . ($row['idProceso']) . '</td>
                   <td>' . ($row['fecha_entrada']) . '</td>
@@ -105,7 +121,7 @@
                   <td>' . ($row['proveedor']) . '</td>
                   
                 </tr>';
-              }
+              }}
               ?>
             </tbody>
           </table>

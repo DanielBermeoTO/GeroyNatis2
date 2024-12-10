@@ -124,7 +124,8 @@ $resultadoCategorias = $Conexion->query($sqlCategorias);
 if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
     $busqueda = strtolower(trim($_GET['busqueda'])); // Convierte a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
     $productosFiltrados = array_filter(iterator_to_array($resultado), function($producto) use ($busqueda) {
-        return strpos(strtolower($producto['nombreproducto']), $busqueda) !== false;
+        return strpos(strtolower($producto['nombreproducto']), $busqueda) !== false ||
+        strpos(strtolower($producto['idProducto']), $busqueda) !== false;
     });
 } else {
     // Si no hay búsqueda, mostrar todos los productos

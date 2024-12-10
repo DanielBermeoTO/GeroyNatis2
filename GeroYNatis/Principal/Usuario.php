@@ -125,7 +125,10 @@
                 <ul class="navbar-nav flex-column mb-2 mb-lg-0">
                     <h1>Gestión de Usuarios</h1>
                 </ul>
-
+                <form action="" method="get" class="d-flex ms-lg-4">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="busqueda">
+            <button style="color: white; background: rgb(49, 44, 44); border: black; border-radius: 50px;" class="btn btn-outline-success" type="submit" name="enviar" value="buscar"><i class="bi bi-search"></i></button>
+          </form>
             </div>
         </div>
     </nav>
@@ -141,7 +144,23 @@
     </p>
     <hr>
     <div style="padding: 30px 0 50px 0;" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-        <?php while ($row = mysqli_fetch_assoc($resultado)) { ?>
+    <?php
+// Verificar si se realizó una búsqueda
+if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
+    $busqueda = strtolower(trim($_GET['busqueda'])); // Convierte a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
+    $ventasFiltradas = array_filter(iterator_to_array($resultado), function($usuarios) use ($busqueda) {
+        return strpos(strtolower($usuarios['documento']), $busqueda) !== false ||
+        strpos(strtolower($usuarios['nombre']), $busqueda) !== false;
+    });
+} else {
+    // Si no hay búsqueda, mostrar todos los productos
+    $ventasFiltradas = iterator_to_array($resultado);
+}
+
+// Mostrar los productos
+if (count($ventasFiltradas) > 0) {
+    foreach ($ventasFiltradas as $row) {
+?>
             <div class="card">
                 <div class="avatar-container">
                     <div class="avatar"><i class="bi bi-person-circle"></i></div>
@@ -286,7 +305,7 @@
     </div>
   </div>
 </div>
-<?php } ?>
+<?php }} ?>
 
         <!-- Tarjeta roja que trae otra consulta -->
         <?php 

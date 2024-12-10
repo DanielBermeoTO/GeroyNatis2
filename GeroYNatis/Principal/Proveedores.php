@@ -54,10 +54,10 @@ $resultadot = $Conexion->query($sqlt);
             <a class="nav-link" href="../Controlador/controladorVentas.php"><i class="bi bi-clipboard2-pulse-fill"></i><span>Registro de ventas</span></a>
           </li>
         </ul>
-        <form class="d-flex ms-lg-4">
-          <input class="form-control me-2" type="search" placeholder="Buscar Proveedor" aria-label="Search">
-          <button style="color: white; background: rgb(49, 44, 44); border: black; border-radius: 50px;" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-        </form>
+        <form action="" method="get" class="d-flex ms-lg-4">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="busqueda">
+            <button style="color: white; background: rgb(49, 44, 44); border: black; border-radius: 50px;" class="btn btn-outline-success" type="submit" name="enviar" value="buscar"><i class="bi bi-search"></i></button>
+          </form>
       </div>
     </div>
   </nav>
@@ -87,7 +87,23 @@ $resultadot = $Conexion->query($sqlt);
               </tr>
             </thead>
             <tbody>
-              <?php while ($row = mysqli_fetch_assoc($resultadoo)): ?>
+            <?php
+// Verificar si se realizó una búsqueda
+if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
+    $busqueda = strtolower(trim($_GET['busqueda'])); // Convierte a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
+    $productosFiltrados = array_filter(iterator_to_array($resultadoo), function($proveedores) use ($busqueda) {
+        return strpos(strtolower($proveedores['nombreproveedor']), $busqueda) !== false ||
+        strpos(strtolower($proveedores['idProveedor']), $busqueda) !== false;
+    });
+} else {
+    // Si no hay búsqueda, mostrar todos los productos
+    $productosFiltrados = iterator_to_array($resultadoo);
+}
+
+// Mostrar los productos
+if (count($productosFiltrados) > 0) {
+    foreach ($productosFiltrados as $row) {
+?>
                 <tr>
                   <td><?php echo $row['idProveedor']; ?></td>
                   <td><?php echo $row['nombreproveedor']; ?></td>
@@ -156,7 +172,9 @@ $resultadot = $Conexion->query($sqlt);
                     </div>
                   </div>
                 </div>
-              <?php endwhile; ?>
+                <?php
+              }}
+              ?>
             </tbody>
           </table>
         </div>
