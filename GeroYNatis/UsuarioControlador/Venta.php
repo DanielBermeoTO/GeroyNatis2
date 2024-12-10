@@ -66,7 +66,7 @@ class Venta
     
             // Si no hay suficiente inventario, detener el proceso
             if ($cantidad > $cantidadp) {
-                header("Location: ../GeroYNatis/Principal/RegistroVentasAñadir.php?error=pocosproductos");
+                header("Location: ../Usuario/UsuarioAñadirVenta.php?message=pocosproductos");
                 exit;
             }
         }

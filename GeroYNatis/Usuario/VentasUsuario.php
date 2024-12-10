@@ -76,6 +76,38 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
     exit(); // Asegúrate de salir después de mostrar el mensaje
 }
 ?>
+
+<?php
+              if (isset($_GET['message'])) {
+                // Definir clases y mensajes según el tipo
+                $alertClass = 'alert-danger'; // Por defecto, alerta de error
+                $icon = '<i class="bi bi-exclamation-triangle-fill"></i>'; // Ícono de error
+                $messageText = 'Algo salió mal, intenta de nuevo'; // Mensaje por defecto
+
+                // Evaluar el mensaje recibido
+                switch ($_GET['message']) {
+                  case 'agregadoexitosamente':
+                    $alertClass = 'alert-success'; // Cambiar a éxito
+                    $icon = '<i class="bi bi-check-circle-fill"></i>'; // Ícono de éxito
+                    $messageText = 'Venta exitosa';
+                    break;
+
+                  default:
+                    // Mantener valores por defecto
+                    break;
+                }
+              ?>
+           <!-- Mostrar la alerta -->
+           <div class="alert <?= $alertClass ?> d-flex align-items-center" role="alert">
+                  <?= $icon ?>
+                  <div style="margin-left: 10px;">
+                    <?= $messageText ?>
+                  </div>
+                </div>
+
+              <?php
+              }
+              ?>
 <div  class="col-md-12">
     <table  class="edit table table-responsive">
         <thead >

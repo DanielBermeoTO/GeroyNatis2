@@ -91,6 +91,34 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
     </nav>
   </header>
 
+  <?php
+              if (isset($_GET['message'])) {
+                // Definir clases y mensajes según el tipo
+                $alertClass = 'alert-danger'; // Por defecto, alerta de error
+                $icon = '<i class="bi bi-exclamation-triangle-fill"></i>'; // Ícono de error
+                $messageText = 'Algo salió mal, intenta de nuevo'; // Mensaje por defecto
+
+                // Evaluar el mensaje recibido
+                switch ($_GET['message']) {
+                  case 'pocosproductos':
+                    $messageText = 'No hay suficientes productos en el inventario para hacer la venta';
+                    break;
+
+                  default:
+                    // Mantener valores por defecto
+                    break;
+                }
+              ?>
+           <!-- Mostrar la alerta -->
+           <div class="alert <?= $alertClass ?> d-flex align-items-center" role="alert">
+                  <?= $icon ?>
+                  <div style="margin-left: 10px;">
+                    <?= $messageText ?>
+                  </div>
+                </div>
+                <?php
+              }
+              ?>
 
   <div class="container" style="padding: 0 0 50px 0;  font-family: Oswald, sans-serif;">
     <div class="row">

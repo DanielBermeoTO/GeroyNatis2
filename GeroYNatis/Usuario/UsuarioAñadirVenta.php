@@ -4,7 +4,7 @@ $Conexion = Conectarse();
 $sqlest = "SELECT idestado, tiposestados FROM estados";
 $resultadoest = $Conexion->query($sqlest);
 
-$sqlp = "SELECT `idProducto`,`nombreproducto`, precio FROM producto;";
+$sqlp = "SELECT `idProducto`,`nombreproducto`, precio FROM producto WHERE id_estado = 3;";
 $resultap = $Conexion->query($sqlp);
 ?>
 
@@ -47,11 +47,7 @@ $resultap = $Conexion->query($sqlp);
               <a class="nav-link" href="../UsuarioControlador/UsuarioInventario.php"><i class="bi bi-file-medical-fill"></i><span>Inicio</span></a>
             </li>
           </ul>
-          <form class="d-flex ms-lg-4">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-            <button style="color: white; background: rgb(49, 44, 44); border: 1px solid black; border-radius: 50px;"
-              class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-          </form>
+
         </div>
       </div>
     </nav>
@@ -87,7 +83,46 @@ $resultap = $Conexion->query($sqlp);
           <?php
           exit();} 
           ?>
-        <div class="row">
+          <?php
+              if (isset($_GET['message'])) {
+                // Definir clases y mensajes según el tipo
+                $alertClass = 'alert-danger'; // Por defecto, alerta de error
+                $icon = '<i class="bi bi-exclamation-triangle-fill"></i>'; // Ícono de error
+                $messageText = 'Algo salió mal, intenta de nuevo'; // Mensaje por defecto
+
+                // Evaluar el mensaje recibido
+                switch ($_GET['message']) {
+                  case 'pocosproductos':
+                    $messageText = 'No hay suficientes productos en el inventario para hacer la venta';
+                    break;
+
+                  case 'Usuario no encontrado':
+                    $messageText = 'Usuario no encontrado, Usuario inexistente o correo mal proporcionado.';
+                    break;
+
+                  case 'okay':
+                    $alertClass = 'alert-success'; // Cambiar a éxito
+                    $icon = '<i class="bi bi-check-circle-fill"></i>'; // Ícono de éxito
+                    $messageText = 'Contraseña actualizada con exito.';
+                    break;
+
+                  default:
+                    // Mantener valores por defecto
+                    break;
+                }
+              ?>
+           <!-- Mostrar la alerta -->
+           <div class="alert <?= $alertClass ?> d-flex align-items-center" role="alert">
+                  <?= $icon ?>
+                  <div style="margin-left: 10px;">
+                    <?= $messageText ?>
+                  </div>
+                </div>
+
+              <?php
+              }
+              ?>
+                      <div class="row">
           <div class="col-md-6" style="border: 2px solid black; border-radius: 10px; ">
             <form action="../UsuarioControlador/VentasControlador.php" class="anadir" method="post" id="product-form">
               <div id="product-list" style="padding: 20px;">

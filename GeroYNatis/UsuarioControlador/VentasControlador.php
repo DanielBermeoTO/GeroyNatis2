@@ -1,5 +1,5 @@
 <?php
-require_once "../Modelo/Venta.php";
+require_once "../UsuarioControlador/Venta.php";
 
 $venta = new Venta();
 $ventas = $venta->obtenerVentas();
@@ -43,7 +43,7 @@ if ($elegirAcciones == 'Crear Venta') {
         $idFactura = $_POST['idFactura'];
         echo "Intentando actualizar factura con ID: " . $idFactura; // Para depuración
         $venta->pagarVenta($idFactura, '1', null);
-        header("Location: ../UsuarioControlador/VentasControlador.php?success=1");
+        header("Location: ../UsuarioControlador/VentasControlador.php?message=agregadoexitosamente");
         exit(); 
     } else {
         echo "No se recibió el ID de la factura.";
