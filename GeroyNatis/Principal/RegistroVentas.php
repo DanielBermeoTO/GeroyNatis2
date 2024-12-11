@@ -104,6 +104,30 @@
 </head>
 
 <body>
+<?php
+// Iniciar la sesión
+session_start();
+
+// Verificar si la sesión está iniciada y si el usuario tiene el rol adecuado (rol 2 para vendedor)
+if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol'] != 1) {
+    // Si no está logueado o no tiene el rol de vendedor, mostrar alerta y redirigir
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Acceso denegado',
+            text: 'Debe iniciar sesión para acceder a esta página',
+            showConfirmButton: true,
+            confirmButtonText: "Aceptar",
+        }).then(function() {
+            window.location = "../Principal/inicio.html"; // Redirigir a la página de inicio de sesión
+        });
+    </script>
+    <?php
+    exit(); // Asegúrate de salir después de mostrar el mensaje
+}
+?>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="nav-link" style="color: black;" href="../Controlador/controladorInventario.php"><i class="bi bi-box-arrow-left"></i></a>
