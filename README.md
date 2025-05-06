@@ -6,8 +6,7 @@
 Este aplicativo web ha sido creado con el objetivo de resolver dos desafíos cruciales para la empresa: la falta de un sistema eficiente de gestión de inventario y la optimización de las ventas.
 
 Este proyecto se enfoca en mejorar la manera en que Gero y Natis maneja su inventario y procesa sus ventas. Hemos implementado un sistema de información que permite:
-
-- Gestión de inventario
+:smiley: Gestión de inventario
 - Administración de Ventas
 
 ## ¿Que hace este proyecto?
