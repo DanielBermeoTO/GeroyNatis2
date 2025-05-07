@@ -13,7 +13,7 @@ En esta microempresa se ha evidenciado la falta de un sistema de inventario, ya 
 
 Este proyecto se enfoca en mejorar la manera en que Gero y Natis maneja su inventario y procesa sus ventas. Hemos implementado un sistema de información que permite:
 ### :smiley: Gestión de inventario
-- Administración de Ventas
+### :flushed: Administración de Ventas
 
 ## ¿Que hace este proyecto?
 
