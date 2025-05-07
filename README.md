@@ -15,9 +15,9 @@ Este proyecto se enfoca en mejorar la manera en que Gero y Natis maneja su inven
 ### :smiley: Gestión de inventario
 ### :flushed: Administración de Ventas
 
-## ¿Que hace este proyecto?
+## :relaxed: ¿Que hace este proyecto?
 
-### :relaxed: - Gestión de inventario: 
+### :smirk: - Gestión de inventario: 
 
 Control más preciso de los productos disponibles, reduciendo la posibilidad de errores y desabastecimientos.
 
