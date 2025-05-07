@@ -15,6 +15,14 @@ Este proyecto se enfoca en mejorar la manera en que Gero y Natis maneja su inven
 ### :smiley: Gestión de inventario
 ### :flushed: Administración de Ventas
 
+### :sunglasses: Objetivo general 
+
+Implementar un sistema de gestión de inventarios y ventas que permita optimizar el control de productos y  el seguimiento de las ventas realizadas.
+
+### :innocent: Objetivo especifico
+Diseñar e implementar una interfaz de usuario amigable para el aplicativo web que permita a los usuario facilitar la experiencia.
+Desarrollar un módulo de gestión de inventario que permita ingresar, actualizar y consultar el stock de productos en tiempo real.
+
 ## :relaxed: ¿Que hace este proyecto?
 
 ### :smirk: - Gestión de inventario: 
