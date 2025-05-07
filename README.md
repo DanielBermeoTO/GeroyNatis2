@@ -3,7 +3,13 @@
 
 # Gero y Natis
 
-Este aplicativo web ha sido creado con el objetivo de resolver dos desafíos cruciales para la empresa: la falta de un sistema eficiente de gestión de inventario y la optimización de las ventas.
+De que se trata la empresa Gero y Natis
+
+La microempresa 'Gero y Natis', ubicada en el barrio San Victorino de Bogotá, desde hace 5 años se dedica a la comercialización de prendas de vestir. 
+
+### :relaxed:Problematica 
+
+En esta microempresa se ha evidenciado la falta de un sistema de inventario, ya que tanto el inventario como la gestión de ventas se registran manualmente en un cuaderno, lo que genera ineficiencias y riesgos de errores en el control de los productos y las transacciones.
 
 Este proyecto se enfoca en mejorar la manera en que Gero y Natis maneja su inventario y procesa sus ventas. Hemos implementado un sistema de información que permite:
 ### :smiley: Gestión de inventario
@@ -11,10 +17,10 @@ Este proyecto se enfoca en mejorar la manera en que Gero y Natis maneja su inven
 
 ## ¿Que hace este proyecto?
 
-### - Gestión de inventario: 
+### :relaxed: - Gestión de inventario: 
 
 Control más preciso de los productos disponibles, reduciendo la posibilidad de errores y desabastecimientos.
 
-### - Administración de ventas: 
+### :blush: - Administración de ventas: 
 
 Eficientes para registrar, monitorear y analizar las ventas, lo que facilita la toma de decisiones y mejora la rentabilidad.
