@@ -57,53 +57,57 @@ class Usuario
     }
     
 
-       public function añadirUsuario($documento, $tipoDocumento, $nombre, $apellido, $direccion, $localidad, $telefono, $correo, $estado, $rol, $contrasena)
-    {
-        // Inicia la transacción
-        $this->Conexion->begin_transaction();
-    
-        try {
-            // Inserta el usuario en la tabla 'usuario'
-            $sqlUsuario = "INSERT INTO `usuario`(`documento`, `tipoDocumento`, `nombre`, `apellido`, `direccion`, `localidad`, `telefono`, `correo`, `id_estado`, `idrol`) 
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            if ($stmtUsuario = $this->Conexion->prepare($sqlUsuario)) {
-                $stmtUsuario->bind_param("isssssssii", $documento, $tipoDocumento, $nombre, $apellido, $direccion, $localidad, $telefono, $correo, $estado, $rol);
-    
-                if ($stmtUsuario->execute()) {
-                    // Inserción en la tabla 'sesion' para almacenar la contraseña
-                    $sqlSesion = "INSERT INTO `sesion`(`documento`, `contrasena`) VALUES (?, AES_ENCRYPT(?, 'empanadaslomejor4'))";
-                    if ($stmtSesion = $this->Conexion->prepare($sqlSesion)) {
-                        // Aquí se pasa la contraseña y el documento
-                        $stmtSesion->bind_param("is", $documento, $contrasena);
-    
-                        if ($stmtSesion->execute()) {
-                            // Todo ha ido bien, confirmamos la transacción
-                            $this->Conexion->commit();
-                            header("Location: ../Controlador/controladorUsuario.php");
-                            exit;
-                        } else {
-                            // Error al añadir la sesión, lanzamos excepción
-                            throw new Exception("Error al añadir la sesión: " . $stmtSesion->error);
-                        }
-    
-                        $stmtSesion->close();
+      public function añadirUsuario($documento, $tipoDocumento, $nombre, $apellido, $direccion, $localidad, $telefono, $correo, $estado, $rol, $contrasena)
+{
+    // Inicia la transacción
+    $this->Conexion->begin_transaction();
+
+    try {
+        // Inserta el usuario en la tabla 'usuario'
+        $sqlUsuario = "INSERT INTO `usuario`(`documento`, `tipoDocumento`, `nombre`, `apellido`, `direccion`, `localidad`, `telefono`, `correo`, `id_estado`, `idrol`) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        if ($stmtUsuario = $this->Conexion->prepare($sqlUsuario)) {
+            $stmtUsuario->bind_param("isssssssii", $documento, $tipoDocumento, $nombre, $apellido, $direccion, $localidad, $telefono, $correo, $estado, $rol);
+
+            if ($stmtUsuario->execute()) {
+
+                // Genera el hash con password_hash (igual que bcrypt)
+                $hash = password_hash($contrasena, PASSWORD_BCRYPT);
+
+                // Inserta en la tabla 'sesion' la contraseña encriptada
+                $sqlSesion = "INSERT INTO `sesion`(`documento`, `contrasena`) VALUES (?, ?)";
+                if ($stmtSesion = $this->Conexion->prepare($sqlSesion)) {
+                    $stmtSesion->bind_param("is", $documento, $hash);
+
+                    if ($stmtSesion->execute()) {
+                        // Todo ha ido bien, confirmamos la transacción
+                        $this->Conexion->commit();
+                        header("Location: ../Controlador/controladorUsuario.php");
+                        exit;
                     } else {
-                        throw new Exception("Error al preparar la consulta para la tabla de sesión: " . $this->Conexion->error);
+                        // Error al añadir la sesión, lanzamos excepción
+                        throw new Exception("Error al añadir la sesión: " . $stmtSesion->error);
                     }
+
+                    $stmtSesion->close();
                 } else {
-                    throw new Exception("Error al añadir el usuario: " . $stmtUsuario->error);
+                    throw new Exception("Error al preparar la consulta para la tabla de sesión: " . $this->Conexion->error);
                 }
-    
-                $stmtUsuario->close();
             } else {
-                throw new Exception("Error al preparar la consulta para la tabla de usuario: " . $this->Conexion->error);
+                throw new Exception("Error al añadir el usuario: " . $stmtUsuario->error);
             }
-        } catch (Exception $e) {
-            // Algo ha fallado, hacemos rollback
-            $this->Conexion->rollback();
-            echo $e->getMessage();
+
+            $stmtUsuario->close();
+        } else {
+            throw new Exception("Error al preparar la consulta para la tabla de usuario: " . $this->Conexion->error);
         }
+    } catch (Exception $e) {
+        // Algo ha fallado, hacemos rollback
+        $this->Conexion->rollback();
+        echo $e->getMessage();
     }
+}
+
     
 
 public function borrarUsuario( $documento, $tipoDocumento, $nombre, $apellido, $direccion, $localidad,$telefono,$correo,$estado){

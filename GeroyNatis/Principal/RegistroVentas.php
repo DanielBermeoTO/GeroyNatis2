@@ -268,7 +268,9 @@ echo
               </tr>';
               ?>
               <?php
-              }}
+              }} else{
+                 echo '<p class="text-center">No se han registrado ventas.</p>';
+              }
               ?>
           </table>
         </div>

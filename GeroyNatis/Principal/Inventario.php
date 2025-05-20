@@ -101,22 +101,21 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
       // Mostrar los resultados
       if ($consulta->num_rows > 0) {
           while ($row = $consulta->fetch_array()) {
+            $urlImagen = $row['imagen']; // La URL de Cloudinary
+
               echo '<div class="col">
                   <div class="card" style="border: 2px solid black;">
-                      <img src="../Imagenes/' . htmlspecialchars($row['imagen']) . '" class="card-img-top mx-auto d-block img-fluid" alt="Producto" style="margin: 15px 10px 0 10px; width: 200px; height: 220px;">
+<img src="' . htmlspecialchars($row['imagen']) . '" class="card-img-top mx-auto d-block img-fluid" alt="Producto" style="margin: 15px 10px 0 10px; width: 200px; height: 220px;">
                       <hr>
                       <div style="text-align: center; padding: 0 0 20px 0;" class="card-body">
                           <h5 class="card-title">' . htmlspecialchars($row['nombreproducto']) . '</h5>
                           <p class="card-text"><strong>Precio: </strong>$' . number_format($row['precio']) . '</p>
-                          <p class="card-text"><strong>Color: </strong>' . htmlspecialchars($row['color']) . '</p>
-                          <p class="card-text"><strong>Cantidad: </strong>' . htmlspecialchars($row['cantidadp']) . '</p>
-                          <p class="card-text"><strong>Talla: </strong>' . htmlspecialchars($row['talla']) . '</p>
                       </div>
                   </div>
               </div>';
           }
       } else {
-          echo '<p class="text-center">No se encontraron productos que coincidan con tu búsqueda.</p>';
+          echo '<p class="text-center">No se han registrado productos.</p>';
       }
       ?>
     </div>

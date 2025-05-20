@@ -145,7 +145,9 @@ if (count($productosFiltrados) > 0) {
                   <td>' . ($row['proveedor']) . '</td>
                   
                 </tr>';
-              }}
+              }} else{
+                 echo '<p class="text-center">No se han registrado movimientos.</p>';
+              }
               ?>
             </tbody>
           </table>

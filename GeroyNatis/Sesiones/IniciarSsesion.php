@@ -20,10 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<br>";
 
     // Consulta para obtener la contraseña encriptada y el rol del usuario
-    $query = "SELECT AES_DECRYPT(s.contrasena, 'empanadaslomejor4') AS contrasenna, u.idrol 
-              FROM sesion s 
-              JOIN usuario u ON u.documento = s.documento 
-              WHERE s.documento = ?";
+    $query = "SELECT s.contrasena, u.idrol 
+          FROM sesion s 
+          JOIN usuario u ON u.documento = s.documento 
+          WHERE s.documento = ?";
+
     $stmt = $mysqli->prepare($query);
     
     if (!$stmt) {
@@ -40,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
 
         // Verificar si la contraseña desencriptada coincide
-        if ($Password === $contrasenna) {
+        if (password_verify($Password , $contrasenna)) {
             // Credenciales correctas, iniciar sesión
             $_SESSION['sesion'] = $documento;
             $_SESSION['rol'] = $idrol; // Almacenar el rol en la sesión

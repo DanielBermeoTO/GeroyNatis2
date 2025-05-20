@@ -27,7 +27,116 @@ $resultadoCategorias = $Conexion->query($sqlCategorias);
 
   <title>Gero y Natis</title>
   <link rel="icon" href="./Imagenes/Gero_y_Natis Logo.png" type="image/png">
+<style>
 
+   .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: black;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .text-success-custom {
+    color: green !important;
+}
+
+.text-danger-custom {
+    color: red !important;
+}
+        .product-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            height: 100%;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-card .btn {
+            transition: all 0.3s;
+            background-color: rgb(231, 121, 115);
+            border-color: rgb(247, 94, 86);
+        }
+        
+        .product-card:hover .btn {
+            background-color: rgb(247, 94, 86);
+            border-color: rgb(231, 121, 115);
+        }
+
+        .badge-estado-1 {
+            background-color: #28a745;
+        }
+
+        .badge-estado-2 {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .badge-estado-3 {
+            background-color: #dc3545;
+        }
+        
+        /* Estilo para el ID del producto en forma de bolita */
+        .product-id-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgb(231, 121, 115);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 10;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Contenedor de imagen con tamaño fijo */
+        .product-image-container {
+            height: 180px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Mantiene la proporción y se ajusta dentro del contenedor */
+            padding: 10px;
+        }
+        
+        /* Estilo para la imagen en el modal */
+        .modal-product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -114,8 +223,9 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
     <div class="ordenar">
       <select id="filtrar" name="filtro" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
         <option value="onnn" disabled selected>Filtrar por:</option>
-        <option value="opcion1">Lista</option>
-        <option value="opcion2">Cajón</option>
+        <option value="opcion1">Predeterminado</option>
+        <option value="opcion2">Lista</option>
+        <option value="opcion3">Cajón</option>
       </select>
     </div>
   </div>
@@ -125,65 +235,131 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
         <p style="font-family: Oswald, sans-serif; font-size: 22px;">En este apartado puedes visualizar tus productos, actualizarlos, eliminarlos o inhabilitarlos.</p>
         <hr>
 
-        <div class="col-md-12">
-          <table class="edit table table-responsive">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Color</th>
-                <th>Talla</th>
-                <th>Categoria</th>
-                <th>Estado</th>
-                <th>IVA</th>
-                <th>Foto</th>
-                <th>Editar</th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php
-// Verificar si se realizó una búsqueda
-if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
-    $busqueda = strtolower(trim($_GET['busqueda'])); // Convierte a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
-    $productosFiltrados = array_filter(iterator_to_array($resultado), function($producto) use ($busqueda) {
-        return strpos(strtolower($producto['nombreproducto']), $busqueda) !== false ||
-        strpos(strtolower($producto['idProducto']), $busqueda) !== false;
-    });
-} else {
-    // Si no hay búsqueda, mostrar todos los productos
-    $productosFiltrados = iterator_to_array($resultado);
-}
+         <div class="row row-cols-1 row-cols-md-3 g-4" id="col">
 
-// Mostrar los productos
-if (count($productosFiltrados) > 0) {
-    foreach ($productosFiltrados as $row) {
-?>
-                <tr>
-                  <td><?php echo $row['idProducto']; ?></td>
-                  <td><?php echo $row['nombreproducto']; ?></td>
-                  <td><?php echo $row['cantidadp']; ?></td>
-                  <td>$<?php echo number_format($row['precio']); ?></td>
-                  <td><?php echo $row['color']; ?></td>
-                  <td><?php echo $row['talla']; ?></td>
-                  <td><?php echo $row['categorias']; ?></td>
-                  <td><?php echo $row['estado']; ?></td>
-                  <td><?php echo $row['iva']; ?>%</td>
-                  <td><img src="../Imagenes/<?php echo $row['imagen']; ?> " alt=""></td>
-                  <td>
-                    <button data-bs-toggle="modal" data-bs-target="#updateModal<?php echo $row['idProducto']; ?>" style="border: none; background: white; color: green;" type="button">
-                      <i class="bi bi-cloud-upload"></i> Actualizar
-                    </button>
+         <?php
+          // Verificar si se realizó una búsqueda
+          if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
+              $busqueda = strtolower(trim($_GET['busqueda'])); // búsqueda insensible a mayúsculas/minúsculas
+              $productosFiltrados = array_filter(iterator_to_array($resultado), function($producto) use ($busqueda) {
+                  return strpos(strtolower($producto['nombreproducto']), $busqueda) !== false ||
+                         strpos(strtolower($producto['idProducto']), $busqueda) !== false;
+              });
+          } else {
+              // Si no hay búsqueda, mostrar todos los productos
+              $productosFiltrados = iterator_to_array($resultado);
+          }
+
+          // Mostrar los productos
+          if (count($productosFiltrados) > 0) {
+              foreach ($productosFiltrados as $row) {
+          ?>
+            <!-- Producto 1 -->
+            <div class="col" >
+                <div class="card product-card"  data-bs-toggle="modal" data-bs-target="#productModal1<?php echo $row['idProducto']; ?>">
+                    <!-- Badge con ID del producto -->
+                    <div class="product-id-badge"><?php echo $row['idProducto']; ?></div>
+                    
+                    <!-- Contenedor de imagen con tamaño fijo -->
+                    <div class="product-image-container">
+                        <img src="<?php echo $row['imagen']; ?>" class="product-image" alt="Producto 1">
+                    </div>
+                    
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $row['nombreproducto']; ?></h5>
+                        <p class="card-text">
+                            <span class="badge badge-estado-1"><?php echo $row['tiposestados']; ?></span>
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="card-text fw-bold mb-0">$<?php echo number_format($row['precio']); ?></p>
+                            <small class="text-muted">IVA <?php echo $row['iva']; ?>%</small>
+                        </div>
+                        <br>
+<div class="buttons">
+                <button  class="btn"  title="Actualizar Producto" data-bs-toggle="modal" data-bs-target="#updateModal<?php echo $row['idProducto']; ?>" type="button">
+                <i class="bi bi-pen"></i></button>
                     <form action="../Controlador/controladorInventario3.php" method="post">
-                      <input type="hidden" name="idProducto" value="<?php echo $row['idProducto']; ?>">
-                      <button name="Acciones" value="Borrar Producto" style="border: none; background: white; color: red;" type="submit">
-                        <i class="bi bi-ban"></i> Inhabilitar
-                      </button>
+                <input type="hidden" name="idProducto" value="<?php echo $row['idProducto']; ?>">
+                        <button class="btn" title="Inhabilitar Producto" name="Acciones" value="Borrar Producto" type="submit">
+                            <i class="bi bi-slash-circle"></i>
+                        </button>
                     </form>
-                  </td>
-                </tr>
+                    
+                    <button type="button" title="Visualizar Producto" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal1<?php echo $row['idProducto']; ?>">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>                    </div>
+                </div>
+            </div>
 
+            
+        <!-- Modales para detalles de productos -->
+        <!-- Modal Producto 1 -->
+        <div class="modal fade" id="productModal1<?php echo $row['idProducto']; ?>" tabindex="-1" aria-labelledby="productModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel1">Producto N° <?php echo $row['idProducto']; ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="<?php echo $row['imagen']; ?>" class="modal-product-image" alt="Smartphone XYZ">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center mb-2">
+                                    <h3 class="mb-0"><?php echo $row['nombreproducto']; ?></h3>
+                                    <div class="product-id-badge ms-2" style="position: relative; top: 0; right: 0;"><?php echo $row['idProducto']; ?></div>
+                                </div>
+                                <p class="fs-4 fw-bold text-primary">$<?php echo number_format($row['precio']); ?></p>
+                                <p><span class="badge badge-estado-1"><?php echo $row['tiposestados']; ?></span></p>
+                                <p class="mb-2"><strong>Categoría:</strong> <span class="text-muted"><?php echo $row['categoria']; ?></span></p>
+                                <p class="mb-2"><strong>IVA:</strong> <span class="text-muted"><?php echo $row['iva']; ?>%</span></p>
+                                <p class="mb-2"><strong>Unidades:</strong> <span class="text-muted"><?php echo $row['total_unidades']; ?></span></p>
+
+                                <hr>
+                                
+<div class="row text-center">
+    <?php
+        $detalles = explode(', ', $row['Detalle_Producto']);
+        foreach ($detalles as $detalle) {
+            $partes = explode(': ', $detalle); // ["XS", "10", "Blanco"]
+            if (count($partes) === 3) {
+                $talla = htmlspecialchars($partes[0]);
+                $cantidad = htmlspecialchars($partes[1]);
+                $color = htmlspecialchars($partes[2]);
+    ?>
+        <div class="col-4 col-md-2 mb-3">
+            <div class="border rounded p-2 shadow-sm">
+                <div class="fw-bold fs-5"><?php echo $talla; ?></div>
+                <div class="text-primary fs-6"><?php echo $cantidad; ?></div>
+                <div class="text-muted small"><?php echo $color; ?></div>
+            </div>
+        </div>
+    <?php 
+            }
+        }
+    ?>
+</div>
+
+                                
+                                <div class="d-grid gap-2 mt-4">
+                                  <form action="../Controlador/controladorInventario3.php" method="post" style="display:inline;">
+                <input type="hidden" name="idProducto" value="<?php echo $row['idProducto']; ?>">
+                <button  name="Acciones" value="Borrar Producto" style="border: 0.5px solid red; background: white; color: red; padding: 10px; border-radius: 5px" type="submit">
+                  <i class="bi bi-ban"></i> Inhabilitar
+                </button>
+              </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          
                 <!-- Modal para actualizar producto -->
                 <!-- Modal para actualizar producto -->
                 <div class="modal fade" id="updateModal<?php echo $row['idProducto']; ?>" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -293,9 +469,9 @@ if (count($productosFiltrados) > 0) {
 
 
                 <?php
-    }
+   }
 } else {
-    echo '<p class="text-center">No se encontraron productos que coincidan con tu búsqueda.</p>';
+    echo '<p class="text-center">No se han registrado productos.</p>';
 }
 ?>
             </tbody>
@@ -305,6 +481,63 @@ if (count($productosFiltrados) > 0) {
       </div>
     </div>
   </div>
+
+  <div class="lista" id="listaProductos">
+  <div class="container" style="font-family: Oswald, sans-serif;">
+    <div style="padding: 0 0 50px 0;" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+      <table class="edit table table-responsive">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Categoria</th>
+            <th>Estado</th>
+            <th>IVA</th>
+            <th>Foto</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          // Mostrar los productos
+          if (count($productosFiltrados) > 0) {
+              foreach ($productosFiltrados as $row) {
+          ?>
+          <tr>
+            <td><?php echo $row['idProducto']; ?></td>
+            <td><?php echo $row['nombreproducto']; ?></td>
+                        <td><?php echo $row['total_unidades']; ?></td>
+            <td><?php echo number_format($row['precio']); ?></td>
+            <td><?php echo $row['categoria']; ?></td>
+            <td><?php echo $row['tiposestados']; ?></td>
+            <td><?php echo $row['iva']; ?></td>
+            <td><img src="<?php echo $row['imagen']; ?>" alt=""></td>
+            <td>
+              <button data-bs-toggle="modal" data-bs-target="#updateModal<?php echo $row['idProducto']; ?>" style="border: none; background: white; color: green;" type="button">
+                <i class="bi bi-cloud-upload"></i> Actualizar
+              </button>
+              <form action="../Controlador/controladorInventario3.php" method="post" style="display:inline;">
+                <input type="hidden" name="idProducto" value="<?php echo $row['idProducto']; ?>">
+                <button name="Acciones" value="Borrar Producto" style="border: none; background: white; color: red;" type="submit">
+                  <i class="bi bi-ban"></i> Inhabilitar
+                </button>
+              </form>
+            </td>
+          </tr>
+          <?php
+              }
+          } else {
+              echo '<tr><td colspan="11" class="text-center">No se han registrado productos.</td></tr>';
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 
 
   <div class="cajon" id="cajonProductos">
@@ -357,22 +590,31 @@ if (count($productosFiltrados) > 0) {
     const selectFiltro = document.getElementById('filtrar');
     const cajonProductos = document.getElementById('cajonProductos');
     const tablaProductos = document.querySelector('table.edit');
+    const cardProductos = document.getElementById('col');
 
-    tablaProductos.style.display = 'table';
+    cardProductos.style.display = 'flex';
+    tablaProductos.style.display = 'none';
     cajonProductos.style.display = 'none';
 
     // Evento cuando el usuario selecciona una opción del select
-    selectFiltro.addEventListener('change', function() {
-      if (selectFiltro.value === 'opcion2') {
-        // Mostrar el cajón y ocultar la tabla
-        cajonProductos.style.display = 'block';
-        tablaProductos.style.display = 'none';
-      } else {
-        // Mostrar la tabla y ocultar el cajón
-        cajonProductos.style.display = 'none';
-        tablaProductos.style.display = 'table';
-      }
-    });
+    selectFiltro.addEventListener('change', function () {
+  const valor = selectFiltro.value;
+
+  if (valor === 'opcion1') {
+    cardProductos.style.display = 'flex';
+    tablaProductos.style.display = 'none';
+    cajonProductos.style.display = 'none';
+  } else if (valor === 'opcion2') {
+    cardProductos.style.display = 'none';
+    tablaProductos.style.display = 'table';
+    cajonProductos.style.display = 'none';
+  } else {
+    // Por si hay una tercera opción
+    cardProductos.style.display = 'none';
+    tablaProductos.style.display = 'none';
+    cajonProductos.style.display = 'block';
+  }
+});
   </script>
 
 

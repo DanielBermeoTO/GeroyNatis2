@@ -132,24 +132,29 @@
             <form action="../Sesiones/IniciarSsesion.php" class="anadir" method="post" style="padding: 20px;">
               <div class="correo">
                 <input type="number" name="documento" id="documento" required step="1"
-                  title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
-                  inputmode="numeric">
+title="Solo se permiten números enteros entre 8 y 11 dígitos."
+oninput="validarLongitud(this)" maxlength="11" inputmode="numeric">
 
-                <script>
-                  function validarLongitud(input) {
-                    input.value = input.value.replace(/\D/g, '');
-                    // Limitar a 11 dígitos
-                    if (input.value.length > 11) {
-                      input.value = input.value.slice(0, 11);
-                    }
-                  }
-                </script>
+<script>
+function validarLongitud(input) {
+    input.value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+    if (input.value.length < 8) {
+        input.setCustomValidity('El número de documento debe tener al menos 8 dígitos.');
+    } else if (input.value.length > 11) {
+        input.value = input.value.slice(0, 11); // Limita a 11 dígitos
+        input.setCustomValidity('El número de documento no debe tener más de 11 dígitos.');
+    } else {
+        input.setCustomValidity(''); // La validación es exitosa
+    }
+}
+</script>
+
 
                 <label for="">Documento</label>
               </div>
               <div class="correo">
-                <input type="password" name="contrasena" id="contrasena"
-                  required><label>Contraseña</label></div>
+                <input type="password" name="contrasena" id="contrasena" minlength="8" maxlength="20"
+                  required tittle="La contraseña debe tener al menos 8 caracteres"><label>Contraseña</label></div>
               <center>
                 <button name="Acciones" value="Iniciar Sesión"
                   style="background: linear-gradient(70deg, #c24a46, #c2a8a1); padding: 10px; border-radius: 20px;"

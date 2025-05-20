@@ -148,16 +148,20 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                   </div>
                   <div class="correo" style="flex: 1;">
                     <input type="number" style="width: 100%;" name="cantidad[]" required step="1"
-                      title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
+                      title="Solo se permiten números enteros." oninput="validarLongitudt(this)" maxlength="11"
                       inputmode="numeric">
                     <script>
-                      function validarLongitud(input) {
-                        input.value = input.value.replace(/\D/g, '');
-                        // Limitar a 11 dígitos
-                        if (input.value.length > 11) {
-                          input.value = input.value.slice(0, 11);
-                        }
+                    function validarLongitudt(input) {
+                      input.value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+                      if (input.value.length < 0) {
+                      input.setCustomValidity('El número de cantidad debe tener al menos 1 dígito.');
+                      } else if (input.value.length > 3) {
+                      input.value = input.value.slice(0, 3); // Limita a 11 dígitos
+                      input.setCustomValidity('El número de cantidad no debe tener más de 3 dígitos.');
+                      } else {
+                      input.setCustomValidity(''); // La validación es exitosa
                       }
+                      }              
                     </script>
                     <label for="">Cantidad</label>
                   </div>

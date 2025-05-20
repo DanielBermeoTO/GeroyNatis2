@@ -14,7 +14,7 @@ $resultadoCategorias = $conexion->query($sqlCategorias);
 $sqlpro = "SELECT `idProveedor`, `nombreproveedor`, `Telefono`, `productos` FROM `proveedor`";
 $resultadopro = $conexion->query($sqlpro);
 
-$sqlest = "SELECT idestado, tiposestados FROM estados";
+$sqlest = "SELECT idestado, tiposestados FROM estados WHERE idestado = 3 OR idestado = 4;";
 $resultadoest = $conexion->query($sqlest);
 
 
@@ -36,6 +36,45 @@ $resultadoest = $conexion->query($sqlest);
   <title>Gero y Natis</title>
   <link rel="icon" href="../Imagenes/Gero_y_Natis Logo.png" type="image/png">
 
+   <style>
+        .image-preview {
+            width: 100%;
+            height: 150px;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+            Cursor: pointer;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .image-preview-text {
+            position: absolute;
+            z-index: 1;
+        }
+        
+        .image-preview.has-image .image-preview-text {
+            display: none;
+        }
+        
+        .form-label.required:after {
+            content: " *";
+            color: red;
+        }
+        
+        #imageInput {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -108,25 +147,39 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
         <hr>
 
         <div class="row">
-          <div class="col-md-6" style="border: 2px solid black; border-radius: 10px; ">
-            <form action="../Controlador/controladorInventario3.php" method="post" enctype="multipart/form-data" style="padding: 20px;">
-              <div class="mb-3">
-                <label for="image-preview" class="form-label">Seleccione Imagen:</label>
-                <input id="image-preview" type="file" name="foto" accept="image/*" require class="form-control" onchange="previewImage(event)">
-              </div>
-
-              <!-- Contenedor para la vista previa de la imagen -->
-              <div class="image-preview-wrapper">
-                <img id="image-preview-display" class="image-preview" src="" alt="Imagen previa">
-              </div>
-              <br>
-              <div class="correo">
+          <div class="col-md-12" style="border: 2px solid black; border-radius: 10px; ">
+             <form action="../Controlador/controladorInventario3.php" method="post" style="padding: 20px;" id="productForm" class="needs-validation" novalidate>
+            <!-- Imagen del producto -->
+            <div class="mb-3">
+                <label for="imageInput" class="form-label required">Imagen del Producto</label>
+                <div class="image-preview" id="imagePreview">
+                    <span class="image-preview-text">Haga clic para seleccionar una imagen</span>
+                    <img src="/placeholder.svg" alt="Vista previa de imagen" id="previewImg" style="display: none;">
+                </div>
+                <input type="file" class="form-control" name="foto" id="imageInput" accept="image/*" required>
+                <div class="invalid-feedback">
+                    Por favor seleccione una imagen para el producto.
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Nombre del producto -->
+                <div class="col-md-6 mb-2">
+                  <div class="correo">
                 <input type="text" name="nombreproducto" id="nombreproducto" required>
                 <label for="nombreproducto">Nombre Producto</label>
-              </div>
-              <div class="correo">
+              
+                    <div class="invalid-feedback">
+                        Por favor ingrese el nombre del producto.
+                    </div>
+                </div>
+                </div>
+                
+                <!-- Precio unitario -->
+                <div class="col-md-3 mb-2">
+                  <div class="correo">
                 <input type="number" name="precio" id="precio" required step="1"
-                  title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
+                  title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="7"
                   inputmode="numeric">
                 <script>
                   function validarLongitud(input) {
@@ -137,74 +190,227 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                     }
                   }
                 </script> <label for="precio">Precio Unitario</label>
+                <div class="invalid-feedback">
+                            Ingrese el precio unitario.
+                        </div>
               </div>
-              <div class="correo">
+                </div>
+                
+                <!-- Precio proveedor -->
+                <div class="col-md-3 mb-2">
+                     <div class="correo">
               <input type="number" name="precioproveedor" id="precioproveedor" required step="1"
                   title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
                   inputmode="numeric">
                   <label for="nombreproducto">Precio Proveedor</label>
-              </div>
-
-              <div class="correo">
-                <input type="text" name="color" id="color" required>
-                <label for="color">Color</label>
-              </div>
-              <div class="correo">
-                <input type="number" name="cantidadp" id="cantidadp" required step="1"
-                  title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
-                  inputmode="numeric">
-                <label for="cantidadp">Cantidad</label>
-              </div>
-              <div class="correo">
-                <select name="talla" id="talla" required>
-                  <option value="" disable>Talla</option>
-                  <?php while ($row = mysqli_fetch_assoc($resultado)) { ?>
-                    <option value="<?php echo $row['idtalla']; ?>"><?php echo $row['talla']; ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-
-              <div class="correo">
-                <input type="number" name="iva" id="iva" required step="1"
-                  title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
-                  inputmode="numeric">
-                <label for="iva">IVA</label>
-              </div>
-              <div class="correo">
-                <select name="categoria" id="categoria" required>
-                  <option>Categoría</option>
-                  <?php while ($row = mysqli_fetch_assoc($resultadoCategorias)) { ?>
+              
+                        <div class="invalid-feedback">
+                            Ingrese el precio del proveedor.
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Categoría -->
+                <div class="col-md-4 mb-2">
+                    <label for="category" class="form-label required">Categoría</label>
+                    <select class="form-select" name="categoria" id="category" required>
+                        <option value="" selected disabled>Seleccione una categoría</option>
+                         <?php while ($row = mysqli_fetch_assoc($resultadoCategorias)) { ?>
                     <option value="<?php echo $row['idCategoria']; ?>"><?php echo $row['categoria']; ?></option><?php } ?>
-                </select>
-              </div>
-              <div class="correo">
-                <select name="estado" id="estado" required>
-                  <option>Estado</option>
-                  <?php while ($row = mysqli_fetch_assoc($resultadoest)) { ?>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione una categoría.
+                    </div>
+                </div>
+                
+                <!-- Estado -->
+                <div class="col-md-4 mb-2">
+                    <label for="status" class="form-label required">Estado</label>
+                    <select class="form-select" name="estado" id="estado" required>
+                        <option value="" selected disabled>Seleccione un estado</option>
+                        <?php while ($row = mysqli_fetch_assoc($resultadoest)) { ?>
                     <option value="<?php echo $row['idestado']; ?>"><?php echo $row['tiposestados']; ?></option><?php } ?>
-                </select>
-              </div>
-
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione un estado.
+                    </div>
+                </div>
+                
+                <!-- Proveedor -->
+                <div class="col-md-4 mb-2">
+                    <label for="supplier" class="form-label required">Proveedor</label>
+                    <select class="form-select" name="ProveedoridProveedor" id="ProveedoridProveedor" required>
+                        <option value="" selected disabled>Seleccione un proveedor</option>
+                        <?php while ($row = mysqli_fetch_assoc($resultadopro)) { ?>
+                    <option value="<?php echo $row['idProveedor']; ?>"><?php echo $row['nombreproveedor']; ?></option>
+                  <?php } ?>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione un proveedor.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fecha -->
+            <div class="mb-3">
               <div class="correo">
                 <input type="date" name="fecha_entrada" id="fecha_entrada" required>
                 <label for="fecha_entrada">Fecha</label>
-              </div>
+                <div class="invalid-feedback">
+                    Por favor seleccione una fecha.
+                </div>
+                              </div>
+            </div>
+            
+            <!-- Sección de tallas -->
+            <h5 class="mt-3 mb-2">Inventario por Tallas</h5>
 
-              <div class="correo">
-                <select name="ProveedoridProveedor" id="ProveedoridProveedor" required>
-                  <option value="">Proveedor</option>
-                  <?php while ($row = mysqli_fetch_assoc($resultadopro)) { ?>
-                    <option value="<?php echo $row['idProveedor']; ?>"><?php echo $row['nombreproveedor']; ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-
+            <div class="row row-cols-2 row-cols-md-3 g-2 mb-3">
+                <!-- XS -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla XS</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="mb-2">
+                                <label for="quantityXS" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityXS" min="0" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorXS" class="form-label required">Color</label>
+                                <input type="text" class="form-control" id="colorXS" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- S -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla S</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="mb-2">
+                                <label for="quantityS" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityS" min="0" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorS" class="form-label required">Color</label>
+                                <input type="text" class="form-control" id="colorS" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- M -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla M</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="mb-2">
+                                <label for="quantityM" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityM" min="0" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorM" class="form-label required">Color</label>
+                                <input type="text" class="form-control" id="colorM" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- L -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla L</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="mb-2">
+                                <label for="quantityL" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityL" min="0" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorL" class="form-label required">Color</label>
+                                <input type="text" class="form-control" id="colorL" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- XL -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla XL</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="mb-2">
+                                <label for="quantityXL" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityXL" min="0" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorXL" class="form-label required">Color</label>
+                                <input type="text" class="form-control" id="colorXL" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2 mt-3">
+                <button class="btn btn-primary" type="submit">Guardar Producto</button>
+            </div>
+        </form>
+        
+        <form action="../Controlador/controladorInventario3.php" method="post" enctype="multipart/form-data" style="padding: 20px;">
               <button style="background: linear-gradient(70deg, #c24a46, #c2a8a1); padding: 10px; border-radius: 20px;" name="Acciones" value="Crear Producto" type="submit" class="anadirr">
                 <i class="bi bi-file-earmark-plus"></i> Añadir
               </button>
             </form>
 
+            
+
           </div>
+
+          
         </div>
 
       </div>
@@ -267,6 +473,63 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
       reader.readAsDataURL(event.target.files[0]);
     }
   </script>
+
+   <script>
+        // Manejar la vista previa de la imagen
+        const imagePreview = document.getElementById('imagePreview');
+        const imageInput = document.getElementById('imageInput');
+        const previewImg = document.getElementById('previewImg');
+        
+        // Cuando se hace clic en el área de vista previa, activar el input de archivo
+        imagePreview.addEventListener('click', function() {
+            imageInput.click();
+        });
+        
+        // Cuando se selecciona un archivo, mostrar la vista previa
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.addEventListener('load', function() {
+                    previewImg.src = reader.result;
+                    previewImg.style.display = 'block';
+                    imagePreview.classList.add('has-image');
+                });
+                
+                reader.readAsDataURL(file);
+            } else {
+                previewImg.src = '';
+                previewImg.style.display = 'none';
+                imagePreview.classList.remove('has-image');
+            }
+        });
+        
+        // Validación del formulario
+        (function () {
+            'use strict'
+            
+            // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+            const forms = document.querySelectorAll('.needs-validation');
+            
+            // Bucle sobre ellos y evitar el envío
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    } else {
+                        event.preventDefault();
+                        alert('Formulario enviado correctamente!');
+                        // Aquí puedes agregar el código para enviar los datos a tu servidor
+                    }
+                    
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
 
 
 

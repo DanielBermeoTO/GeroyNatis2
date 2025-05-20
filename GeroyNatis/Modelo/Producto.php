@@ -1,5 +1,12 @@
 <?php
 include '../Modelo/Conexion.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..'); // Ajusta la ruta si es necesario
+$dotenv->load();
+
+
+
 class Producto
 {
     private $idProducto;
@@ -32,76 +39,59 @@ class Producto
     public function obtenerProductos()
     {
         $sql =
-            "SELECT 
-    idProducto, 
-    nombreproducto, 
-    cantidadp, 
-    precio,
-    `color`, 
-    `iva`,
-    imagen,
-    (SELECT categoria FROM categoria WHERE categoria.idCategoria = producto.CategoriaidCategoria) AS categorias, 
-    (SELECT talla FROM talla WHERE talla.idtalla = producto.talla) AS talla,
-    (SELECT tiposestados FROM estados WHERE estados.idestado = producto.id_estado) AS estado 
-FROM 
-    producto 
-ORDER BY 
-    CASE 
-        WHEN (SELECT idestado FROM estados WHERE estados.idestado = producto.id_estado) = 3 THEN 0
-        ELSE 1 
-    END, 
-    idProducto;
-;
-
-";
+            "SELECT P.idProducto, P.nombreproducto, P.precio, P.iva, P.imagen, P.CategoriaidCategoria, C.categoria, P.id_estado, S.tiposestados, GROUP_CONCAT(CONCAT(T.talla, ': ', DP.cantidad, ': ', DP.color) SEPARATOR ', ') AS Detalle_Producto, SUM(DP.cantidad) AS total_unidades FROM producto P JOIN estados S ON P.id_estado = S.idestado JOIN producto_talla DP ON P.idProducto = DP.id_producto JOIN talla T ON T.idtalla = DP.id_talla JOIN categoria C ON C.idCategoria = P.CategoriaidCategoria WHERE P.id_estado = 3 GROUP BY P.idProducto;";
         $resultado = $this->Conexion->query($sql);
         $this->Conexion->close();
         return $resultado;
     }
-    public function añadirProducto($imagen, $nombreProducto, $cantidadp, $precio, $precioproveedor, $color, $iva, $categoria, $estado, $talla, $fechaEntrada, $proveedorId)
-    {
-        // Iniciar transacción
-        $this->Conexion->begin_transaction();
+    
+    public function añadirProducto($imagenTemp, $nombreProducto, $cantidadp, $precio, $precioproveedor, $color, $iva, $categoria, $estado, $talla, $fechaEntrada, $proveedorId)
+{
+    $this->Conexion->begin_transaction();
 
-        try {
-            // Insertar el producto en la tabla `producto`
-            $sql = "INSERT INTO producto (nombreproducto, cantidadp, precio, color, iva, imagen, CategoriaidCategoria, id_estado, talla) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt = $this->Conexion->prepare($sql);
-            $stmt->bind_param("siisisiii", $nombreProducto, $cantidadp, $precio, $color, $iva, $imagen, $categoria, $estado, $talla);
-            $stmt->execute();
+    try {
+        // 🔁 Subir imagen a Cloudinary
+        $cloudinary = new Cloudinary([
+            'cloud' => [
+                'cloud_name' => 'dmcwfn5kq',
+                'api_key'    => 'CLAUDINARY_API_KEY',
+                'api_secret' => 'CLAUDINARY_API_SECRET',
+            ]
+        ]);
 
-            // Obtener el ID del producto insertado
-            $idProducto = $this->Conexion->insert_id;
-            $stmt->close();
+        $upload = $cloudinary->uploadApi()->upload($imagenTemp);
+        $urlImagen = $upload['secure_url']; // URL de la imagen subida
 
-            // Calcular el total (precio del producto * cantidad de productos ingresados)
-            $total = $precioproveedor * $cantidadp;
+        // 📝 Insertar el producto en la tabla `producto` con la URL de Cloudinary
+        $sql = "INSERT INTO producto (nombreproducto, cantidadp, precio, color, iva, imagen, CategoriaidCategoria, id_estado, talla) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->Conexion->prepare($sql);
+        $stmt->bind_param("siisisiii", $nombreProducto, $cantidadp, $precio, $color, $iva, $urlImagen, $categoria, $estado, $talla);
+        $stmt->execute();
 
-            // Definir el valor de 'anadido' como 5
-            $anadido = 5;
+        $idProducto = $this->Conexion->insert_id;
+        $stmt->close();
 
-            // Insertar el movimiento en la tabla `proceso`
-            $sql = "INSERT INTO proceso (entradaProducto, fecha_entrada, productoidProducto, proveedoridproveedor, anadido, total) 
-                    VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $this->Conexion->prepare($sql);
-            $stmt->bind_param("isiiii", $cantidadp, $fechaEntrada, $idProducto, $proveedorId, $anadido, $total);
-            $stmt->execute();
-            $stmt->close();
+        // 💰 Calcular el total e insertar en proceso
+        $total = $precioproveedor * $cantidadp;
+        $anadido = 5;
 
-            // Confirmar la transacción
-            $this->Conexion->commit();
-            header("Location: ../Controlador/controladorInventario2.php?success=1");
-            exit();
+        $sql = "INSERT INTO proceso (entradaProducto, fecha_entrada, productoidProducto, proveedoridproveedor, anadido, total) 
+                VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->Conexion->prepare($sql);
+        $stmt->bind_param("isiiii", $cantidadp, $fechaEntrada, $idProducto, $proveedorId, $anadido, $total);
+        $stmt->execute();
+        $stmt->close();
 
-            return $idProducto;
-        } catch (Exception $e) {
-            // En caso de error, hacer rollback de la transacción
-            $this->Conexion->rollback();
-            throw $e;
-        }
+        $this->Conexion->commit();
+        header("Location: ../Controlador/controladorInventario2.php?success=1");
+        exit();
+
+    } catch (Exception $e) {
+        $this->Conexion->rollback();
+        throw $e;
     }
-
+}
 
 
     public function actualizarProducto($idProducto, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla, $nuevaImagen = null)

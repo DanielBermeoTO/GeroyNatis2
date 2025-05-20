@@ -197,7 +197,9 @@ if (count($productosFiltrados) > 0) {
                   </div>
                 </div>
                 <?php
-              }}
+              }}else{
+                 echo '<p class="text-center">No se han registrado proveedores.</p>';
+              }
               ?>
             </tbody>
           </table>
