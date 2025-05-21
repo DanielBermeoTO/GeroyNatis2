@@ -98,10 +98,10 @@ $total = $precioproveedor * $cantidadTotal;
 
         $anadido = 5;
 
-        $sql = "INSERT INTO proceso (entradaProducto, fecha_entrada, productoidProducto, proveedoridproveedor, anadido, total) 
+        $sql = "INSERT INTO proceso (entradaProducto, fecha_entrada, productoidProducto, proveedoridproveedor, anadido, total, precioproveedor) 
                 VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->Conexion->prepare($sql);
-        $stmt->bind_param("isiiii", $cantidadTotal, $fechaEntrada, $idProducto, $proveedorId, $anadido, $total);
+        $stmt->bind_param("isiiiii", $cantidadTotal, $fechaEntrada, $idProducto, $proveedorId, $anadido, $total, $precioproveedor);
         $stmt->execute();
         $stmt->close();
 
@@ -115,59 +115,15 @@ $total = $precioproveedor * $cantidadTotal;
     }
 }
 
-
-    public function actualizarProducto($idProducto, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla, $nuevaImagen = null)
+ public function actualizarProducto($idProducto, $nombreProducto, $precio, $foto, $categoria, $estado)
     {
-        $this->Conexion = Conectarse();
-
-        try {
-            // Iniciar la transacción
-            $this->Conexion->begin_transaction();
-
-            // Si se cargó una nueva imagen, actualizamos la ruta en la base de datos
-            if ($nuevaImagen) {
-                // Eliminar la imagen anterior (opcional, si quieres sobreescribirla)
-                $sql = "SELECT imagen FROM producto WHERE idProducto = ?";
-                $stmt = $this->Conexion->prepare($sql);
-                $stmt->bind_param("i", $idProducto);
-                $stmt->execute();
-                $resultado = $stmt->get_result();
-                $producto = $resultado->fetch_assoc();
-                $imagenAnterior = $producto['imagen'];
-
-                // Verificar si existe una imagen anterior y eliminarla
-                if (file_exists($imagenAnterior)) {
-                    unlink($imagenAnterior); // Elimina la imagen anterior
-                }
-
-                // Actualizar el producto con la nueva imagen
-                $sql = "UPDATE `producto` SET `nombreproducto`=?, `cantidadp`=?, `precio`=?, `color`=?, `iva`=?, `CategoriaidCategoria`=?, `id_estado`=?, `talla`=?, `imagen`=? WHERE `idProducto`=?";
-                $stmt = $this->Conexion->prepare($sql);
-                $stmt->bind_param("siisiiissi", $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla, $nuevaImagen, $idProducto);
-            } else {
-                // Si no se cargó una nueva imagen, dejamos la imagen actual intacta
-                $sql = "UPDATE `producto` SET `nombreproducto`=?, `cantidadp`=?, `precio`=?, `color`=?, `iva`=?, `CategoriaidCategoria`=?, `id_estado`=?, `talla`=? WHERE `idProducto`=?";
-                $stmt = $this->Conexion->prepare($sql);
-                $stmt->bind_param("siisiiiii", $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla, $idProducto);
-            }
-
-            // Ejecutar la actualización
-            $resultado = $stmt->execute();
-            $stmt->close();
-
-            // Confirmar la transacción
-            $this->Conexion->commit();
-
-            // Cerrar la conexión
-            $this->Conexion->close();
-
-            return $resultado;
-        } catch (Exception $e) {
-            // En caso de error, hacer rollback de la transacción
-            $this->Conexion->rollback();
-            $this->Conexion->close();
-            throw $e;
-        }
+        // Asegúrate de mantener la conexión abierta
+        $sql = 'UPDATE `producto` SET nombreproducto=?, precio=?, CategoriaidCategoria=?, id_estado=? WHERE idProducto=?';
+        $stmt = $this->Conexion->prepare($sql);
+        $stmt->bind_param("isisii", $idProducto, $nombreProducto, $precio, $categoria, $estado);
+        $resultado = $stmt->execute();
+        $stmt->close();
+        return $resultado;
     }
 
     public function borrarProducto($idProducto, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla)

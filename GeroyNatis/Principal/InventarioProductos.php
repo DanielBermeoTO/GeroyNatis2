@@ -370,12 +370,8 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
+                        
                         <form action="../Controlador/controladorInventario3.php" method="post" enctype="multipart/form-data">
-                          <!-- ID Producto -->
-                          <div class="mb-3">
-                            <label class="form-label">ID producto</label>
-                            <input class="form-control" name="idProducto" type="text" value="<?php echo $row['idProducto']; ?>" readonly>
-                          </div>
 
                           <!-- Nombre -->
                           <div class="mb-3">
@@ -383,34 +379,10 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                             <input class="form-control" name="nombreproducto" type="text" value="<?php echo $row['nombreproducto']; ?>">
                           </div>
 
-                          <!-- Cantidad -->
-                          <div class="mb-3">
-                            <label class="form-label">Cantidad</label>
-                            <input class="form-control" name="cantidadp" type="number" value="<?php echo $row['cantidadp']; ?>">
-                          </div>
-
                           <!-- Precio -->
                           <div class="mb-3">
                             <label class="form-label">Precio</label>
                             <input class="form-control" name="precio" type="number" value="<?php echo $row['precio']; ?>">
-                          </div>
-
-                          <!-- Color -->
-                          <div class="mb-3">
-                            <label class="form-label">Color</label>
-                            <input class="form-control" name="color" type="text" value="<?php echo $row['color']; ?>">
-                          </div>
-
-                          <!-- Talla -->
-                          <div class="mb-3">
-                            <label class="form-label">Talla</label>
-                            <select class="form-select" name="talla" required>
-                              <option value="1" <?php echo ($row['talla'] == 'XS') ? 'selected' : ''; ?>>XS</option>
-                              <option value="2" <?php echo ($row['talla'] == 'S') ? 'selected' : ''; ?>>S</option>
-                              <option value="3" <?php echo ($row['talla'] == 'M') ? 'selected' : ''; ?>>M</option>
-                              <option value="4" <?php echo ($row['talla'] == 'L') ? 'selected' : ''; ?>>L</option>
-                              <option value="5" <?php echo ($row['talla'] == 'XL') ? 'selected' : ''; ?>>XL</option>
-                            </select>
                           </div>
 
                           <!-- Categoría -->
@@ -435,27 +407,12 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                           <div class="mb-3">
                             <label class="form-label">Estado</label>
                             <select class="form-select" name="estado" required>
-                              <option value="3" <?php echo ($row['estado'] == 'ACTIVO') ? 'selected' : ''; ?>>ACTIVO</option>
-                              <option value="4" <?php echo ($row['estado'] == 'INACTIVO') ? 'selected' : ''; ?>>INACTIVO</option>
+                              <option value="3" <?php echo ($row['id_estado'] == 'ACTIVO') ? 'selected' : ''; ?>>ACTIVO</option>
+                              <option value="4" <?php echo ($row['id_estado'] == 'INACTIVO') ? 'selected' : ''; ?>>INACTIVO</option>
                             </select>
                           </div>
 
-                          <!-- IVA -->
-                          <div class="mb-3">
-                            <label class="form-label">IVA</label>
-                            <input class="form-control" name="iva" type="number" value="<?php echo $row['iva']; ?>">
-                          </div>
-
-                          <!-- Imagen -->
-                          <div class="mb-3">
-                            <label class="form-label">Imagen actual</label><br>
-                            <img src="<?php echo $row['imagen']; ?>" alt="Imagen actual" style="max-width: 100px;">
-                          </div>
-
-                          <div class="mb-3">
-                            <label class="form-label">Subir nueva imagen</label>
-                            <input class="form-control" name="foto" type="file">
-                          </div>
+                         
 
                           <button class="btn btn-warning" type="submit" name="Acciones" value="Actualizar Producto">Actualizar Producto</button>
                         </form>
