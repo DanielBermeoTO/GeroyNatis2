@@ -30,7 +30,7 @@ if (isset($_POST['submitContact'])) {
         $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP
         $mail->Host       = 'smtp.gmail.com';                         // Establecer el servidor SMTP
         $mail->Username   = 'geroynatis2@gmail.com';                  // Nombre de usuario SMTP
-        $mail->Password   = 'wcrbnibssbhefywe';                       // Contraseña SMTP
+        $mail->Password   = 'blrcnoxntrywanhv';                       // Contraseña SMTP
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;           // Habilitar cifrado TLS
         $mail->Port       = 587;                                     // Puerto TCP para conectarse (587 para STARTTLS)
 

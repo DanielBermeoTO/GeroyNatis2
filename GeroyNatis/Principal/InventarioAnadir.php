@@ -148,7 +148,7 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
 
         <div class="row">
           <div class="col-md-12" style="border: 2px solid black; border-radius: 10px; ">
-             <form action="../Controlador/controladorInventario3.php" method="post" style="padding: 20px;" id="productForm" class="needs-validation" novalidate>
+<form action="../Controlador/controladorInventario3.php" method="post" enctype="multipart/form-data" style="padding: 20px;" id="productForm" class="needs-validation" novalidate>
             <!-- Imagen del producto -->
             <div class="mb-3">
                 <label for="imageInput" class="form-label required">Imagen del Producto</label>
@@ -276,16 +276,17 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                             <h6 class="card-title mb-0">Talla XS</h6>
                         </div>
                         <div class="card-body p-2">
+                            <input type="hidden" name="talla[]" value="1">
                             <div class="mb-2">
                                 <label for="quantityXS" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityXS" min="0" required>
+                                <input type="number" class="form-control" id="quantityXS" name="cantidad[]" min="0" required>                                
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
                             </div>
                             <div class="mb-0">
                                 <label for="colorXS" class="form-label required">Color</label>
-                                <input type="text" class="form-control" id="colorXS" required>
+                                  <input type="text" class="form-control" id="colorXS" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
                                 </div>
@@ -301,16 +302,17 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                             <h6 class="card-title mb-0">Talla S</h6>
                         </div>
                         <div class="card-body p-2">
+                            <input type="hidden" name="talla[]" value="2">
                             <div class="mb-2">
                                 <label for="quantityS" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityS" min="0" required>
+                                <input type="number" class="form-control" id="quantityS" name="cantidad[]" min="0" required>
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
                             </div>
                             <div class="mb-0">
                                 <label for="colorS" class="form-label required">Color</label>
-                                <input type="text" class="form-control" id="colorS" required>
+                                  <input type="text" class="form-control" id="colorS" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
                                 </div>
@@ -326,16 +328,17 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                             <h6 class="card-title mb-0">Talla M</h6>
                         </div>
                         <div class="card-body p-2">
+                       <input type="hidden" name="talla[]" value="3">
                             <div class="mb-2">
                                 <label for="quantityM" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityM" min="0" required>
+                                <input type="number" class="form-control" id="quantityM" name="cantidad[]" min="0" required>
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
                             </div>
                             <div class="mb-0">
                                 <label for="colorM" class="form-label required">Color</label>
-                                <input type="text" class="form-control" id="colorM" required>
+                                  <input type="text" class="form-control" id="colorM" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
                                 </div>
@@ -351,16 +354,17 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                             <h6 class="card-title mb-0">Talla L</h6>
                         </div>
                         <div class="card-body p-2">
+                            <input type="hidden" name="talla[]" value="4">
                             <div class="mb-2">
                                 <label for="quantityL" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityL" min="0" required>
+                                <input type="number" class="form-control" id="quantityL" name="cantidad[]" min="0" required> 
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
                             </div>
                             <div class="mb-0">
                                 <label for="colorL" class="form-label required">Color</label>
-                                <input type="text" class="form-control" id="colorL" required>
+                                  <input type="text" class="form-control" id="colorL" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
                                 </div>
@@ -376,16 +380,18 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                             <h6 class="card-title mb-0">Talla XL</h6>
                         </div>
                         <div class="card-body p-2">
+                            <input type="hidden" name="talla[]" value="5">
+
                             <div class="mb-2">
                                 <label for="quantityXL" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityXL" min="0" required>
+                                <input type="number" class="form-control" id="quantityXL" name="cantidad[]" min="0" required>                                
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
                             </div>
                             <div class="mb-0">
                                 <label for="colorXL" class="form-label required">Color</label>
-                                <input type="text" class="form-control" id="colorXL" required>
+                                  <input type="text" class="form-control" id="colorXL" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
                                 </div>
@@ -396,18 +402,10 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
             </div>
             
             <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-primary" type="submit">Guardar Producto</button>
-            </div>
-        </form>
-        
-        <form action="../Controlador/controladorInventario3.php" method="post" enctype="multipart/form-data" style="padding: 20px;">
-              <button style="background: linear-gradient(70deg, #c24a46, #c2a8a1); padding: 10px; border-radius: 20px;" name="Acciones" value="Crear Producto" type="submit" class="anadirr">
+<button style="background: linear-gradient(70deg, #c24a46, #c2a8a1); padding: 10px; border-radius: 20px;" name="Acciones" value="Crear Producto" type="submit" class="anadirr">
                 <i class="bi bi-file-earmark-plus"></i> Añadir
-              </button>
-            </form>
-
-            
-
+              </button>            </div>
+        </form>
           </div>
 
           
@@ -505,30 +503,6 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                 imagePreview.classList.remove('has-image');
             }
         });
-        
-        // Validación del formulario
-        (function () {
-            'use strict'
-            
-            // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
-            const forms = document.querySelectorAll('.needs-validation');
-            
-            // Bucle sobre ellos y evitar el envío
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    } else {
-                        event.preventDefault();
-                        alert('Formulario enviado correctamente!');
-                        // Aquí puedes agregar el código para enviar los datos a tu servidor
-                    }
-                    
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        })();
     </script>
 
 

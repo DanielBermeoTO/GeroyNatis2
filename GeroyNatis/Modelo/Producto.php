@@ -1,8 +1,9 @@
 <?php
 include '../Modelo/Conexion.php';
 require_once __DIR__ . '/../vendor/autoload.php';
+use Cloudinary\Cloudinary;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..'); // Ajusta la ruta si es necesario
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../'); // Ajusta la ruta si es necesario
 $dotenv->load();
 
 
@@ -45,7 +46,7 @@ class Producto
         return $resultado;
     }
     
-    public function añadirProducto($imagenTemp, $nombreProducto, $cantidadp, $precio, $precioproveedor, $color, $iva, $categoria, $estado, $talla, $fechaEntrada, $proveedorId)
+public function añadirProducto($foto, $nombreProducto, $precio, $precioproveedor, $color, $categoria, $estado, $tallas, $cantidades, $colores, $fechaEntrada, $proveedorId)
 {
     $this->Conexion->begin_transaction();
 
@@ -54,32 +55,53 @@ class Producto
         $cloudinary = new Cloudinary([
             'cloud' => [
                 'cloud_name' => 'dmcwfn5kq',
-                'api_key'    => 'CLAUDINARY_API_KEY',
-                'api_secret' => 'CLAUDINARY_API_SECRET',
+                'api_key'    => $_ENV['CLAUDINARY_API_KEY'],
+                'api_secret' => $_ENV['CLAUDINARY_API_SECRET'],
             ]
         ]);
 
-        $upload = $cloudinary->uploadApi()->upload($imagenTemp);
+        $upload = $cloudinary->uploadApi()->upload($foto);
         $urlImagen = $upload['secure_url']; // URL de la imagen subida
 
+        $iva = 19; // IVA fijo
+
         // 📝 Insertar el producto en la tabla `producto` con la URL de Cloudinary
-        $sql = "INSERT INTO producto (nombreproducto, cantidadp, precio, color, iva, imagen, CategoriaidCategoria, id_estado, talla) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO producto(nombreproducto, precio, iva, imagen, CategoriaidCategoria, id_estado) 
+                VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->Conexion->prepare($sql);
-        $stmt->bind_param("siisisiii", $nombreProducto, $cantidadp, $precio, $color, $iva, $urlImagen, $categoria, $estado, $talla);
+        $stmt->bind_param("siisii", $nombreProducto, $precio, $iva, $urlImagen, $categoria, $estado);
         $stmt->execute();
 
         $idProducto = $this->Conexion->insert_id;
         $stmt->close();
 
+        for ($i = 0; $i < count($tallas); $i++) {
+    $talla = $tallas[$i];
+    $cantidad = $cantidades[$i];
+    $color = $colores[$i];
+
+    // Validar que no estén vacíos y sean coherentes
+    if ($talla !== null && $cantidad !== null && $color !== null) {
+        $sql = "INSERT INTO producto_talla (id_producto, id_talla, cantidad, color) VALUES (?, ?, ?, ?)";
+        $stmt = $this->Conexion->prepare($sql);
+        $stmt->bind_param("iiis", $idProducto, $talla, $cantidad, $color);
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
+
+
         // 💰 Calcular el total e insertar en proceso
-        $total = $precioproveedor * $cantidadp;
+       $cantidadTotal = array_sum($cantidades);
+$total = $precioproveedor * $cantidadTotal;
+
         $anadido = 5;
 
         $sql = "INSERT INTO proceso (entradaProducto, fecha_entrada, productoidProducto, proveedoridproveedor, anadido, total) 
                 VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->Conexion->prepare($sql);
-        $stmt->bind_param("isiiii", $cantidadp, $fechaEntrada, $idProducto, $proveedorId, $anadido, $total);
+        $stmt->bind_param("isiiii", $cantidadTotal, $fechaEntrada, $idProducto, $proveedorId, $anadido, $total);
         $stmt->execute();
         $stmt->close();
 

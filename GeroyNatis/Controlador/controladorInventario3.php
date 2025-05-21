@@ -15,9 +15,10 @@ if ($elegirAcciones == 'Crear Producto') {
         // Validamos si se subió una imagen
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
             $imagen = $_FILES['foto'];
-
+            $imagenTemp = $imagen['tmp_name'];
+            
             // Verificamos si el archivo es una imagen válida
-            $tipoImagen = mime_content_type($imagen['tmp_name']);
+            $tipoImagen = mime_content_type($imagenTemp);
             if (strpos($tipoImagen, 'image') === false) {
                 // Si no es una imagen, mostramos un error y no procesamos
                 echo "El archivo no es una imagen válida.";
@@ -31,59 +32,29 @@ if ($elegirAcciones == 'Crear Producto') {
                 echo "La imagen es demasiado grande. El tamaño máximo permitido es 5MB.";
                 exit();
             }
-
-            // Creamos un nombre único para la imagen para evitar sobrescribir archivos existentes
-            $nombreImagen = basename($imagen['name']);
-            $carpetaDestino = '../Imagenes/';
-            $rutaImagen = $carpetaDestino . $nombreImagen;
-
-            // Movemos el archivo subido a la carpeta destino
-            if (move_uploaded_file($imagen['tmp_name'], $rutaImagen)) {
-                // Si la imagen se sube correctamente, procedemos a insertar el producto
-                $idProducto = $producto->añadirProducto(
-                    $rutaImagen, // Ruta de la imagen
-                    $_POST['nombreproducto'],
-                    $_POST['cantidadp'],
-                    $_POST['precio'],
-                    $_POST['precioproveedor'],
-                    $_POST['color'],
-                    $_POST['iva'],
-                    $_POST['categoria'],
-                    $_POST['estado'],
-                    $_POST['talla'],
-                    $_POST['fecha_entrada'],          // Fecha de entrada
-                    $_POST['ProveedoridProveedor']    // ID del proveedor
-                );
-
-                // Redirigir a la página de inventario con éxito
-                header("Location: ../Principal/InventarioProductos?success=1");
-                exit();
-            } else {
-                echo "Error al subir la imagen.";
-                exit();
-            }
-        } else {
-            // Si no se subió una imagen, podemos asignar un valor por defecto o manejarlo de otro modo
-            $rutaImagen = null; // O puedes asignar una ruta predeterminada si no es obligatorio
-
-            // Procedemos con la inserción del producto sin imagen
+            
+            // La imagen será subida a Cloudinary directamente desde la función añadirProducto
             $idProducto = $producto->añadirProducto(
-                $rutaImagen, // Puede ser null si no se sube imagen
+                $imagenTemp, // Enviamos el archivo temporal que será procesado por Cloudinary
                 $_POST['nombreproducto'],
-                $_POST['cantidadp'],
                 $_POST['precio'],
                 $_POST['precioproveedor'],
-                $_POST['color'],
-                $_POST['iva'],
+                $_POST['color'],  // Color general
                 $_POST['categoria'],
                 $_POST['estado'],
-                $_POST['talla'],
+                $_POST['talla'], // Array de tallas
+                $_POST['cantidad'], // Array de cantidades
+                $_POST['color'], // Array de colores detallados
                 $_POST['fecha_entrada'],
                 $_POST['ProveedoridProveedor']
             );
-
+            
             // Redirigir a la página de inventario con éxito
             header("Location: ../Principal/InventarioProductos?success=1");
+            exit();
+        } else {
+            // Si no se subió una imagen, mostramos un error
+            echo "Es necesario subir una imagen del producto.";
             exit();
         }
     }
@@ -96,26 +67,21 @@ if ($elegirAcciones == 'Crear Producto') {
         $cantidadp = $_POST['cantidadp'];
         $precio = $_POST['precio'];
         $color = $_POST['color'];
-        $iva = $_POST['iva'];
+        $iva = 19; // Valor fijo de IVA como en la función añadirProducto
         $categoria = $_POST['categoria'];
         $estado = $_POST['estado'];
         $talla = $_POST['talla'];
 
         // Verificar si se ha subido una nueva imagen
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            // Nueva imagen subida
-            $nuevaImagen = $_FILES['foto']['name'];
-            $tmp = $_FILES['foto']['tmp_name'];
-            $carpeta = '../Imagenes';
-            $rutaImagen = $carpeta . "/" . $nuevaImagen;
-
-            // Mover la imagen al directorio
-            if (move_uploaded_file($tmp, $rutaImagen)) {
-                // Actualizar el producto con la nueva imagen
-                $producto->actualizarProducto($idProducto, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla, $rutaImagen);
-            } else {
-                echo "Error al mover la imagen.";
-            }
+            // Nueva imagen subida - necesitaría actualizar la función actualizarProducto 
+            // para que utilice Cloudinary en lugar de almacenamiento local
+            echo "La actualización de imágenes con Cloudinary aún no está implementada.";
+            exit();
+            
+            // Aquí iría la lógica para actualizar usando Cloudinary:
+            // $imagenTemp = $_FILES['foto']['tmp_name'];
+            // $producto->actualizarProductoConCloudinary($idProducto, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla, $imagenTemp);
         } else {
             // No se subió una nueva imagen, actualizar sin cambiar la imagen actual
             $producto->actualizarProducto($idProducto, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla);
