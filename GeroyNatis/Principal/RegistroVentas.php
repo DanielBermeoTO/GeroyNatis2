@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../Principal/Geroyn.css">
+  <link rel="stylesheet" href="../Principal/ventas.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Bootstrap CSS -->
@@ -13,93 +14,6 @@
 
   <title>Gero y Natis</title>
   <link rel="icon" href="../Imagenes/Gero_y_Natis Logo.png" type="image/png">
-  <style>
-        .card {
-            background-color: #fff;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            overflow: hidden;
-            margin: 10px auto;
-            border: 1px solid black;
-        }
-        .card-header {
-            background-color: #f8f9fa;
-            padding: 8px 10px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        .card-title {
-            margin: 0;
-            font-size: 1em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .badge {
-            font-size: 0.75em;
-            padding: 2px 6px;
-            border-radius: 10px;
-            color: white;
-            background-color: #28a745;
-        }
-        .card-body {
-            padding: 10px;
-        }
-        .card-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5px;
-            margin-bottom: 10px;
-            font-size: 0.9em;
-        }
-        .card-total {
-            font-size: 1.1em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: right;
-        }
-        .product-list {
-            border-top: 1px solid #e9ecef;
-            padding-top: 10px;
-            font-size: 0.9em;
-        }
-        .product-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-        .notes {
-            font-style: italic;
-            margin-top: 10px;
-            border-top: 1px solid #e9ecef;
-            padding-top: 10px;
-            font-size: 0.9em;
-        }
-        
-        /* Responsive design */
-        @media (min-width: 768px) {
-            .card {
-                width: calc(50% - 20px);
-                display: inline-block;
-                vertical-align: top;
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .card {
-                width: calc(33.333% - 20px);
-            }
-        }
-
-  th, td {
-    text-align: center;
-    vertical-align: middle;
-    padding: 10px !important; /* Reduce el espacio entre las celdas */
-  }
-
-  .inha {
-    font-size: 18px; /* Botones más pequeños */
-  }
-</style>
 
 </head>
 
@@ -169,348 +83,132 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
   <div class="container" style="padding: 0 0 50px 0;  font-family: Oswald, sans-serif;">
     <div class="row">
   
-    <div class="ordenar">
-      <select id="filtrar" name="filtro" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
-        <option value="onnn" disabled selected>Filtrar por:</option>
-        <option value="opcion1">Lista</option>
-        <option value="opcion2">Cajón</option>
-      </select>
-    </div>
+    
   </div>
+  
       <!--Inicio Portafolio-->
       <div class="col-md-10">
         <h2 style="font-family: Bebas Neue, sans-serif; padding: 20px 0 0 0; font-size: 60px;">Tus Ventas <i class="bi bi-credit-card"></i></h2>
         <p style="font-family: Oswald, sans-serif; font-size: 22px;">En este apartado puedes visualizar las ventas realizadas.</p>
         <hr>
 
-        <div class="col-md-12">
-          <!-- Cards de Ventas -->
+        <!-- Cards de Ventas -->
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-001', '$1,250.00', 'Juan Pérez', '2024-01-15', 'Completada', 'Laptop Dell XPS 13', 'Efectivo')">
-                    <div class="ticket-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="ticket-number">#VT-2024-001</span>
-                            <span class="status-badge status-completed">Completada</span>
-                        </div>
-                    </div>
-                    <div class="ticket-body">
-                        <h3 class="ticket-amount">$1,250.00</h3>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Cliente:</span>
-                            <span class="ticket-value">Juan Pérez</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Fecha:</span>
-                            <span class="ticket-value">15 Ene 2024</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Producto:</span>
-                            <span class="ticket-value">Laptop Dell XPS 13</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-002', '$850.50', 'María García', '2024-01-14', 'Pendiente', 'iPhone 15 Pro', 'Tarjeta de Crédito')">
-                    <div class="ticket-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="ticket-number">#VT-2024-002</span>
-                            <span class="status-badge status-pending">Pendiente</span>
-                        </div>
-                    </div>
-                    <div class="ticket-body">
-                        <h3 class="ticket-amount">$850.50</h3>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Cliente:</span>
-                            <span class="ticket-value">María García</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Fecha:</span>
-                            <span class="ticket-value">14 Ene 2024</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Producto:</span>
-                            <span class="ticket-value">iPhone 15 Pro</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-003', '$2,100.00', 'Carlos Rodríguez', '2024-01-13', 'Completada', 'MacBook Pro M3', 'Transferencia')">
-                    <div class="ticket-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="ticket-number">#VT-2024-003</span>
-                            <span class="status-badge status-completed">Completada</span>
-                        </div>
-                    </div>
-                    <div class="ticket-body">
-                        <h3 class="ticket-amount">$2,100.00</h3>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Cliente:</span>
-                            <span class="ticket-value">Carlos Rodríguez</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Fecha:</span>
-                            <span class="ticket-value">13 Ene 2024</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Producto:</span>
-                            <span class="ticket-value">MacBook Pro M3</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-004', '$450.75', 'Ana López', '2024-01-12', 'Cancelada', 'Tablet Samsung', 'Efectivo')">
-                    <div class="ticket-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="ticket-number">#VT-2024-004</span>
-                            <span class="status-badge status-cancelled">Cancelada</span>
-                        </div>
-                    </div>
-                    <div class="ticket-body">
-                        <h3 class="ticket-amount">$450.75</h3>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Cliente:</span>
-                            <span class="ticket-value">Ana López</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Fecha:</span>
-                            <span class="ticket-value">12 Ene 2024</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Producto:</span>
-                            <span class="ticket-value">Tablet Samsung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-005', '$1,800.25', 'Roberto Silva', '2024-01-11', 'Completada', 'Monitor 4K LG', 'Tarjeta de Débito')">
-                    <div class="ticket-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="ticket-number">#VT-2024-005</span>
-                            <span class="status-badge status-completed">Completada</span>
-                        </div>
-                    </div>
-                    <div class="ticket-body">
-                        <h3 class="ticket-amount">$1,800.25</h3>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Cliente:</span>
-                            <span class="ticket-value">Roberto Silva</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Fecha:</span>
-                            <span class="ticket-value">11 Ene 2024</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Producto:</span>
-                            <span class="ticket-value">Monitor 4K LG</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-006', '$675.90', 'Laura Martínez', '2024-01-10', 'Pendiente', 'Auriculares Sony', 'PayPal')">
-                    <div class="ticket-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="ticket-number">#VT-2024-006</span>
-                            <span class="status-badge status-pending">Pendiente</span>
-                        </div>
-                    </div>
-                    <div class="ticket-body">
-                        <h3 class="ticket-amount">$675.90</h3>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Cliente:</span>
-                            <span class="ticket-value">Laura Martínez</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Fecha:</span>
-                            <span class="ticket-value">10 Ene 2024</span>
-                        </div>
-                        <div class="ticket-info">
-                            <span class="ticket-label">Producto:</span>
-                            <span class="ticket-value">Auriculares Sony</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        
-          <table class="edit table table-responsive">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Fecha</th>
-                <th>Productos Vendidos</th>
-                <th>LLeva</th>
-                <th>Subtotal</th>
-                <th>Total</th>
-                <th>Estado</th>
-                <th>Cliente</th>
-                <th>Usuario</th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php
+          <?php
 // Verificar si se realizó una búsqueda
 if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
-    $busqueda = strtolower(trim($_GET['busqueda'])); // Convierte a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
+    $busqueda = strtolower(trim($_GET['busqueda']));
     $ventasFiltradas = array_filter(iterator_to_array($resultado), function($ventas) use ($busqueda) {
         return strpos(strtolower($ventas['idFactura']), $busqueda) !== false ||
-        strpos(strtolower($ventas['fechaventa']), $busqueda) !== false;
+               strpos(strtolower($ventas['fechaventa']), $busqueda) !== false;
     });
 } else {
-    // Si no hay búsqueda, mostrar todos los productos
     $ventasFiltradas = iterator_to_array($resultado);
 }
 
 // Mostrar los productos
 if (count($ventasFiltradas) > 0) {
     foreach ($ventasFiltradas as $row) {
-?>
-<?php
-echo 
-              '<tr>
-                  <td>' . ($row['idFactura']) . '</td>
-                  <td>' . ($row['fechaventa']) . '</td>
-                  <td>
-                      <table class="productos">
-                          <thead>
-                              <tr>
-                                  <th>ID Producto</th>
-                                  <th>Producto</th>
-                                  <th>Cantidad</th>
-                                  <th>Precio</th>
-                                  <th>IVA</th>
-                              </tr>
-                          </thead>
-                          <tbody>';
-                echo '<tr>';
-                $productos = explode(', ', $row['productos']);
-                foreach ($productos as $producto) {
-                  // Separar los datos de cada producto
-                  list($idProducto, $nombreProducto, $cantidad, $precio, $iva, $cliente) = explode(': ', $producto);
-                  // Limpiamos los datos
-                  $precio = trim($precio); // Para quitar espacios extra, si los hay
-
-                  // Si el precio contiene " $" lo eliminamos
-                  if (strpos($precio, '$') !== false) {
-                    $precio = str_replace('$', '', $precio);
-                  }
-
-                  echo '<td>' . htmlspecialchars($idProducto) . '</td>
-          <td>' . htmlspecialchars($nombreProducto) . '</td>
-          <td>' . htmlspecialchars($cantidad) . '</td>
-          <td>$' . number_format($precio) . '</td>
-          <td>' . htmlspecialchars($iva) . '%</td>
-          </tr>';
-                }
-
-
-                echo ' </tbody>
-                      </table>
-                  </td>
-                  <td>' . ($row['total_cantidad']) . '</td>
-                  <td>$' . number_format($row['subtotal']) . '</td>
-                  <td>$' . number_format($row['total']) . '</td>
-                  <td>' . ($row['estadi']) . '</td>
-          <td>' . htmlspecialchars($cliente) . '</td>
-
-                  <td>' . ($row['usuario']) . ' - '. ($row['nombre']) . ' '. ($row['apellido']) . '</td>
-              </tr>';
-              ?>
-              <?php
-              }} else{
-                 echo '<p class="text-center">No se han registrado ventas.</p>';
-              }
-              ?>
-          </table>
+        $productos = explode(', ', $row['productos']);
+        ?>
+        <div class="col-lg-4 col-md-6">
+            <div class="card ticket-card" data-bs-toggle="modal" data-bs-target="#modal6<?= number_format($row['idFactura']) ?>">
+                <div class="ticket-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="ticket-number">N° <?= number_format($row['idFactura']) ?></span>
+                        <span class="status-badge status-completed"><?= $row['estadi'] ?></span>
+                    </div>
+                </div>
+                <div class="ticket-body">
+                    <h3 class="ticket-amount">$<?= number_format($row['total']) ?></h3>
+                    <div class="ticket-info">
+                        <span class="ticket-label">Cliente:</span>
+                        <span class="ticket-value"><?= $row['cliente'] ?></span>
+                    </div>
+                    <div class="ticket-info">
+                        <span class="ticket-label">Fecha:</span>
+                        <span class="ticket-value"><?= $row['fechaventa'] ?></span>
+                    </div>
+                    <div class="ticket-info">
+                        <span class="ticket-label">Producto:</span>
+                        <span class="ticket-value">
+                            <?php
+                            foreach ($productos as $producto) {
+                                list($idProducto, $nombreProducto) = explode(': ', $producto, 3);
+                                echo htmlspecialchars($nombreProducto) . '<br>';
+                            }
+                            ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal6<?= number_format($row['idFactura']) ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="fas fa-receipt me-2"></i>Detalle de Venta N° <?= number_format($row['idFactura']) ?></h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="detail-card">
+                            <h6 class="text-muted mb-3">INFORMACIÓN GENERAL</h6>
+                            <div class="detail-row"><span class="detail-label">Cliente:</span><span class="detail-value"><?= htmlspecialchars($row['cliente']) ?></span></div>
+                            <div class="detail-row"><span class="detail-label">Fecha:</span><span class="detail-value"><?= $row['fechaventa'] ?></span></div>
+                            <div class="detail-row"><span class="detail-label">Estado:</span><span class="detail-value"><?= $row['estadi'] ?></span></div>
+                            <div class="detail-row"><span class="detail-label">Vendedor:</span><span class="detail-value"><?= $row['usuario'] . ' - ' . $row['nombre'] . ' ' . $row['apellido'] ?></span></div>
+                            <div class="detail-row"><span class="detail-label">Unidades en total:</span><span class="detail-value"><?= $row['total_cantidad'] ?></span></div>
+                        </div>
+
+                        <div class="detail-card">
+                            <h6 class="text-muted mb-3">PRODUCTOS (IVA 19%)</h6>
+                            <?php
+                            foreach ($productos as $producto) {
+                                list($idProducto, $nombreProducto, $cantidad, $precio, $iva, $cliente) = explode(': ', $producto);
+                                $precio = str_replace('$', '', trim($precio));
+                                ?>
+                                <div class="detail-row">
+                                    <span class="detail-label">Producto:</span>
+                                    <span class="detail-value"><?= htmlspecialchars("$idProducto - $nombreProducto") ?></span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Cantidad:</span>
+                                    <span class="detail-value"><?= htmlspecialchars($cantidad) ?></span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Precio Unitario:</span>
+                                    <span class="detail-value">$<?= number_format($precio) ?></span>
+                                </div>
+                            <?php } ?>
+                             <div class="detail-row">
+                                    <span class="detail-label">Subtotal:</span>
+                                    <span class="detail-value">$<?= number_format($row['subtotal']) ?></span>
+                                </div>
+                        </div>
+
+                        <div class="total-row">
+                            <div class="detail-row">
+                                <span class="detail-label">TOTAL:</span>
+                                <span class="detail-value">$<?= number_format($row['total']) ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php
+    }
+} else {
+    echo '<p class="text-center">No se han registrado ventas.</p>';
+}
+?>
+
       </div>
     </div>
   </div>
 
-<div class="cajon" id="cajonProductos">
-<div class="container" style="font-family: Oswald, sans-serif;">
-<div style="padding: 0 0 50px 0;" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-<?php
-// Reiniciar el puntero de resultados para reutilizarlo
-mysqli_data_seek($resultado, 0);
-
-if ($resultado) {
-    while ($row = mysqli_fetch_assoc($resultado)) {
-        // Desglosar productos vendidos
-        $productosHtml = '';
-        $cliente = ''; // Variable para almacenar al cliente
-        $productos = explode(', ', $row['productos']); // Dividimos los productos
-        
-        foreach ($productos as $index => $producto) {
-            // Separar los datos de cada producto
-            list($idProducto, $nombreProducto, $cantidad, $precio, $iva, $clienteDato) = explode(': ', $producto);
-
-            // Almacenar el cliente solo una vez (del primer producto, por ejemplo)
-            if ($index === 0) {
-                $cliente = htmlspecialchars(trim($clienteDato)); // Asignar el cliente
-            }
-
-            // Construir HTML para el producto
-            $productosHtml .= '
-                <div class="product-item">
-                    <span>' . htmlspecialchars($idProducto) . ' - ' . htmlspecialchars($nombreProducto) . ' (' . htmlspecialchars($cantidad) . ')</span>
-                    <span>$' . number_format(trim(str_replace('$', '', $precio))) . '</span>
-                </div>';
-        }
-
-        // Generar tarjeta
-        echo '
-        <div class="card">
-            <div class="card-header" style="   background: linear-gradient(70deg, #bd5c57, #c2a8a1); ">
-                <h2 class="card-title">
-                    Factura ' . htmlspecialchars($row['idFactura']) . '
-                    <span class="badge">' . htmlspecialchars($row['estadi']) . '</span>
-                </h2>
-            </div>
-            
-            <div class="card-body">
-                <div class="card-info">
-                    <div>📅 Fecha: ' . htmlspecialchars($row['fechaventa']) . '</div>
-                    <div>👤 Cliente: ' . $cliente . '</div> <!-- Mostrar cliente correctamente -->
-                    <div>👨‍💼 Vendedor: ' . htmlspecialchars($row['nombre']) . ' ' . htmlspecialchars($row['apellido']) . '</div>
-                </div>
-                <div class="card-total">Subtotal: $' . number_format($row['subtotal']) . '</div>
-                <div class="card-total">Total: $' . number_format($row['total']) . '</div>
-                <div class="product-list">
-                    ' . $productosHtml . '
-                </div>
-                <div class="notes" style="  display: flex;  justify-content: space-between;  text-align: center;">
- <form action="../Controlador/controladorVentas.php" method="post">
-<input type="hidden" name="idFactura" value="' . $row['idFactura'] . '">
-    <button name="Acciones" value="Pago" style="border: none; background: white; color: green;" type="submit" class="inha">
-        <i class="bi bi-cash"></i> PAGO
-    </button>
-</form>
-<form action="../Controlador/controladorVentas.php" method="post">
-<input type="hidden" name="idFactura" value="' . $row['idFactura'] . '">
-    <button name="Acciones" value="No Pago" style="border: none; background: white; color: orange;" type="submit" class="inha">
-        <i class="bi bi-ban"></i> NO PAGO
-    </button>
-</form>                </div>
-            </div>
-        </div>';
-    }
-}
-?>
-
-</div>
-</div>
   
   <script>
     // Obtener elementos del DOM
@@ -552,6 +250,21 @@ if ($resultado) {
           <dd><strong>Teléfono: </strong>3011480544</dd>
         </ul>
       </div>
+      <script>
+        // Solo animación de entrada para las cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.ticket-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
 
       <div class="col-md-8 col-lg-2  social-links">
         <h2>Síguenos</h2>
