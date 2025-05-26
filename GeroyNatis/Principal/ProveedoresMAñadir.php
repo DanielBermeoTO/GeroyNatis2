@@ -5,7 +5,7 @@ $Conexion = Conectarse();
 $sqlproceso = "SELECT `idProveedor`, `nombreproveedor`, `Telefono`, `productos` FROM `proveedor`";
 $resultadoproceso = $Conexion->query($sqlproceso);
 
-$sqlproducto = "SELECT `idProducto`, `nombreproducto`, `cantidadp`, `precio`, `color`, `iva`, `imagen`, `CategoriaidCategoria`, `id_estado`, `talla` FROM `producto`";
+$sqlproducto = "SELECT * FROM `producto`";
 $respuestaproducto = $Conexion->query($sqlproducto);
 
 ?>
@@ -129,21 +129,142 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                   inputmode="numeric">
                   <label for="nombreproducto">Precio Proveedor</label>
               </div>
-              <div class="correo">
-                <input type="number" name="entradaproducto" id="entradaproducto" required step="1"
-                  title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
-                  inputmode="numeric">
-                <script>
-                  function validarLongitud(input) {
-                    input.value = input.value.replace(/\D/g, '');
-                    // Limitar a 11 dígitos
-                    if (input.value.length > 11) {
-                      input.value = input.value.slice(0, 11);
-                    }
-                  }
-                </script>
-                <label for="entradaproducto">Cantidad</label>
-              </div>
+                
+            <!-- Sección de tallas -->
+            <h5 class="mt-3 mb-2">Inventario por Tallas</h5>
+
+            <div class="row row-cols-2 row-cols-md-3 g-2 mb-3">
+                <!-- XS -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla XS</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <input type="hidden" name="talla[]" value="1">
+                            <div class="mb-2">
+                                <label for="quantityXS" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityXS" name="cantidad[]" min="0" required>                                
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorXS" class="form-label required">Color</label>
+                                  <input type="text" class="form-control" id="colorXS" name="color[]" required>  
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- S -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla S</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <input type="hidden" name="talla[]" value="2">
+                            <div class="mb-2">
+                                <label for="quantityS" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityS" name="cantidad[]" min="0" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorS" class="form-label required">Color</label>
+                                  <input type="text" class="form-control" id="colorS" name="color[]" required>  
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- M -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla M</h6>
+                        </div>
+                        <div class="card-body p-2">
+                       <input type="hidden" name="talla[]" value="3">
+                            <div class="mb-2">
+                                <label for="quantityM" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityM" name="cantidad[]" min="0" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorM" class="form-label required">Color</label>
+                                  <input type="text" class="form-control" id="colorM" name="color[]" required>  
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- L -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla L</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <input type="hidden" name="talla[]" value="4">
+                            <div class="mb-2">
+                                <label for="quantityL" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityL" name="cantidad[]" min="0" required> 
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorL" class="form-label required">Color</label>
+                                  <input type="text" class="form-control" id="colorL" name="color[]" required>  
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- XL -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header py-1 bg-light">
+                            <h6 class="card-title mb-0">Talla XL</h6>
+                        </div>
+                        <div class="card-body p-2">
+                            <input type="hidden" name="talla[]" value="5">
+
+                            <div class="mb-2">
+                                <label for="quantityXL" class="form-label required">Cantidad</label>
+                                <input type="number" class="form-control" id="quantityXL" name="cantidad[]" min="0" required>                                
+                                <div class="invalid-feedback">
+                                    Por favor ingrese la cantidad.
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <label for="colorXL" class="form-label required">Color</label>
+                                  <input type="text" class="form-control" id="colorXL" name="color[]" required>  
+                                <div class="invalid-feedback">
+                                    Por favor ingrese el color.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
               <button style="background: linear-gradient(70deg, #c24a46, #c2a8a1); padding: 10px; border-radius: 20px;" type="submit" name="Acciones" value="Crear Movimiento">
                 <i class="bi bi-file-earmark-plus"></i> Añadir
               </button>

@@ -98,6 +98,7 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                 <th>Entrada</th>
                 <th>Producto</th>
                 <th>Cantidad</th>
+                <th>Talla</th>
                 <th>Precio</th>
                 <th>Total</th>
                 <th>Tipo</th>
@@ -139,6 +140,38 @@ if (count($productosFiltrados) > 0) {
                     </table>
                   </td>
                   <td>' . ($row['entradaproducto']) . '</td>
+
+
+
+
+
+                  <td>
+                   <table>
+    <thead>
+      <tr>';
+        $detalles = explode(', ', $row['Detalle_Producto']);
+        foreach ($detalles as $detalle) {
+            list($tallaID, $cantidad, $color) = explode(': ', $detalle);
+            echo '<th>' . $tallaID . '</th>';
+        }
+echo '  </tr>
+    </thead>
+    <tbody>
+      <tr>';
+        foreach ($detalles as $detalle) {
+            list($tallaID, $cantidad, $color) = explode(': ', $detalle);
+            echo '<td>' . $cantidad . '</td>';
+        }
+echo '  </tr>
+    </tbody>
+  </table>
+                    </td>
+
+
+
+
+
+                    
                   <td>$'.number_format ($row['precioproveedor']) .'</td>
                   <td>$' .number_format ($row['total']) . '</td>
                   <td>' . ($row['anadido']) . '</td>

@@ -40,7 +40,7 @@ class Producto
     public function obtenerProductos()
     {
         $sql =
-            "SELECT P.idProducto, P.nombreproducto, P.precio, P.iva, P.imagen, P.CategoriaidCategoria, C.categoria, P.id_estado, S.tiposestados, GROUP_CONCAT(CONCAT(T.talla, ': ', DP.cantidad, ': ', DP.color) SEPARATOR ', ') AS Detalle_Producto, SUM(DP.cantidad) AS total_unidades FROM producto P JOIN estados S ON P.id_estado = S.idestado JOIN producto_talla DP ON P.idProducto = DP.id_producto JOIN talla T ON T.idtalla = DP.id_talla JOIN categoria C ON C.idCategoria = P.CategoriaidCategoria WHERE P.id_estado = 3 GROUP BY P.idProducto;";
+            "SELECT P.idProducto, P.nombreproducto, P.precio, P.iva, P.imagen, P.CategoriaidCategoria, C.categoria, P.id_estado, S.tiposestados, GROUP_CONCAT(CONCAT(T.talla, ': ', DP.cantidad, ': ', DP.color) ORDER BY T.idtalla ASC SEPARATOR ', ') AS Detalle_Producto, SUM(DP.cantidad) AS total_unidades FROM producto P JOIN estados S ON P.id_estado = S.idestado JOIN producto_talla DP ON P.idProducto = DP.id_producto JOIN talla T ON T.idtalla = DP.id_talla JOIN categoria C ON C.idCategoria = P.CategoriaidCategoria WHERE P.id_estado = 3 GROUP BY P.idProducto;";
         $resultado = $this->Conexion->query($sql);
         $this->Conexion->close();
         return $resultado;

@@ -184,6 +184,166 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
         <hr>
 
         <div class="col-md-12">
+          <!-- Cards de Ventas -->
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-001', '$1,250.00', 'Juan Pérez', '2024-01-15', 'Completada', 'Laptop Dell XPS 13', 'Efectivo')">
+                    <div class="ticket-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="ticket-number">#VT-2024-001</span>
+                            <span class="status-badge status-completed">Completada</span>
+                        </div>
+                    </div>
+                    <div class="ticket-body">
+                        <h3 class="ticket-amount">$1,250.00</h3>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Cliente:</span>
+                            <span class="ticket-value">Juan Pérez</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Fecha:</span>
+                            <span class="ticket-value">15 Ene 2024</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Producto:</span>
+                            <span class="ticket-value">Laptop Dell XPS 13</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-002', '$850.50', 'María García', '2024-01-14', 'Pendiente', 'iPhone 15 Pro', 'Tarjeta de Crédito')">
+                    <div class="ticket-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="ticket-number">#VT-2024-002</span>
+                            <span class="status-badge status-pending">Pendiente</span>
+                        </div>
+                    </div>
+                    <div class="ticket-body">
+                        <h3 class="ticket-amount">$850.50</h3>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Cliente:</span>
+                            <span class="ticket-value">María García</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Fecha:</span>
+                            <span class="ticket-value">14 Ene 2024</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Producto:</span>
+                            <span class="ticket-value">iPhone 15 Pro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-003', '$2,100.00', 'Carlos Rodríguez', '2024-01-13', 'Completada', 'MacBook Pro M3', 'Transferencia')">
+                    <div class="ticket-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="ticket-number">#VT-2024-003</span>
+                            <span class="status-badge status-completed">Completada</span>
+                        </div>
+                    </div>
+                    <div class="ticket-body">
+                        <h3 class="ticket-amount">$2,100.00</h3>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Cliente:</span>
+                            <span class="ticket-value">Carlos Rodríguez</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Fecha:</span>
+                            <span class="ticket-value">13 Ene 2024</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Producto:</span>
+                            <span class="ticket-value">MacBook Pro M3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-004', '$450.75', 'Ana López', '2024-01-12', 'Cancelada', 'Tablet Samsung', 'Efectivo')">
+                    <div class="ticket-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="ticket-number">#VT-2024-004</span>
+                            <span class="status-badge status-cancelled">Cancelada</span>
+                        </div>
+                    </div>
+                    <div class="ticket-body">
+                        <h3 class="ticket-amount">$450.75</h3>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Cliente:</span>
+                            <span class="ticket-value">Ana López</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Fecha:</span>
+                            <span class="ticket-value">12 Ene 2024</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Producto:</span>
+                            <span class="ticket-value">Tablet Samsung</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-005', '$1,800.25', 'Roberto Silva', '2024-01-11', 'Completada', 'Monitor 4K LG', 'Tarjeta de Débito')">
+                    <div class="ticket-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="ticket-number">#VT-2024-005</span>
+                            <span class="status-badge status-completed">Completada</span>
+                        </div>
+                    </div>
+                    <div class="ticket-body">
+                        <h3 class="ticket-amount">$1,800.25</h3>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Cliente:</span>
+                            <span class="ticket-value">Roberto Silva</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Fecha:</span>
+                            <span class="ticket-value">11 Ene 2024</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Producto:</span>
+                            <span class="ticket-value">Monitor 4K LG</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card ticket-card" onclick="showSaleDetail('VT-2024-006', '$675.90', 'Laura Martínez', '2024-01-10', 'Pendiente', 'Auriculares Sony', 'PayPal')">
+                    <div class="ticket-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="ticket-number">#VT-2024-006</span>
+                            <span class="status-badge status-pending">Pendiente</span>
+                        </div>
+                    </div>
+                    <div class="ticket-body">
+                        <h3 class="ticket-amount">$675.90</h3>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Cliente:</span>
+                            <span class="ticket-value">Laura Martínez</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Fecha:</span>
+                            <span class="ticket-value">10 Ene 2024</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="ticket-label">Producto:</span>
+                            <span class="ticket-value">Auriculares Sony</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
           <table class="edit table table-responsive">
             <thead>
               <tr>
