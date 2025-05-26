@@ -13,6 +13,8 @@ $resultadosql = $conexion->query($sql);
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../Principal/Geroyn.css">
+      <link rel="stylesheet" href="../Principal/pie.css">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Bootstrap CSS -->
@@ -116,36 +118,128 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
   </div>
 
 
-  <div class="pie">
-    <div class="row">
-      <div class="col-md-8 col-lg-2 colForm1">
-        <ul>
-          <dd>
-            <h2>Contáctanos</h2>
-          </dd>
-          <br>
-          <dd><strong>Correo: </strong>felipedanieltorres32@gmail.com</dd>
-          <dd><strong>Dirección: </strong> Av. Cra 30 Nro.17</dd>
-          <dd><strong>Ciudad: </strong>Bogotá, Colombia</dd>
-          <dd><strong>Teléfono: </strong>3011480544</dd>
-        </ul>
-      </div>
+  
 
-      <div class="col-md-8 col-lg-2  social-links">
-        <h2>Síguenos</h2>
-        <br>
-        <ul>
-          <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
-          <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
-          <li><a href="https://www.linkedin.com" target="_blank">LinkedIn</a></li>
-        </ul>
-      </div>
-      <hr style="color: white;">
-      <div class="derechos">
-        <p><strong>@2024</strong> <strong>Advertencia: </strong>Todos los derechos reservados.</p>
-      </div>
-    </div>
-  </div>
+   <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-decorative">
+            <i class="fas fa-tools"></i>
+        </div>
+        
+        <div class="container">
+            <!-- Marca Principal -->
+            <div class="footer-brand">
+                <h2 class="footer-logo">GERO Y NATIS</h2>
+                <p class="footer-tagline">Sistema de Gestión de Inventario</p>
+                <p class="footer-version">Versión 1.0.0 | Instalación Local</p>
+            </div>
+
+            <!-- Sección de Soporte Técnico -->
+            <div class="support-section">
+                <h5 class="support-title">
+                    <i class="fas fa-headset"></i>
+                    Soporte Técnico
+                </h5>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-label">Teléfono</div>
+                        <div class="contact-value">
+                            <a href="tel:+525512345678">+57 301 143 0988</a>
+                            <br>
+                            <a href="tel:+525512345678">+57 302 133 4678</a>
+                            <br>
+                            <a href="tel:+525512345678">+57 301 460 0998</a>
+
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-label">WhatsApp</div>
+                        <div class="contact-value">
+                            <a href="https://wa.me/573011480544">+57 301 444 9971</a>
+                            <br>
+                            <a href="https://wa.me/573005467787">+57 300 546 7787</a>
+                            <br>
+                            <a href="https://wa.me/573014568799">+57 301 456 8799</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">
+                            <a href="mailto:soporte@tuempresa.com">daniel_bermeo@soy.sena.edu.co</a>
+                            <br>
+                            <a href="mailto:soporte@tuempresa.com">deisy_gonzalez@soy.sena.edu.co</a>
+                            <br>
+                            <a href="mailto:soporte@tuempresa.com">vanessa_mateus@soy.sena.edu.co</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-label">Horario</div>
+                        <div class="contact-value">
+                            Lun - Vie: 9:00 - 18:00
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contacto de Emergencia -->
+                <div class="emergency-contact">
+                    <div class="contact-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="contact-label">Emergencias 24/7</div>
+                    <div class="contact-value">
+                        <a href="tel:+525587654321">+52 304 555 7689</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información del Sistema -->
+            <div class="system-info">
+                <div class="info-item">
+                    <i class="fas fa-server"></i>
+                    <span>Sistema Local</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Datos Seguros</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-tools"></i>
+                    <span>Mantenimiento Incluido</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Capacitación Disponible</span>
+                </div>
+            </div>
+
+            <!-- Divisor -->
+            <div class="footer-divider"></div>
+
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    <strong>@2024</strong> <strong>Advertencia: </strong>Todos los derechos reservados. 
+                    | Sistema desarrollado para <strong>Gero y Natis</strong> | ¿Problemas? Contáctanos arriba
+                </p>
+            </div>
+        </div>
+    </footer>
 
 
   <script>
