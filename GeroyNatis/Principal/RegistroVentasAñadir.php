@@ -1,11 +1,14 @@
 <?php
 include "../Modelo/Conexion.php";
 $Conexion = Conectarse();
-$sqlest = "SELECT idestado, tiposestados FROM estados";
+$sqlest = "SELECT idestado, tiposestados FROM estados WHERE idestado IN (1,2);";
 $resultadoest = $Conexion->query($sqlest);
 
 $sqlp = "SELECT `idProducto`,`nombreproducto`, precio FROM producto WHERE id_estado=3;";
 $resultap = $Conexion->query($sqlp);
+
+$sqlt = "SELECT * FROM `talla`;";
+$resultat = $Conexion->query($sqlt);
 ?>
 
 <!doctype html>
@@ -137,17 +140,31 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                   <input type="date" name="fechaventa" id="fechaventa" required>
                   <label for="fechaventa">Fecha</label>
                 </div>
-                <div class="product-item" style="display: flex; gap: 20px;">
-                  <div class="correo">
-                    <select name="idProducto[]" class="idProducto" required>
-                      <option value="">Producto</option>
-                      <?php while ($rowe = mysqli_fetch_assoc($resultap)) { ?>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="producto" class="form-label">Producto</label>
+                        <select class="form-select" name="idProducto[]" id="producto" required>
+                            <option value="" selected disabled>Seleccionar producto</option>
+                            <?php while ($rowe = mysqli_fetch_assoc($resultap)) { ?>
                         <option value="<?php echo $rowe['idProducto']; ?>" data-precio="<?php echo $rowe['precio']; ?>">
                           <?php echo $rowe['idProducto'] . ' ' . $rowe['nombreproducto'] . ' | $' . number_format($rowe['precio']); ?>
                         </option>
                       <?php } ?>
-                    </select>
-                  </div>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="talla" class="form-label">Talla</label>
+                        <select  name="talla[]" class="form-select" id="talla" required>
+                            <option value="" selected disabled>Seleccionar talla</option>
+                            <?php while ($rowe = mysqli_fetch_assoc($resultat)) { ?>
+                        <option value="<?php echo $rowe['idtalla']; ?>">
+                          <?php echo $rowe['talla'] ?>
+                        </option>
+                      <?php } ?>
+                        </select>
+                    </div>
+                </div>
+
                   <div class="correo" style="flex: 1;">
                     <input type="number" style="width: 100%;" name="cantidad[]" required step="1"
                       title="Solo se permiten números enteros." oninput="validarLongitudt(this)" maxlength="11"
@@ -169,12 +186,16 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                   </div>
                   <input type="hidden" name="valorunitario[]" class="valorunitario">
                 </div>
-              </div>
 
+                
+<center>
               <div class="jepo">
-                <button type="button" id="add-product">Agregar Otro Producto</button>
+                <button id="add-product" type="button" class="btn btn-outline-primary">
+                            <i class="bi bi-plus-circle me-2"></i>Agregar Otro Producto
+                        </button>
               </div>
-
+</center>
+              <div style="padding: 20px;">
               <div class="correo">
                 <input type="number" name="cliente" required step="1"
                   title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
@@ -191,18 +212,28 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                 <label for="">Documento Cliente</label>
               </div>
 
-              <div class="correo">
-                <select name="id_estadof" id="id_estadof" required>
-                  <option value="">Estado</option>
-                  <?php while ($row = mysqli_fetch_assoc($resultadoest)) { ?>
+              <!-- Estado -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <label for="estado" class="form-label">Estado</label>
+                        <select class="form-select" name="id_estadof" id="id_estadof" required>
+                            <option selected disabled>Seleccionar estado</option>
+                            <?php while ($row = mysqli_fetch_assoc($resultadoest)) { ?>
                     <option value="<?php echo $row['idestado']; ?>"><?php echo $row['tiposestados']; ?></option>
                   <?php } ?>
-                </select>
-              </div>
+                        </select>
+                    </div>
+                </div>
+
+               
 
               <div class="botones" style="padding: 0 0 30px 0;">
-                <button type="submit" name="Acciones" value="Crear Venta">Añadir</button>
-                <button type="reset">Borrar</button>
+                <button type="submit" name="Acciones" value="Crear Venta" class="btn btn-success btn-custom">
+                                <i class="bi bi-check-circle me-2"></i>Añadir
+                            </button>
+                <button type="button" class="btn btn-danger btn-custom">
+                                <i class="bi bi-trash me-2"></i>Borrar
+                            </button>
               </div>
             </form>
 

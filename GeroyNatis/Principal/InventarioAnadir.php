@@ -273,24 +273,25 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
             <div class="row row-cols-2 row-cols-md-3 g-2 mb-3">
                 <!-- XS -->
                 <div class="col">
-                    <div class="card h-100">
-                        <div class="card-header py-1 bg-light">
+                    <div class="card h-100" style="border: 2px solid black; border-radius: 5px;">
+                        <div class="card-header py-1" style="background: rgb(231, 121, 115) ">
                             <h6 class="card-title mb-0">Talla XS</h6>
                         </div>
                         <div class="card-body p-2">
                             <input type="hidden" name="talla[]" value="1">
-                            <div class="mb-2">
-                                <label for="quantityXS" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityXS" name="cantidad[]" min="0" required>                                
+                            <div class="correo">
+                                
+                                <input placeholder="Cantidad" type="number" class="form-control" id="quantityXS" name="cantidad[]" min="0" required>                                
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
                             </div>
                             <div class="mb-0">
-                                <label for="colorXS" class="form-label required">Color</label>
-                                  <input type="text" class="form-control" id="colorXS" name="color[]" required>  
+                                <div class="correo">
+                                  <input placeholder="Color" type="text" class="form-control" id="colorXS" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -299,24 +300,26 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                 
                 <!-- S -->
                 <div class="col">
-                    <div class="card h-100">
-                        <div class="card-header py-1 bg-light">
+                    <div class="card h-100" style="border: 2px solid black; border-radius: 5px;">
+                        <div class="card-header py-1" style="background: rgb(231, 121, 115) ">
                             <h6 class="card-title mb-0">Talla S</h6>
                         </div>
                         <div class="card-body p-2">
                             <input type="hidden" name="talla[]" value="2">
                             <div class="mb-2">
-                                <label for="quantityS" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityS" name="cantidad[]" min="0" required>
+                                <div class="correo">
+                                <input placeholder="Cantidad" type="number" class="form-control" id="quantityS" name="cantidad[]" min="0" required>
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
+                                </div>
                             </div>
                             <div class="mb-0">
-                                <label for="colorS" class="form-label required">Color</label>
-                                  <input type="text" class="form-control" id="colorS" name="color[]" required>  
+                                <div class="correo">
+                                  <input placeholder="Color" type="text" class="form-control" id="colorS" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -325,24 +328,26 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                 
                 <!-- M -->
                 <div class="col">
-                    <div class="card h-100">
-                        <div class="card-header py-1 bg-light">
+                    <div class="card h-100" style="border: 2px solid black; border-radius: 5px;">
+                        <div class="card-header py-1" style="background: rgb(231, 121, 115) ">
                             <h6 class="card-title mb-0">Talla M</h6>
                         </div>
                         <div class="card-body p-2">
                        <input type="hidden" name="talla[]" value="3">
                             <div class="mb-2">
-                                <label for="quantityM" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityM" name="cantidad[]" min="0" required>
+                                <div class="correo">
+                                <input placeholder="Cantidad" type="number" class="form-control" id="quantityM" name="cantidad[]" min="0" required>
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
+                                </div>
                             </div>
                             <div class="mb-0">
-                                <label for="colorM" class="form-label required">Color</label>
-                                  <input type="text" class="form-control" id="colorM" name="color[]" required>  
+                                <div class="correo">
+                                  <input placeholder="Color" type="text" class="form-control" id="colorM" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -351,24 +356,26 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                 
                 <!-- L -->
                 <div class="col">
-                    <div class="card h-100">
-                        <div class="card-header py-1 bg-light">
+                    <div class="card h-100" style="border: 2px solid black; border-radius: 5px;">
+                        <div class="card-header py-1" style="background: rgb(231, 121, 115) ">
                             <h6 class="card-title mb-0">Talla L</h6>
                         </div>
                         <div class="card-body p-2">
                             <input type="hidden" name="talla[]" value="4">
                             <div class="mb-2">
-                                <label for="quantityL" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityL" name="cantidad[]" min="0" required> 
+                                <div class="correo">
+                                <input placeholder="Cantidad" type="number" class="form-control" id="quantityL" name="cantidad[]" min="0" required> 
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
+                                </div>
                             </div>
                             <div class="mb-0">
-                                <label for="colorL" class="form-label required">Color</label>
-                                  <input type="text" class="form-control" id="colorL" name="color[]" required>  
+                                <div class="correo">
+                                  <input placeholder="Color" type="text" class="form-control" id="colorL" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -377,25 +384,27 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                 
                 <!-- XL -->
                 <div class="col">
-                    <div class="card h-100">
-                        <div class="card-header py-1 bg-light">
+                    <div class="card h-100" style="border: 2px solid black; border-radius: 5px;">
+                        <div class="card-header py-1" style="background: rgb(231, 121, 115) " >
                             <h6 class="card-title mb-0">Talla XL</h6>
                         </div>
                         <div class="card-body p-2">
                             <input type="hidden" name="talla[]" value="5">
 
                             <div class="mb-2">
-                                <label for="quantityXL" class="form-label required">Cantidad</label>
-                                <input type="number" class="form-control" id="quantityXL" name="cantidad[]" min="0" required>                                
+                                <div class="correo">
+                                <input placeholder="Cantidad" type="number" class="form-control" id="quantityXL" name="cantidad[]" min="0" required>                                
                                 <div class="invalid-feedback">
                                     Por favor ingrese la cantidad.
                                 </div>
+                                </div>
                             </div>
                             <div class="mb-0">
-                                <label for="colorXL" class="form-label required">Color</label>
-                                  <input type="text" class="form-control" id="colorXL" name="color[]" required>  
+                                <div class="correo">
+                                  <input placeholder="Color" type="text" class="form-control" id="colorXL" name="color[]" required>  
                                 <div class="invalid-feedback">
                                     Por favor ingrese el color.
+                                </div>
                                 </div>
                             </div>
                         </div>
