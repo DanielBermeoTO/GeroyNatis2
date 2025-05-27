@@ -225,7 +225,8 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                     </div>
                 </div>
 
-               
+                <input type="hidden" name="documento" value="<?php echo $_SESSION['sesion']; ?>">
+
 
               <div class="botones" style="padding: 0 0 30px 0;">
                 <button type="submit" name="Acciones" value="Crear Venta" class="btn btn-success btn-custom">
@@ -238,48 +239,77 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
             </form>
 
             <script>
-              // Cuando se seleccione un producto, actualizar el valor unitario correspondiente
-              document.addEventListener('change', function(event) {
-                if (event.target.classList.contains('idProducto')) {
-                  const selectedOption = event.target.options[event.target.selectedIndex];
-                  const precio = selectedOption.dataset.precio;
-                  const valorUnitarioInput = event.target.closest('.product-item').querySelector('.valorunitario');
-                  valorUnitarioInput.value = precio;
-                }
-              });
+  // Cuando se seleccione un producto, actualizar el valor unitario correspondiente
+document.addEventListener('change', function(event) {
+  if (event.target.classList.contains('idProducto') || event.target.name && event.target.name.includes('idProducto')) {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const precio = selectedOption.dataset.precio;
+    const productItem = event.target.closest('.product-item') || event.target.closest('#product-list');
+    const valorUnitarioInput = productItem.querySelector('.valorunitario');
+    if (valorUnitarioInput) {
+      valorUnitarioInput.value = precio;
+    }
+  }
+});
 
-              document.getElementById('add-product').addEventListener('click', function() {
-                // Crear un nuevo elemento para el producto
-                const productItem = document.createElement('div');
-                productItem.classList.add('product-item');
-                productItem.style.display = 'flex';
-                productItem.style.gap = '20px';
+document.getElementById('add-product').addEventListener('click', function() {
+  // Crear un nuevo elemento para el producto
+  const productItem = document.createElement('div');
+  productItem.classList.add('product-item');
+  productItem.style.padding = '20px';
+  productItem.style.border = '1px solid #ddd';
+  productItem.style.borderRadius = '5px';
+  productItem.style.marginBottom = '15px';
 
-                // Contenido del nuevo producto, incluyendo el select para elegir el producto
-                productItem.innerHTML = `
-            <div class="correo">
-                <select name="idProducto[]" class="idProducto" required>
-                    <option value="">Producto</option>
-                    <?php
-                    // Asegúrate de que $resultap esté definido antes de usarlo aquí
-                    $resultap = $Conexion->query($sqlp);
-                    while ($rowe = mysqli_fetch_assoc($resultap)) { ?>
-                            <option value="<?php echo $rowe['idProducto']; ?>" data-precio="<?php echo $rowe['precio']; ?>">
-                                <?php echo $rowe['idProducto'] . ' ' . $rowe['nombreproducto'] . ' | $' . number_format($rowe['precio']); ?>
-                            </option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div class="correo" style="flex: 1;">
-                <input type="number" style="width: 100%;" name="cantidad[]" required>
-                <label for="">Cantidad</label>
-            </div>
-            <input type="hidden" name="valorunitario[]" class="valorunitario">
-        `;
+  // Contenido del nuevo producto
+  productItem.innerHTML = `
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="producto" class="form-label">Producto</label>
+        <select class="form-select idProducto" name="idProducto[]" required>
+          <option value="" selected disabled>Seleccionar producto</option>
+          <?php 
+          // Reiniciar el resultado para poder usarlo de nuevo
+          $resultap->data_seek(0);
+          while ($rowe = mysqli_fetch_assoc($resultap)) { ?>
+            <option value="<?php echo $rowe['idProducto']; ?>" data-precio="<?php echo $rowe['precio']; ?>">
+              <?php echo $rowe['idProducto'] . ' ' . $rowe['nombreproducto'] . ' | $' . number_format($rowe['precio']); ?>
+            </option>
+          <?php } ?>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="talla" class="form-label">Talla</label>
+        <select name="talla[]" class="form-select" required>
+          <option value="" selected disabled>Seleccionar talla</option>
+          <?php 
+          // Reiniciar el resultado para poder usarlo de nuevo
+          $resultat->data_seek(0);
+          while ($rowe = mysqli_fetch_assoc($resultat)) { ?>
+            <option value="<?php echo $rowe['idtalla']; ?>">
+              <?php echo $rowe['talla'] ?>
+            </option>
+          <?php } ?>
+        </select>
+      </div>
+      <div class="correo">
+          <input type="number" style="width: 100%;" name="cantidad[]" required step="1"
+            title="Solo se permiten números enteros." oninput="validarLongitudt(this)" maxlength="3"
+            inputmode="numeric">
+          <label for="">Cantidad</label>
+    </div>
+    </div>
+    
 
-                // Añadir el nuevo producto a la lista
-                document.getElementById('product-list').appendChild(productItem);
-              });
+        
+    
+    <input type="hidden" name="valorunitario[]" class="valorunitario">
+  `;
+
+  // Añadir el nuevo producto a la lista
+  document.getElementById('product-list').appendChild(productItem);
+});
+
             </script>
 
           </div>

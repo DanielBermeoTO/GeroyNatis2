@@ -24,6 +24,7 @@ if ($elegirAcciones == 'Crear Venta') {
                 'idProducto' => $_POST['idProducto'][$i],
                 'valorunitario' => $_POST['valorunitario'][$i],
                 'cantidad' => $_POST['cantidad'][$i],
+                'talla' => $_POST['talla'][$i],
                 'cliente' => $_POST['cliente']
             ];
         }
