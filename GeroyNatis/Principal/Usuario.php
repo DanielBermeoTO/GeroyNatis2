@@ -9,6 +9,8 @@
       <link rel="stylesheet" href="../Principal/pie.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -138,29 +140,69 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
     exit(); // Asegúrate de salir después de mostrar el mensaje
 }
 ?>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="nav-link" style="color: black;" href="../Controlador/controladorInventario.php"><i class="bi bi-box-arrow-left"></i></a>
-            <img src="../Imagenes/Gero_y_Natis Logo.png" alt="" width="150" height="150">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                <ul class="navbar-nav flex-column mb-2 mb-lg-0">
-                    <h1>Gestión de Usuarios</h1>
-                </ul>
-                <form action="" method="get" class="d-flex ms-lg-4">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="busqueda">
-            <button style="color: white; background: rgb(49, 44, 44); border: black; border-radius: 50px;" class="btn btn-outline-success" type="submit" name="enviar" value="buscar"><i class="bi bi-search"></i></button>
-          </form>
+     <!-- Header de Navegación Compacto -->
+    <div class="header-nav">
+        <div class="header-nav-background"></div>
+        
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <!-- Botón atrás, Logo e imagen a la izquierda -->
+                <div class="d-flex align-items-center">
+                    <!-- Botón para ir atrás -->
+                    <button class="btn-back me-3" onclick="window.location.href='../Controlador/controladorInventario.php'"  title="Ir atrás">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    
+                    <!-- Logo imagen -->
+                    <img src="../Imagenes/Gero_y_Natis Logo.png" alt="Logo Gero y Natis" class="logo-img">
+                    
+                    <!-- Nombre de la empresa -->
+                    <a class="navbar-brand" href="#dashboard">
+                        Gero y Natis
+                    </a>
+                </div>
+                
+                <!-- Botón hamburguesa para móvil -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavigation">
+                    <i class="fas fa-bars" style="color: #333;"></i>
+                </button>
+                
+                <!-- Links de navegación y menú de usuario -->
+                <div class="collapse navbar-collapse" id="navbarNavigation">
+                    <!-- Links centrados -->
+                    <ul class="navbar-nav mx-auto">
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorInventario.php"><i class="far fa-copy me-2"></i>Inicio</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorInventario2.php"><i class="fa-regular fa-clipboard"></i> Inventario</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorProveedores.php"><i class="bi bi-file-person"></i> Proveedores</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorMovimiento.php"> <i class="bi bi-book-half"></i> Movimientos</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorVentas.php"><i class="fa-regular fa-credit-card"></i> Ventas</a>
+                    </li>
+                    </ul>
+                    
+                    <!-- Menú de usuario a la derecha -->
+                    <div class="user-menu">
+                        
+                        <a href="../Sesiones/Cerrar Sesion.php" class="btn-icon-nav" title="Cerrar sesión">
+                            <i class="fa-solid fa-door-open"></i>
+                        </a>
+                        
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
-        <nav class="acciones">
-      <a class="aña" href="../Sesiones/Registrarse.php"><i class="bi bi-person-fill-add"></i> Crear Usuario</a>
-    </nav>
+        </nav>
+    </div>
+
+
     <div class="container">
     <h2 style="font-family: Bebas Neue, sans-serif; padding: 20px 0 0 0; font-size: 60px;">
         Usuarios <i class="bi bi-person-arms-up"></i>

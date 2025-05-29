@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Navegación - Gero y Natis</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        body {
+            background-color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header-nav {
+            position: relative;
+            overflow: hidden;
+            padding: 15px 0;
+        }
+        
+        .header-nav-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                rgba(231, 121, 115, 0.9) 0%,     /* Color base fuerte */
+                rgba(236, 140, 135, 0.7) 30%,    /* Rosa mantiene intensidad */
+                rgba(255, 228, 225, 0.5) 70%,    /* Rosa claro empieza aquí */
+                rgba(255, 255, 255, 0.8) 85%,    /* Casi blanco */
+                rgba(255, 255, 255, 1) 100%);    /* Blanco completo */
+            z-index: -1;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333 !important;
+            text-decoration: none;
+        }
+        
+        .navbar-brand:hover {
+            color: #ff69b4 !important;
+        }
+        
+        .navbar-nav .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: #ff69b4 !important;
+            background-color: rgba(255, 182, 193, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: white !important;
+            background-color: #ff69b4;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-icon-nav {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 182, 193, 0.2);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            color: #333;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-icon-nav:hover {
+            background-color: rgba(255, 182, 193, 0.4);
+            color: #ff69b4;
+            transform: translateY(-1px);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            background-color: #ff4081;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+        }
+        
+        .avatar-nav {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .avatar-nav:hover {
+            border-color: #ff69b4;
+            transform: scale(1.05);
+        }
+        
+
+        /* Contenido del body para demostrar */
+        .main-content {
+            background-color: white;
+            padding: 40px 0;
+            min-height: 80vh;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-nav .nav-link {
+                margin: 5px 0;
+                text-align: center;
+            }
+            
+            .user-menu {
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+
+        .btn-back {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 182, 193, 0.2);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            color: #333;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background-color: rgba(255, 182, 193, 0.4);
+            color: #ff69b4;
+            transform: translateY(-1px);
+        }
+
+        .logo-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50;
+        }
+
+        .logo-img:hover {
+            border-color: #ff69b4;
+            transform: scale(1.05);
+        }
+
+        .navbar-brand {
+            margin-bottom: 0;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .btn-back {
+                width: 30px;
+                height: 30px;
+                margin-right: 10px !important;
+            }
+            
+            .logo-img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header de Navegación Compacto -->
+    <div class="header-nav">
+        <div class="header-nav-background"></div>
+        
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <!-- Botón atrás, Logo e imagen a la izquierda -->
+                <div class="d-flex align-items-center">
+                    <!-- Botón para ir atrás -->
+                    <button class="btn-back me-3" onclick="window.location.href='../Controlador/controladorInventario.php'"  title="Ir atrás">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    
+                    <!-- Logo imagen -->
+                    <img src="../Imagenes/Gero_y_Natis Logo.png" alt="Logo Gero y Natis" class="logo-img">
+                    
+                    <!-- Nombre de la empresa -->
+                    <a class="navbar-brand" href="#dashboard">
+                        Gero y Natis
+                    </a>
+                </div>
+                
+                <!-- Botón hamburguesa para móvil -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavigation">
+                    <i class="fas fa-bars" style="color: #333;"></i>
+                </button>
+                
+                <!-- Links de navegación y menú de usuario -->
+                <div class="collapse navbar-collapse" id="navbarNavigation">
+                    <!-- Links centrados -->
+                    <ul class="navbar-nav mx-auto">
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorInventario.php"><i class="far fa-copy me-2"></i>Inicio</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link active" href="../Controlador/controladorInventario2.php"><i class="fa-regular fa-clipboard"></i> Inventario</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorProveedores.php"><i class="bi bi-file-person"></i> Proveedores</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorMovimiento.php"> <i class="bi bi-book-half"></i> Movimientos</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorVentas.php"><i class="fa-regular fa-credit-card"></i> Ventas</a>
+                    </li>
+                    </ul>
+                    
+                    <!-- Menú de usuario a la derecha -->
+                    <div class="user-menu">
+                        <a href="../Controlador/controladorUsuario.php" class="btn-icon-nav" title="Usuarios">
+                             <i class="fa-solid fa-user"></i>
+                        </a>
+                        <a href="../Sesiones/Cerrar Sesion.php" class="btn-icon-nav" title="Cerrar sesión">
+                            <i class="fa-solid fa-door-open"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <!-- Contenido del body para demostrar -->
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-section">
+                        <h2>Dashboard Principal</h2>
+                        <p>Este es el contenido principal de la página. El header de navegación es compacto y funcional, perfecto para la navegación interna después del login.</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-project-diagram fa-2x text-primary mb-3"></i>
+                                        <h5>Proyectos Activos</h5>
+                                        <h3 class="text-primary">12</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-users fa-2x text-success mb-3"></i>
+                                        <h5>Clientes</h5>
+                                        <h3 class="text-success">48</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-chart-line fa-2x text-warning mb-3"></i>
+                                        <h5>Ingresos</h5>
+                                        <h3 class="text-warning">$25,430</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   
+</body>
+</html>

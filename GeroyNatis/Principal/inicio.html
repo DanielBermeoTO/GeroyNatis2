@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="../Principal/Geroyn.css">
     <link rel="stylesheet" href="../Principal/pie.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,39 +18,14 @@
   <title>Gero y Natis</title>
   <link rel="icon" href="../Imagenes/gg.png" type="image/png">
   <style>
-    .navbar {
-      background: linear-gradient(70deg, #c24a46, #a686ca, #3db5b9);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 20px;
-    }
-
-    .navbar-brand img {
-      transition: transform 0.3s ease;
-    }
-
-    .navbar-brand img:hover {
-      transform: scale(1.05);
-    }
-
-    .nav-item {
-      margin-bottom: 0px;
-      transition: background-color 0.3s ease;
-    }
-
-    .nav-link {
-      padding: 10px 15px !important;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .nav-link:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    .nav-link i {
-      margin-right: 5px;
-    }
+    .btn-trial {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            color: #333;
+        }
 
     @media (min-width: 992px) {
       .nav-item {
@@ -63,25 +40,33 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="../Imagenes/Gero_y_Natis Logo.png" alt="" width="150" height="150">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="../Sesiones/IniciarSesion.php"><i class="bi bi-person-fill-lock"></i> Iniciar
-              Sesión</a>
-          </li>
-        </ul>
-      </div>
+<div class="header-wrapper">
+        <div class="header-background triple"></div>
+        
+        <!-- Puntos decorativos -->
+        <div class="decorative-dot dot-1"></div>
+        <div class="decorative-dot dot-2"></div>
+        <div class="decorative-dot dot-3"></div>
+        <div class="decorative-dot dot-4"></div>
+        
+        <div class="container-fluid">
+            <!-- Header Top -->
+<div class="header-top d-flex justify-content-end align-items-center mt-3">
+                <button onclick="window.location.href='../Sesiones/IniciarSesion.php'" class="btn btn-trial me-2">
+<i class="fa-solid fa-person-walking-arrow-right" style="color: #a686ca;"></i>
+                    Iniciar Sesión
+                </button>
+            </div>
+
+            <center>
+            <img src="../Imagenes/Gero_y_Natis Logo.png" alt="Avatar" class="avatar">
+</center>
+            
+            <!-- Main Heading -->
+            <h1 class="main-heading">Gero y Natis</h1>
+            
+        </div>
     </div>
-  </nav>
 
 
 
@@ -91,8 +76,7 @@
     <div class="row">
       <!--Inicio Portafolio-->
       <div class="col-md-8">
-        <h2 style="font-family: Bebas Neue, sans-serif; padding: 20px 0 0 0; font-size: 60px;">¡Bienvenido a Gero y
-          Natis!</h2>
+        <h2 style="font-family: Bebas Neue, sans-serif; padding: 20px 0 0 0; font-size: 60px;">¡Bienvenido!</h2>
         <p style="font-family: Oswald, sans-serif; font-size: 22px;">Bienvenido a nuestra plataforma diseñada
           específicamente para la microempresa Gero y Natis. Este aplicativo web ha sido creado con el objetivo de
           resolver dos desafíos cruciales para la empresa: la falta de un sistema eficiente de gestión de inventario y

@@ -16,109 +16,42 @@
 
   <title>Gero y Natis</title>
   <link rel="icon" href="Imagenes/Gero_y_Natis Logo.png" type="image/png">
-  <style>
-    .navbar {
-      background: linear-gradient(70deg, #c24a46, #a686ca, #3db5b9);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 20px;
-    }
-
-    .navbar-brand img {
-      transition: transform 0.3s ease;
-    }
-
-    .navbar-brand img:hover {
-      transform: scale(1.05);
-    }
-
-    .nav-item {
-      margin-bottom: 0px;
-      transition: background-color 0.3s ease;
-    }
-
-    .nav-link {
-      padding: 10px 15px !important;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .nav-link:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    .nav-link i {
-      margin-right: 5px;
-    }
-
-    @media (min-width: 992px) {
-      .nav-item {
-        margin-right: 20px;
-      }
-
-      .navbar-nav {
-        align-items: center;
-      }
-    }
-  </style>
-  <style>
-    body {
-      font-family: Oswald, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-image: url('../Imagenes/sesion.jpg');
-      /* Ruta relativa a la carpeta de imagen */
-      background-size: 180% auto;
-      /* Duplicamos el tamaño en ancho para mostrar solo la mitad */
-      background-position: center left bottom;
-      /* Colocamos la imagen en la parte inferior */
-      background-repeat: no-repeat;
-      /* Evita que la imagen se repita */
-    }
-
-    .container {
-      padding: 0 0 50px 0;
-      font-family: Oswald, sans-serif;
-      position: relative;
-      z-index: 2;
-      /* Aseguramos que el contenido esté encima de la imagen */
-    }
-
-    /* Opcional: si quieres añadir un fondo semitransparente al formulario */
-    .form-background {
-      background-color: rgba(255, 255, 255, 0.8);
-      border: 2px solid black;
-      border-radius: 10px;
-      padding: 20px;
-    }
-
-    /* Media query para pantallas pequeñas (menor a 768px) */
-    @media (max-width: 768px) {
-      body {
-        background-image: none;
-        /* Oculta la imagen en pantallas pequeñas */
-      }
-    }
-
-    @media (max-width: 1px) {
-      body {
-        background-image: none;
-        /* Oculta la imagen en pantallas pequeñas */
-      }
-    }
-  </style>
+  
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="nav-link" style="color: black;" href="../Principal/inicio.html"><i class="bi bi-box-arrow-left"></i></a>
-    <img src="../Imagenes/Gero_y_Natis Logo.png" alt="" width="150" height="150">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </nav>
+<div class="header-wrapper">
+        <div class="header-background triple"></div>
+        
+        <!-- Puntos decorativos -->
+        <div class="decorative-dot dot-1"></div>
+        <div class="decorative-dot dot-2"></div>
+        <div class="decorative-dot dot-3"></div>
+        <div class="decorative-dot dot-4">
+          
+        </div>
+        
+        <div class="container-fluid">
+
+        
+          <div class="row align-items-center justify-content-between">
+    <div class="col-auto">
+        <a class="nav-link" style="color: black; font-size: 1.5em" href="../Principal/inicio.html">
+            <i class="bi bi-box-arrow-left"></i>
+        </a>
+    </div>
+    <div class="col-auto mx-auto">
+        <img src="../Imagenes/Gero_y_Natis Logo.png" alt="Avatar" class="img-fluid avatar">
+    </div>
+    <div class="col-auto invisible"></div>
+  <div class="col-auto invisible"></div>
+<div class="col-auto invisible"></div>
+<div class="col-auto invisible"></div> </div>
+            <!-- Main Heading -->
+            <h1 class="main-heading">Gero y Natis</h1>
+            
+        </div>
+    </div>
 
   <div class="container" style="padding: 0 0 50px 0;  font-family: Oswald, sans-serif;">
     <div class="row">

@@ -27,13 +27,38 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="nav-link" style="color: black;" href="../Sesiones/IniciarSesion.php"><i
-        class="bi bi-box-arrow-left"></i></a>
-    <a class="navbar-brand" href="#">
-      <img src="../Imagenes/Gero_y_Natis Logo.png" alt="" width="150" height="150">
-    </a>
-  </nav>
+ <div class="header-wrapper">
+        <div class="header-background triple"></div>
+        
+        <!-- Puntos decorativos -->
+        <div class="decorative-dot dot-1"></div>
+        <div class="decorative-dot dot-2"></div>
+        <div class="decorative-dot dot-3"></div>
+        <div class="decorative-dot dot-4">
+          
+        </div>
+        
+        <div class="container-fluid">
+
+        
+          <div class="row align-items-center justify-content-between">
+    <div class="col-auto">
+        <a class="nav-link" style="color: black; font-size: 1.5em" href="../Sesiones/IniciarSesion.php">
+            <i class="bi bi-box-arrow-left"></i>
+        </a>
+    </div>
+    <div class="col-auto mx-auto">
+        <img src="../Imagenes/Gero_y_Natis Logo.png" alt="Avatar" class="img-fluid avatar">
+    </div>
+    <div class="col-auto invisible"></div>
+  <div class="col-auto invisible"></div>
+<div class="col-auto invisible"></div>
+<div class="col-auto invisible"></div> </div>
+            <!-- Main Heading -->
+            <h1 class="main-heading">Gero y Natis</h1>
+            
+        </div>
+    </div>
 
   <div class="container" style="padding: 0 0 50px 0;  font-family: Oswald, sans-serif;">
     <div class="row">
@@ -52,8 +77,8 @@
               </div>
               <center>
                 <button
-                  style="background: linear-gradient(70deg, #c24a46, #c2a8a1); padding: 10px; border-radius: 20px;"
-                  type="submit" name="submitContact" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i> Enviar</button>
+                  style="background: linear-gradient(70deg, #c24a46, #c2a8a1); padding: 10px; border-radius: 20px; color: black; border: solid 1px black"
+                  type="submit" name="submitContact" class="anadirr"><i class="bi bi-file-earmark-plus"></i> Enviar</button>
               </center>
               <br>
             </form>

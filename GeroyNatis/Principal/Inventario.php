@@ -9,6 +9,8 @@
       <link rel="stylesheet" href="../Principal/pie.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -42,47 +44,67 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
     exit(); // Asegúrate de salir después de mostrar el mensaje
 }
 ?>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="../Imagenes/Gero_y_Natis Logo.png" alt="" width="150" height="150">
-        </a>
-        <img src="../Imagenes/inicio.png" alt="Imagen adicional" width="650" height="350" class="d-none d-lg-block">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-          <ul class="navbar-nav flex-column mb-2 mb-lg-0">
-            <li class="nav-item">
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../Controlador/controladorUsuario.php"><i class="bi bi-person-circle"></i><span>Usuarios</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../Controlador/controladorInventario2.php"><i class="bi bi-clipboard2-minus-fill"></i><span>Inventario</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="http://127.0.0.1:8000/proveedor"><i class="bi bi-file-person"></i><span>Proveedores</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../Controlador/controladorVentas.php"><i class="bi bi-clipboard2-pulse-fill"></i><span>Registro de ventas</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../Sesiones/Cerrar Sesion.php"><i class="bi bi-door-closed-fill"></i><span>Cerrar Sesión</span></a>
-            </li>
-          </ul>
-          <form action="" method="get" class="d-flex ms-lg-4">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="busqueda">
-            <button style="color: white; background: rgb(49, 44, 44); border: black; border-radius: 50px;" class="btn btn-outline-success" type="submit" name="enviar" value="buscar"><i class="bi bi-search"></i></button>
-          </form>
+  <div class="header-wrapper">
+        <div class="header-background"></div>
+        
+        <!-- Puntos decorativos -->
+        <div class="decorative-dot dot-1"></div>
+        <div class="decorative-dot dot-2"></div>
+        <div class="decorative-dot dot-3"></div>
+        <div class="decorative-dot dot-4"></div>
+        
+        <div class="container-fluid">
+            <!-- Header Top -->
+            <div class="header-top d-flex justify-content-end align-items-center">
+                <button onclick="window.location.href='../Controlador/controladorUsuario.php'" class="btn-icon position-relative">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <button onclick="window.location.href='../Sesiones/Cerrar Sesion.php'" class="btn-icon">
+                    <i class="fa-solid fa-door-open"></i>
+                </button>
+                <div class="ms-2">
+                    <img src="../Imagenes/Gero_y_Natis Logo.png?height=40&width=40" alt="Avatar" class="avatar">
+                </div>
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="main-heading">Gero y Natis</h1>
+            
+            <!-- Navigation Pills -->
+            <div class="d-flex justify-content-center mb-4" style="font-family: Oswald, sans-serif; font-size: 1.1em;">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../Controlador/controladorInventario.php"><i class="far fa-copy me-2"></i>Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorInventario2.php"><i class="fa-regular fa-clipboard"></i> Inventario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorProveedores.php"><i class="bi bi-file-person"></i> Proveedores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorMovimiento.php"> <i class="bi bi-book-half"></i> Movimientos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Controlador/controladorVentas.php"><i class="fa-regular fa-credit-card"></i> Ventas</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="input-group search-input">
+                    <span class="input-group-text bg-transparent border-0">
+                        <i class="fas fa-search search-icon"></i>
+                    </span>
+                    <input type="search" class="form-control border-0 shadow-none" aria-label="Search" name="busqueda" placeholder="Buscar">
+                    <span class="input-group-text bg-transparent border-0">
+                        <i class="fas fa-arrow-right search-icon"></i>
+                    </span>
+                </div>
+            </div>
         </div>
-      </div>
-    </nav>
-    <nav class="acciones" style="color: white">
-      <h5>Bienvenido a Gero y Natis</h5>
-    </nav>
-  </header>
+    </div>
 
   <!--Inicio Inventario-->
   <div class="container">
