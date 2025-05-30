@@ -9,45 +9,91 @@
       <link rel="stylesheet" href="../Principal/pie.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
   <title>Gero y Natis</title>
   <link rel="icon" href="../Imagenes/Gero_y_Natis Logo.png" type="image/png">
-
 </head>
 
 <body>
-  <header>
-    <nav  class="navbar navbar-expand-lg navbar-light bg-light">
-      <div style="            background: linear-gradient(70deg, #3db5b9, #3d575e);
-" class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="../Imagenes/Gero_y_Natis Logo.png" alt="" width="150" height="150">
-        </a>
-        <img src="../Imagenes/inicio.png" alt="Imagen adicional" width="650" height="350" class="d-none d-lg-block">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-          <ul class="navbar-nav flex-column mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="../UsuarioControlador/VentasControlador.php"><i class="bi bi-clipboard2-pulse-fill"></i><span>Registro
-                  de ventas</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../Sesiones/Cerrar Sesion.php"><i class="bi bi-door-closed-fill"></i><span>Cerrar Sesión</span></a>
-            </li>
-          </ul>
+<?php
+// Iniciar la sesión
+session_start();
+
+// Verificar si la sesión está iniciada y si el usuario tiene el rol adecuado (rol 2 para vendedor)
+if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol'] != 2) {
+    // Si no está logueado o no tiene el rol de vendedor, mostrar alerta y redirigir
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Acceso denegado',
+            text: 'Debe iniciar sesión para acceder a esta página',
+            showConfirmButton: true,
+            confirmButtonText: "Aceptar",
+        }).then(function() {
+            window.location = "../Principal/inicio.html"; // Redirigir a la página de inicio de sesión
+        });
+    </script>
+    <?php
+    exit(); // Asegúrate de salir después de mostrar el mensaje
+}
+?>
+  <div class="header-wrapper">
+        <div class="header-background vend"></div>
+        
+        <!-- Puntos decorativos -->
+        <div class="decorative-dot dot-1"></div>
+        <div class="decorative-dot dot-2"></div>
+        <div class="decorative-dot dot-3"></div>
+        <div class="decorative-dot dot-4"></div>
+        
+        <div class="container-fluid">
+            <!-- Header Top -->
+            <div class="header-top d-flex justify-content-end align-items-center">
+                <button onclick="window.location.href='../Sesiones/Cerrar Sesion.php'" class="btn-icon">
+                    <i class="fa-solid fa-door-open"></i>
+                </button>
+                <div class="ms-2">
+                    <img src="../Imagenes/Gero_y_Natis Logo.png?height=40&width=40" alt="Avatar" class="avatar">
+                </div>
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="main-heading">Gero y Natis</h1>
+            
+            <!-- Navigation Pills -->
+            <div class="d-flex justify-content-center mb-4" style="font-family: Oswald, sans-serif; font-size: 1.1em;">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../UsuarioControlador/UsuarioInventario.php"><i class="far fa-copy me-2"></i>Inicio</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="../UsuarioControlador/VentasControlador.php"><i class="fa-regular fa-credit-card"></i> Ventas</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="input-group search-input">
+                    <span class="input-group-text bg-transparent border-0">
+                        <i class="fas fa-search search-icon"></i>
+                    </span>
+                    <input type="search" class="form-control border-0 shadow-none" aria-label="Search" name="busqueda" placeholder="Buscar">
+                    <span class="input-group-text bg-transparent border-0">
+                        <i class="fas fa-arrow-right search-icon"></i>
+                    </span>
+                </div>
+            </div>
         </div>
-      </div>
-    </nav>
-    <nav class="acciones" style="color: white">
-      <h5>Bienvenido a Gero y Natis</h5>
-    </nav>
-  </header>
+    </div>
 
   <!--Inicio Inventario-->
   <div class="container">
@@ -56,49 +102,37 @@
     <hr>
     <div style="padding: 30px 0 50px 0;" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
       <?php
-      // Iniciar la sesión
-      session_start();
-
-      // Verificar si la sesión está iniciada y si el usuario tiene el rol adecuado (rol 2 para vendedor)
-      if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol'] != 2) {
-          // Si no está logueado o no tiene el rol de vendedor, mostrar alerta y redirigir
-          ?>
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          <script>
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Acceso denegado',
-                  text: 'Debe iniciar sesión para acceder a esta página',
-                  showConfirmButton: true,
-                  confirmButtonText: "Aceptar",
-              }).then(function() {
-                window.location = "../Principal/inicio.html"; // Redirigir a la página de inicio de sesión
-              });
-          </script>
-          <?php
-          exit(); // Detener la ejecución del script si no se cumple la condición
+      // Verificar si se realizó una búsqueda
+      if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
+          $busqueda = $_GET['busqueda'];
+          $consulta = Conectarse()->query("SELECT * FROM producto WHERE nombreproducto LIKE '%$busqueda%'");
+      } else {
+          // Si no hay búsqueda, mostrar todos los productos
+          $consulta = Conectarse()->query("SELECT * FROM producto");
       }
-      // Iterar sobre los productos y mostrarlos
-      while ($row = mysqli_fetch_assoc($productos)) {
-          echo '<div class="col">
-              <div class="card" style=" border: 2px solid black;">
-                  <img src="../Imagenes/' . ($row['imagen']) . '" class="card-img-top mx-auto d-block img-fluid" alt="..." style="margin: 15px 10px 0 10px; width: 200px; height: 220px;">
-                  <hr>
-                  <div style="text-align: center; padding: 0 0 20px 0;" class="card-body">
-                      <h5 class="card-title">' . ($row['nombreproducto']) . '</h5>
-                      <br>
-                      <p class="card-text"><strong>Precio: </strong>$' . number_format($row['precio']) . '</p>
-                      <p class="card-text"><strong>Color: </strong>' . ($row['color']) . '</p>
-                      <p class="card-text"><strong>Cantidad: </strong>' . ($row['cantidadp']) . '</p>
-                      <p class="card-text"><strong>Talla: </strong>' . ($row['talla']) . '</p>
+
+      // Mostrar los resultados
+      if ($consulta->num_rows > 0) {
+          while ($row = $consulta->fetch_array()) {
+            $urlImagen = $row['imagen']; // La URL de Cloudinary
+
+              echo '<div class="col">
+                  <div class="card" style="border: 2px solid black;">
+<img src="' . htmlspecialchars($row['imagen']) . '" class="card-img-top mx-auto d-block img-fluid" alt="Producto" style="margin: 15px 10px 0 10px; width: 200px; height: 220px;">
+                      <hr>
+                      <div style="text-align: center; padding: 0 0 20px 0;" class="card-body">
+                          <h5 class="card-title">' . htmlspecialchars($row['nombreproducto']) . '</h5>
+                          <p class="card-text"><strong>Precio: </strong>$' . number_format($row['precio']) . '</p>
+                      </div>
                   </div>
-              </div>
-          </div>';
+              </div>';
+          }
+      } else {
+          echo '<p class="text-center">No se han registrado productos.</p>';
       }
       ?>
     </div>
   </div>
-
   <!--Fin Inventario-->
 
   
@@ -224,12 +258,8 @@
         </div>
     </footer>
 
-
-  <!-- Optional JavaScript; choose one of the two! -->
-
-  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <!-- Optional JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 </body>
 
 </html>

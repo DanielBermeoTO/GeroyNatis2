@@ -1,11 +1,14 @@
 <?php
 include "../Modelo/Conexion.php";
 $Conexion = Conectarse();
-$sqlest = "SELECT idestado, tiposestados FROM estados";
+$sqlest = "SELECT idestado, tiposestados FROM estados WHERE idestado IN (1,2);";
 $resultadoest = $Conexion->query($sqlest);
 
-$sqlp = "SELECT `idProducto`,`nombreproducto`, precio FROM producto WHERE id_estado = 3;";
+$sqlp = "SELECT `idProducto`,`nombreproducto`, precio FROM producto WHERE id_estado=3;";
 $resultap = $Conexion->query($sqlp);
+
+$sqlt = "SELECT * FROM `talla`;";
+$resultat = $Conexion->query($sqlt);
 ?>
 
 <!doctype html>
@@ -19,6 +22,7 @@ $resultap = $Conexion->query($sqlp);
       <link rel="stylesheet" href="../Principal/pie.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,62 +34,82 @@ $resultap = $Conexion->query($sqlp);
 </head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div style="            background: linear-gradient(70deg, #3db5b9, #3d575e);
-" class="container-fluid">
-        <a class="nav-link" style="color: black;" href="../UsuarioControlador/VentasControlador.php"><i
-            class="bi bi-box-arrow-left"></i></a>
-        <a class="navbar-brand" href="#">
-          <img src="../Imagenes/Gero_y_Natis Logo.png" alt="" width="150" height="150">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-          <ul class="navbar-nav  mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="../UsuarioControlador/UsuarioInventario.php"><i class="bi bi-file-medical-fill"></i><span>Inicio</span></a>
-            </li>
-          </ul>
+<?php
+// Iniciar la sesión
+session_start();
 
-        </div>
-      </div>
-    </nav>
-  </header>
+// Verificar si la sesión está iniciada y si el usuario tiene el rol adecuado (rol 2 para vendedor)
+if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol'] != 2) {
+    // Si no está logueado o no tiene el rol de vendedor, mostrar alerta y redirigir
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Acceso denegado',
+            text: 'Debe iniciar sesión para acceder a esta página',
+            showConfirmButton: true,
+            confirmButtonText: "Aceptar",
+        }).then(function() {
+            window.location = "../Principal/inicio.html"; // Redirigir a la página de inicio de sesión
+        });
+    </script>
+    <?php
+    exit(); // Asegúrate de salir después de mostrar el mensaje
+}
+?>
+ <!-- Header de Navegación Compacto -->
+    <div class="header-nav">
+        <div class="header-nav-background vent"></div>
+        
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <!-- Botón atrás, Logo e imagen a la izquierda -->
+                <div class="d-flex align-items-center">
+                    <!-- Botón para ir atrás -->
+                    <button class="btn-back me-3" onclick="window.location.href='../UsuarioControlador/VentasControlador.php'"  title="Ir atrás">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    
+                    <!-- Logo imagen -->
+                    <img src="../Imagenes/Gero_y_Natis Logo.png" alt="Logo Gero y Natis" class="logo-img">
+                    
+                    <!-- Nombre de la empresa -->
+                    <a class="navbar-brand" href="#dashboard">
+                        Gero y Natis
+                    </a>
+                </div>
+                
+                <!-- Botón hamburguesa para móvil -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavigation">
+                    <i class="fas fa-bars" style="color: #333;"></i>
+                </button>
+                
+                <!-- Links de navegación y menú de usuario -->
+                <div class="collapse navbar-collapse" id="navbarNavigation">
+                    <!-- Links centrados -->
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                        <a class="nav-link" href="../UsuarioControlador/UsuarioInventario.php"><i class="far fa-copy me-2"></i>Inicio</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../UsuarioControlador/VentasControlador.php"><i class="bi bi-credit-card"></i> Ventas</a>
+                    </li>
+                    </ul>
+                    
+                    <!-- Menú de usuario a la derecha -->
+                    <div class="user-menu">
+                        <a href="../Sesiones/Cerrar Sesion.php" class="btn-icon-nav" title="Cerrar sesión">
+                            <i class="fa-solid fa-door-open"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 
-
-  <div class="container" style="padding: 0 0 50px 0;  font-family: Oswald, sans-serif;">
-    <div class="row">
-      <!--Inicio Portafolio-->
-      <div class="col-md-8">
-        <h2 style="font-family: Bebas Neue, sans-serif; padding: 20px 0 0 0; font-size: 60px;">Añadir Venta</h2>
-        <p style="font-family: Oswald, sans-serif; font-size: 22px;">En este apartado puedes añadir una venta.</p>
-        <hr>
-        <?php
-      // Iniciar la sesión
-      session_start();
-      // Verificar si la sesión está iniciada y si el usuario tiene el rol adecuado (rol 2 para vendedor)
-      if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol'] != 2) {
-          // Si no está logueado o no tiene el rol de vendedor, mostrar alerta y redirigir
-          ?>
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          <script>
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Acceso denegado',
-                  text: 'Debe iniciar sesión para acceder a esta página',
-                  showConfirmButton: true,
-                  confirmButtonText: "Aceptar",
-              }).then(function() {
-                  window.location = "../Principal/inicio.html"; // Redirigir a la página de inicio de sesión
-              });
-          </script>
-          <?php
-          exit();} 
-          ?>
-          <?php
+  <?php
               if (isset($_GET['message'])) {
                 // Definir clases y mensajes según el tipo
                 $alertClass = 'alert-danger'; // Por defecto, alerta de error
@@ -96,16 +120,6 @@ $resultap = $Conexion->query($sqlp);
                 switch ($_GET['message']) {
                   case 'pocosproductos':
                     $messageText = 'No hay suficientes productos en el inventario para hacer la venta';
-                    break;
-
-                  case 'Usuario no encontrado':
-                    $messageText = 'Usuario no encontrado, Usuario inexistente o correo mal proporcionado.';
-                    break;
-
-                  case 'okay':
-                    $alertClass = 'alert-success'; // Cambiar a éxito
-                    $icon = '<i class="bi bi-check-circle-fill"></i>'; // Ícono de éxito
-                    $messageText = 'Contraseña actualizada con exito.';
                     break;
 
                   default:
@@ -120,11 +134,18 @@ $resultap = $Conexion->query($sqlp);
                     <?= $messageText ?>
                   </div>
                 </div>
-
-              <?php
+                <?php
               }
               ?>
-                      <div class="row">
+
+  <div class="container" style="padding: 0 0 50px 0;  font-family: Oswald, sans-serif;">
+    <div class="row">
+      <!--Inicio Portafolio-->
+      <div class="col-md-8">
+        <h2 style="font-family: Bebas Neue, sans-serif; padding: 20px 0 0 0; font-size: 60px;">Añadir Venta</h2>
+        <p style="font-family: Oswald, sans-serif; font-size: 22px;">En este apartado puedes añadir una venta.</p>
+        <hr>
+        <div class="row">
           <div class="col-md-6" style="border: 2px solid black; border-radius: 10px; ">
             <form action="../UsuarioControlador/VentasControlador.php" class="anadir" method="post" id="product-form">
               <div id="product-list" style="padding: 20px;">
@@ -132,94 +153,176 @@ $resultap = $Conexion->query($sqlp);
                   <input type="date" name="fechaventa" id="fechaventa" required>
                   <label for="fechaventa">Fecha</label>
                 </div>
-                <div class="product-item" style="display: flex; gap: 20px;">
-                  <div class="correo">
-                    <select name="idProducto[]" class="idProducto" required>
-                      <option value="">Producto</option>
-                      <?php  while ($rowe = mysqli_fetch_assoc($resultap)) { ?>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="producto" class="form-label">Producto</label>
+                        <select class="form-select" name="idProducto[]" id="producto" required>
+                            <option value="" selected disabled>Seleccionar producto</option>
+                            <?php while ($rowe = mysqli_fetch_assoc($resultap)) { ?>
                         <option value="<?php echo $rowe['idProducto']; ?>" data-precio="<?php echo $rowe['precio']; ?>">
                           <?php echo $rowe['idProducto'] . ' ' . $rowe['nombreproducto'] . ' | $' . number_format($rowe['precio']); ?>
                         </option>
                       <?php } ?>
-                    </select>
-                  </div>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="talla" class="form-label">Talla</label>
+                        <select  name="talla[]" class="form-select" id="talla" required>
+                            <option value="" selected disabled>Seleccionar talla</option>
+                            <?php while ($rowe = mysqli_fetch_assoc($resultat)) { ?>
+                        <option value="<?php echo $rowe['idtalla']; ?>">
+                          <?php echo $rowe['talla'] ?>
+                        </option>
+                      <?php } ?>
+                        </select>
+                    </div>
+                </div>
+
                   <div class="correo" style="flex: 1;">
-                    <input type="number" style="width: 100%;" name="cantidad[]" required>
+                    <input type="number" style="width: 100%;" name="cantidad[]" required step="1"
+                      title="Solo se permiten números enteros." oninput="validarLongitudt(this)" maxlength="11"
+                      inputmode="numeric">
+                    <script>
+                    function validarLongitudt(input) {
+                      input.value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+                      if (input.value.length < 0) {
+                      input.setCustomValidity('El número de cantidad debe tener al menos 1 dígito.');
+                      } else if (input.value.length > 3) {
+                      input.value = input.value.slice(0, 3); // Limita a 11 dígitos
+                      input.setCustomValidity('El número de cantidad no debe tener más de 3 dígitos.');
+                      } else {
+                      input.setCustomValidity(''); // La validación es exitosa
+                      }
+                      }              
+                    </script>
                     <label for="">Cantidad</label>
                   </div>
                   <input type="hidden" name="valorunitario[]" class="valorunitario">
                 </div>
-              </div>
 
+                
+<center>
               <div class="jepo">
-                <button type="button" id="add-product">Agregar Otro Producto</button>
+                <button id="add-product" type="button" class="btn btn-outline-primary">
+                            <i class="bi bi-plus-circle me-2"></i>Agregar Otro Producto
+                        </button>
               </div>
-
+</center>
+              <div style="padding: 20px;">
               <div class="correo">
-                <input type="text" name="cliente" required>
+                <input type="number" name="cliente" required step="1"
+                  title="Solo se permiten números enteros." oninput="validarLongitud(this)" maxlength="11"
+                  inputmode="numeric">
+                <script>
+                  function validarLongitud(input) {
+                    input.value = input.value.replace(/\D/g, '');
+                    // Limitar a 11 dígitos
+                    if (input.value.length > 11) {
+                      input.value = input.value.slice(0, 11);
+                    }
+                  }
+                </script>
                 <label for="">Documento Cliente</label>
               </div>
 
-              <div class="correo">
-                <select name="id_estadof" id="id_estadof" required>
-                  <option value="">Estado</option>
-                  <?php while ($row = mysqli_fetch_assoc($resultadoest)) { ?>
+              <!-- Estado -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <label for="estado" class="form-label">Estado</label>
+                        <select class="form-select" name="id_estadof" id="id_estadof" required>
+                            <option selected disabled>Seleccionar estado</option>
+                            <?php while ($row = mysqli_fetch_assoc($resultadoest)) { ?>
                     <option value="<?php echo $row['idestado']; ?>"><?php echo $row['tiposestados']; ?></option>
                   <?php } ?>
-                </select>
-              </div>
+                        </select>
+                    </div>
+                </div>
 
-              <input type="hidden" name="documento" value="<?php echo $_SESSION['sesion']; ?>">
+                <input type="hidden" name="documento" value="<?php echo $_SESSION['sesion']; ?>">
+
 
               <div class="botones" style="padding: 0 0 30px 0;">
-                <button type="submit" name="Acciones" value="Crear Venta">Añadir</button>
-                <button type="reset">Borrar</button>
+                <button type="submit" name="Acciones" value="Crear Venta" class="btn btn-success btn-custom">
+                                <i class="bi bi-check-circle me-2"></i>Añadir
+                            </button>
+                <button type="button" class="btn btn-danger btn-custom">
+                                <i class="bi bi-trash me-2"></i>Borrar
+                            </button>
               </div>
             </form>
 
             <script>
-              // Cuando se seleccione un producto, actualizar el valor unitario correspondiente
-              document.addEventListener('change', function(event) {
-                if (event.target.classList.contains('idProducto')) {
-                  const selectedOption = event.target.options[event.target.selectedIndex];
-                  const precio = selectedOption.dataset.precio;
-                  const valorUnitarioInput = event.target.closest('.product-item').querySelector('.valorunitario');
-                  valorUnitarioInput.value = precio;
-                }
-              });
+  // Cuando se seleccione un producto, actualizar el valor unitario correspondiente
+document.addEventListener('change', function(event) {
+  if (event.target.classList.contains('idProducto') || event.target.name && event.target.name.includes('idProducto')) {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const precio = selectedOption.dataset.precio;
+    const productItem = event.target.closest('.product-item') || event.target.closest('#product-list');
+    const valorUnitarioInput = productItem.querySelector('.valorunitario');
+    if (valorUnitarioInput) {
+      valorUnitarioInput.value = precio;
+    }
+  }
+});
 
-              document.getElementById('add-product').addEventListener('click', function() {
-                // Crear un nuevo elemento para el producto
-                const productItem = document.createElement('div');
-                productItem.classList.add('product-item');
-                productItem.style.display = 'flex';
-                productItem.style.gap = '20px';
+document.getElementById('add-product').addEventListener('click', function() {
+  // Crear un nuevo elemento para el producto
+  const productItem = document.createElement('div');
+  productItem.classList.add('product-item');
+  productItem.style.padding = '20px';
+  productItem.style.border = '1px solid #ddd';
+  productItem.style.borderRadius = '5px';
+  productItem.style.marginBottom = '15px';
 
-                // Contenido del nuevo producto, incluyendo el select para elegir el producto
-                productItem.innerHTML = `
-            <div class="correo">
-                <select name="idProducto[]" class="idProducto" required>
-                    <option value="">Producto</option>
-                    <?php
-                    // Asegúrate de que $resultap esté definido antes de usarlo aquí
-                    $resultap = $Conexion->query($sqlp);
-                    while ($rowe = mysqli_fetch_assoc($resultap)) { ?>
-                            <option value="<?php echo $rowe['idProducto']; ?>" data-precio="<?php echo $rowe['precio']; ?>">
-                                <?php echo $rowe['idProducto'] . ' ' . $rowe['nombreproducto'] . ' | $' . number_format($rowe['precio']); ?>
-                            </option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div class="correo" style="flex: 1;">
-                <input type="number" style="width: 100%;" name="cantidad[]" required>
-                <label for="">Cantidad</label>
-            </div>
-            <input type="hidden" name="valorunitario[]" class="valorunitario">
-        `;
+  // Contenido del nuevo producto
+  productItem.innerHTML = `
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="producto" class="form-label">Producto</label>
+        <select class="form-select idProducto" name="idProducto[]" required>
+          <option value="" selected disabled>Seleccionar producto</option>
+          <?php 
+          // Reiniciar el resultado para poder usarlo de nuevo
+          $resultap->data_seek(0);
+          while ($rowe = mysqli_fetch_assoc($resultap)) { ?>
+            <option value="<?php echo $rowe['idProducto']; ?>" data-precio="<?php echo $rowe['precio']; ?>">
+              <?php echo $rowe['idProducto'] . ' ' . $rowe['nombreproducto'] . ' | $' . number_format($rowe['precio']); ?>
+            </option>
+          <?php } ?>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="talla" class="form-label">Talla</label>
+        <select name="talla[]" class="form-select" required>
+          <option value="" selected disabled>Seleccionar talla</option>
+          <?php 
+          // Reiniciar el resultado para poder usarlo de nuevo
+          $resultat->data_seek(0);
+          while ($rowe = mysqli_fetch_assoc($resultat)) { ?>
+            <option value="<?php echo $rowe['idtalla']; ?>">
+              <?php echo $rowe['talla'] ?>
+            </option>
+          <?php } ?>
+        </select>
+      </div>
+      <div class="correo">
+          <input type="number" style="width: 100%;" name="cantidad[]" required step="1"
+            title="Solo se permiten números enteros." oninput="validarLongitudt(this)" maxlength="3"
+            inputmode="numeric">
+          <label for="">Cantidad</label>
+    </div>
+    </div>
+    
 
-                // Añadir el nuevo producto a la lista
-                document.getElementById('product-list').appendChild(productItem);
-              });
+        
+    
+    <input type="hidden" name="valorunitario[]" class="valorunitario">
+  `;
+
+  // Añadir el nuevo producto a la lista
+  document.getElementById('product-list').appendChild(productItem);
+});
+
             </script>
 
           </div>
@@ -369,10 +472,6 @@ $resultap = $Conexion->query($sqlp);
             </div>
         </div>
     </footer>
-
-
-
-
 
 
 

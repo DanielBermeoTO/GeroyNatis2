@@ -115,12 +115,12 @@ $total = $precioproveedor * $cantidadTotal;
     }
 }
 
- public function actualizarProducto($idProducto, $nombreProducto, $precio, $foto, $categoria, $estado)
+ public function actualizarProducto($idProducto, $nombreProducto, $precio, $categoria, $estado)
     {
         // Asegúrate de mantener la conexión abierta
         $sql = 'UPDATE `producto` SET nombreproducto=?, precio=?, CategoriaidCategoria=?, id_estado=? WHERE idProducto=?';
         $stmt = $this->Conexion->prepare($sql);
-        $stmt->bind_param("isisii", $idProducto, $nombreProducto, $precio, $categoria, $estado);
+$stmt->bind_param("siiii", $nombreProducto, $precio, $categoria, $estado, $idProducto);
         $resultado = $stmt->execute();
         $stmt->close();
         return $resultado;

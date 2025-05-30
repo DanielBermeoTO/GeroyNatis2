@@ -7,7 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../Principal/Geroyn.css">
     <link rel="stylesheet" href="../Principal/pie.css">
+    <link rel="stylesheet" href="../Principal/ventas.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,42 +20,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div style="            background: linear-gradient(70deg, #3db5b9, #3d575e);
-" class="container-fluid">
-      <a class="nav-link" style="color: black;" href="../UsuarioControlador/UsuarioInventario.php"><i class="bi bi-box-arrow-left"></i></a>
-      <a class="navbar-brand" href="#">
-        <img src="../Imagenes/Gero_y_Natis Logo.png" alt="" width="150" height="150">
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul class="navbar-nav  mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="../UsuarioControlador/UsuarioInventario.php"><i class="bi bi-file-medical-fill"></i><span>Inicio</span></a>
-          </li>
-        </ul>
-        <form class="d-flex ms-lg-4">
-          <input class="form-control me-2" type="search" placeholder="Buscar Venta" aria-label="Search">
-          <button style="color: white; background: rgb(49, 44, 44); border: black; border-radius: 50px;" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-        </form>
-      </div>
-    </div>
-  </nav>
-  <nav class="acciones">
-    <a class="aña" href="../Usuario/UsuarioAñadirVenta.php"><span><i class="bi bi-bag-plus-fill"></i> Añadir Venta</span></a>
-  </nav>
-
-  <div class="container" style="padding: 0 0 50px 0;  font-family: Oswald, sans-serif;">
-    <div class="row">
-      <!--Inicio Portafolio-->
-      <div class="col-md-10">
-        <h2 style="font-family: Bebas Neue, sans-serif; padding: 20px 0 0 0; font-size: 60px;">Tus Ventas <i class="bi bi-credit-card"></i></h2>
-        <p style="font-family: Oswald, sans-serif; font-size: 22px;">En este apartado puedes visualizar las ventas realizadas.</p>
-        <hr>
-        <?php
+    <?php
 // Iniciar la sesión
 session_start();
 
@@ -77,6 +44,62 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
     exit(); // Asegúrate de salir después de mostrar el mensaje
 }
 ?>
+    <!-- Header de Navegación Compacto -->
+    <div class="header-nav">
+        <div class="header-nav-background vent"></div>
+        
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <!-- Botón atrás, Logo e imagen a la izquierda -->
+                <div class="d-flex align-items-center">
+                    <!-- Botón para ir atrás -->
+                    <button class="btn-back me-3" onclick="window.location.href='../UsuarioControlador/UsuarioInventario.php'"  title="Ir atrás">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    
+                    <!-- Logo imagen -->
+                    <img src="../Imagenes/Gero_y_Natis Logo.png" alt="Logo Gero y Natis" class="logo-img">
+                    
+                    <!-- Nombre de la empresa -->
+                    <a class="navbar-brand" href="#dashboard">
+                        Gero y Natis
+                    </a>
+                </div>
+                
+                <!-- Botón hamburguesa para móvil -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavigation">
+                    <i class="fas fa-bars" style="color: #333;"></i>
+                </button>
+                
+                <!-- Links de navegación y menú de usuario -->
+                <div class="collapse navbar-collapse" id="navbarNavigation">
+                    <!-- Links centrados -->
+                    <ul class="navbar-nav mx-auto">
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="../Usuario/UsuarioAñadirVenta.php"><i class="far fa-copy me-2"></i>Añadir Venta</a>
+                    </li>
+                    </ul>
+                    
+                    <!-- Menú de usuario a la derecha -->
+                    <div class="user-menu">
+                        <a href="../Sesiones/Cerrar Sesion.php" class="btn-icon-nav" title="Cerrar sesión">
+                            <i class="fa-solid fa-door-open"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+  <div class="container" style="padding: 0 0 50px 0;  font-family: Oswald, sans-serif;">
+    <div class="row">
+      <!--Inicio Portafolio-->
+      <div class="col-md-10">
+        <h2 style="font-family: Bebas Neue, sans-serif; padding: 20px 0 0 0; font-size: 60px;">Tus Ventas <i class="bi bi-credit-card"></i></h2>
+        <p style="font-family: Oswald, sans-serif; font-size: 22px;">En este apartado puedes visualizar las ventas realizadas.</p>
+        <hr>
 
 <?php
               if (isset($_GET['message'])) {
@@ -109,78 +132,123 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
               <?php
               }
               ?>
-<div  class="col-md-12">
-    <table  class="edit table table-responsive">
-        <thead >
-            <tr>
-                <th style="            background: #3db5b9;
-">ID</th>
-                <th style="            background: #3db5b9;
-">Fecha</th>
-                <th style="            background: #3db5b9;
-">Productos Vendidos</th>
-                <th style="            background: #3db5b9;
-">LLeva</th>
-                <th style="            background: #3db5b9;
-">Subtotal</th>
-                <th style="            background: #3db5b9;
-">Total</th>
-                <th style="            background: #3db5b9;
-">Estado</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Asegúrate de que $resultado esté definido y contenga datos
-            while ($row = mysqli_fetch_assoc($resultado)) {
-                echo '
-                <tr>
-                    <td>' . htmlspecialchars($row['idFactura']) . '</td>
-                    <td>' . htmlspecialchars($row['fechaventa']) . '</td>
-                    <td>
-                        <table class="productos">
-                            <thead>
-                                <tr>
-                                    <th style="            background: #3db5b9;
-">ID Producto</th>
-                                    <th style="            background: #3db5b9;
-">Producto</th>
-                                    <th style="            background: #3db5b9;
-">Cantidad</th>
-                                    <th style="            background: #3db5b9;
-">Precio</th>
-                                    <th style="            background: #3db5b9;
-">IVA</th>
-                                </tr>
-                            </thead>
-                            <tbody>';
-                $productos = explode(', ', $row['productos']);
-                foreach ($productos as $producto) {
-                    list($idProducto, $nombreProducto, $cantidad, $precio, $iva) = explode(': ', $producto);
-                    $precio = trim(str_replace('$', '', $precio));
-                    echo '<tr>
-                        <td>' . htmlspecialchars($idProducto) . '</td>
-                        <td>' . htmlspecialchars($nombreProducto) . '</td>
-                        <td>' . htmlspecialchars($cantidad) . '</td>
-                        <td>$' . number_format($precio) . '</td>
-                        <td>' . htmlspecialchars($iva) . '%</td>
-                    </tr>';
-                }
-                echo '</tbody></table></td>
-                    <td>' . htmlspecialchars($row['total_cantidad']) . '</td>
-                    <td>$' . number_format($row['subtotal']) . '</td>
-                    <td>$' . number_format($row['total']) . '</td>
-                    <td>' . htmlspecialchars($row['estadi']) . '</td>
-                </tr>';
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
+
+
+
+<div class="row">
+          <?php
+// Verificar si se realizó una búsqueda
+if (isset($_GET['enviar']) && !empty($_GET['busqueda'])) {
+    $busqueda = strtolower(trim($_GET['busqueda']));
+    $ventasFiltradas = array_filter(iterator_to_array($resultado), function($ventas) use ($busqueda) {
+        return strpos(strtolower($ventas['idFactura']), $busqueda) !== false ||
+               strpos(strtolower($ventas['fechaventa']), $busqueda) !== false;
+    });
+} else {
+    $ventasFiltradas = iterator_to_array($resultado);
+}
+
+// Mostrar los productos
+if (count($ventasFiltradas) > 0) {
+    foreach ($ventasFiltradas as $row) {
+        $productos = explode(', ', $row['productos']);
+        ?>
+        <div class="col-lg-4 col-md-6">
+            <div class="card ticket-card" data-bs-toggle="modal" data-bs-target="#modal6<?= number_format($row['idFactura']) ?>">
+                <div class="ticket-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="ticket-number">N° <?= number_format($row['idFactura']) ?></span>
+                        <span class="status-badge status-completed"><?= $row['estadi'] ?></span>
+                    </div>
+                </div>
+                <div class="ticket-body">
+                    <h3 class="ticket-amount">$<?= number_format($row['total']) ?></h3>
+                    <div class="ticket-info">
+                        <span class="ticket-label">Cliente:</span>
+                        <span class="ticket-value"><?= $row['cliente'] ?></span>
+                    </div>
+                    <div class="ticket-info">
+                        <span class="ticket-label">Fecha:</span>
+                        <span class="ticket-value"><?= $row['fechaventa'] ?></span>
+                    </div>
+                    <div class="ticket-info">
+                        <span class="ticket-label">Producto:</span>
+                        <span class="ticket-value">
+                            <?php
+                            foreach ($productos as $producto) {
+                                list($idProducto, $nombreProducto) = explode(': ', $producto, 3);
+                                echo htmlspecialchars($nombreProducto) . '<br>';
+                            }
+                            ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal6<?= number_format($row['idFactura']) ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="fas fa-receipt me-2"></i>Detalle de Venta N° <?= number_format($row['idFactura']) ?></h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="detail-card">
+                            <h6 class="text-muted mb-3">INFORMACIÓN GENERAL</h6>
+                            <div class="detail-row"><span class="detail-label">Cliente:</span><span class="detail-value"><?= htmlspecialchars($row['cliente']) ?></span></div>
+                            <div class="detail-row"><span class="detail-label">Fecha:</span><span class="detail-value"><?= $row['fechaventa'] ?></span></div>
+                            <div class="detail-row"><span class="detail-label">Estado:</span><span class="detail-value"><?= $row['estadi'] ?></span></div>
+                            <div class="detail-row"><span class="detail-label">Vendedor:</span><span class="detail-value"><?= $row['usuario'] . ' - ' . $row['nombre'] . ' ' . $row['apellido'] ?></span></div>
+                            <div class="detail-row"><span class="detail-label">Unidades en total:</span><span class="detail-value"><?= $row['total_cantidad'] ?></span></div>
+                        </div>
+
+                        <div class="detail-card">
+                            <h6 class="text-muted mb-3">PRODUCTOS (IVA 19%)</h6>
+                            <?php
+                            foreach ($productos as $producto) {
+                                list($idProducto, $nombreProducto, $cantidad, $precio, $iva, $cliente) = explode(': ', $producto);
+                                $precio = str_replace('$', '', trim($precio));
+                                ?>
+                                <div class="detail-row">
+                                    <span class="detail-label">Producto:</span>
+                                    <span class="detail-value"><?= htmlspecialchars("$idProducto - $nombreProducto") ?></span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Cantidad:</span>
+                                    <span class="detail-value"><?= htmlspecialchars($cantidad) ?></span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Precio Unitario:</span>
+                                    <span class="detail-value">$<?= number_format($precio) ?></span>
+                                </div>
+                            <?php } ?>
+                             <div class="detail-row">
+                                    <span class="detail-label">Subtotal:</span>
+                                    <span class="detail-value">$<?= number_format($row['subtotal']) ?></span>
+                                </div>
+                        </div>
+
+                        <div class="total-row">
+                            <div class="detail-row">
+                                <span class="detail-label">TOTAL:</span>
+                                <span class="detail-value">$<?= number_format($row['total']) ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php
+    }
+} else {
+    echo '<p class="text-center">No se han registrado ventas.</p>';
+}
+?>
 
       </div>
-    </div>
-  </div>
+       </div> </div> </div>
 
 
 

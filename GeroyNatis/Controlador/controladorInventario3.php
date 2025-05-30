@@ -64,28 +64,11 @@ if ($elegirAcciones == 'Crear Producto') {
 
     if ($idProducto) {
         $nombreProducto = $_POST['nombreproducto'] ?? null;
-        $cantidadp = $_POST['cantidadp'];
         $precio = $_POST['precio'];
-        $color = $_POST['color'];
-        $iva = 19; // Valor fijo de IVA como en la función añadirProducto
         $categoria = $_POST['categoria'];
         $estado = $_POST['estado'];
-        $talla = $_POST['talla'];
 
-        // Verificar si se ha subido una nueva imagen
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            // Nueva imagen subida - necesitaría actualizar la función actualizarProducto 
-            // para que utilice Cloudinary en lugar de almacenamiento local
-            echo "La actualización de imágenes con Cloudinary aún no está implementada.";
-            exit();
-            
-            // Aquí iría la lógica para actualizar usando Cloudinary:
-            // $imagenTemp = $_FILES['foto']['tmp_name'];
-            // $producto->actualizarProductoConCloudinary($idProducto, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla, $imagenTemp);
-        } else {
-            // No se subió una nueva imagen, actualizar sin cambiar la imagen actual
-            $producto->actualizarProducto($idProducto, $nombreProducto, $cantidadp, $precio, $color, $iva, $categoria, $estado, $talla);
-        }
+        $producto->actualizarProducto($idProducto, $nombreProducto, $precio, $categoria, $estado);
 
         header("Location: ../Controlador/controladorInventario2.php?success=1");
         exit();

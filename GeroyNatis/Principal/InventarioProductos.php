@@ -380,34 +380,55 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
 
           
                 <!-- Modal para actualizar producto -->
+
                 <!-- Modal para actualizar producto -->
                 <div class="modal fade" id="updateModal<?php echo $row['idProducto']; ?>" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" style="border: 2px solid black; border-radius: 10px;">
-                    <div class="modal-content" style="padding: 20px; background: linear-gradient(70deg, #c24a46, #c2a8a1);">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="updateModalLabel">Actualizar Producto - ID: <?php echo $row['idProducto']; ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        
-                        <form action="../Controlador/controladorInventario3.php" method="post" enctype="multipart/form-data">
-
-                          <!-- Nombre -->
-                          <div class="mb-3">
-                            <label class="form-label">Nombre</label>
-                            <input class="form-control" name="nombreproducto" type="text" value="<?php echo $row['nombreproducto']; ?>">
-                          </div>
-
-                          <!-- Precio -->
-                          <div class="mb-3">
-                            <label class="form-label">Precio</label>
-                            <input class="form-control" name="precio" type="number" value="<?php echo $row['precio']; ?>">
-                          </div>
-
-                          <!-- Categoría -->
-                          <div class="mb-3">
-                            <label class="form-label">Categoría</label>
-                            <select class="form-select" name="categoria" required>
+                  <div class="modal-dialog">
+                    <div class="modal-content" style="border-radius: 20px">
+                      <div class="modal-custom" >
+        <!-- Header del modal -->
+        <div class="modal-header-custom">
+            <h5 class="modal-title-custom">
+                <div class="modal-title-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                Actualizar Producto
+                <span class="product-id-badge-uper">ID: <?php echo $row['idProducto']; ?></span>
+            </h5>
+            
+        </div>
+        
+        <!-- Formulario -->
+        <form action="../Controlador/controladorInventario3.php" method="POST" enctype="multipart/form-data">
+            
+        <input type="hidden" name="idProducto" value="<?php echo $row['idProducto']; ?>">
+            <!-- Cuerpo del modal -->
+            <div class="modal-body-custom">
+                <!-- Campo Nombre -->
+                <div class="form-group-custom">
+                    <label for="nombre" class="form-label-custom">
+                        <i class="fas fa-tag input-icon"></i>
+                        Nombre del Producto
+                    </label>
+                     <input class="form-control" name="nombreproducto" type="text" value="<?php echo $row['nombreproducto']; ?>">
+                </div>
+                
+                <!-- Campo Precio -->
+                <div class="form-group-custom">
+                    <label for="precio" class="form-label-custom">
+                        <i class="fas fa-dollar-sign input-icon"></i>
+                        Precio
+                    </label>
+                     <input class="form-control" name="precio" type="number" value="<?php echo $row['precio']; ?>">
+                </div>
+                
+                <!-- Campo Categoría -->
+                <div class="form-group-custom">
+                    <label for="categoria" class="form-label-custom">
+                        <i class="fas fa-list input-icon"></i>
+                        Categoría
+                    </label>
+                    <select class="form-select" name="categoria" required>
                               <?php
                               // Reestablecer el puntero de datos para las categorías
                               mysqli_data_seek($resultadoCategorias, 0);
@@ -420,25 +441,35 @@ if (!isset($_SESSION['sesion']) || $_SESSION['sesion'] == "" || $_SESSION['rol']
                               }
                               ?>
                             </select>
-                          </div>
-
-                          <!-- Estado -->
-                          <div class="mb-3">
-                            <label class="form-label">Estado</label>
-                            <select class="form-select" name="estado" required>
+                </div>
+                
+                <!-- Campo Estado -->
+                <div class="form-group-custom">
+                    <label for="estado" class="form-label-custom">
+                        <i class="fas fa-toggle-on input-icon"></i>
+                        Estado
+                    </label>
+                    <select class="form-select" name="estado" required>
                               <option value="3" <?php echo ($row['id_estado'] == 'ACTIVO') ? 'selected' : ''; ?>>ACTIVO</option>
                               <option value="4" <?php echo ($row['id_estado'] == 'INACTIVO') ? 'selected' : ''; ?>>INACTIVO</option>
                             </select>
-                          </div>
-
-                         
-
-                          <button class="btn btn-warning" type="submit" name="Acciones" value="Actualizar Producto">Actualizar Producto</button>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                      </div>
+                </div>
+            </div>
+            
+            <!-- Footer del modal -->
+            <div class="modal-footer-custom">
+                <a href="../Principal/ProveedoresMAñadir.php" class="btn-secondary-custom">
+                    <i class="fa-solid fa-plus"></i>
+                    Stock
+                </a>
+                <button type="button" class="btn-primary-custom cerrar" data-bs-dismiss="modal"><i class="fas fa-times me-2"></i>Cerrar</button>
+                <button type="submit" class="btn-primary-custom" name="Acciones" value="Actualizar Producto">
+                    <i class="fas fa-save me-2"></i>
+                    Actualizar Producto
+                </button>
+            </div>
+        </form>
+    </div>
                     </div>
                   </div>
                 </div>

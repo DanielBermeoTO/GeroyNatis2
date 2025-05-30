@@ -26,13 +26,13 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #28a745, #20c997, #17a2b8);
+            background: linear-gradient(135deg, rgba(100, 195, 198, 0.7) 0%, #e9ecef 100%);
         }
 
         .ticket-header {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, rgba(100, 195, 198, 0.7) 0%, #e9ecef 100%);
             padding: 1rem;
-            border-bottom: 2px dashed #dee2e6;
+            border-bottom: 2px dashed black;
             position: relative;
         }
 
@@ -60,7 +60,7 @@
 
         .ticket-number {
             font-size: 0.9rem;
-            color: #6c757d;
+            color: black;
             font-weight: 600;
         }
 
@@ -73,6 +73,10 @@
 
         .ticket-body {
             padding: 1.5rem;
+            border-bottom: 1px solid black;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            border-radius: 15px;
         }
 
         .ticket-info {
@@ -123,8 +127,8 @@
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
+            background: linear-gradient(93deg, rgba(100, 195, 198, 0.7) 20%, #e9ecef 80%);
+            color: black;
             border: none;
             padding: 1.5rem;
         }
@@ -165,16 +169,17 @@
         }
 
         .total-row {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(100, 195, 198, 0.7) 0%, #e9ecef 100%);
+            color: black;
             padding: 1rem;
             border-radius: 10px;
             margin-top: 1rem;
+            border: 1px solid black;
         }
 
         .total-row .detail-label,
         .total-row .detail-value {
-            color: white;
+            color: black;
             font-size: 1.2rem;
             font-weight: bold;
         }

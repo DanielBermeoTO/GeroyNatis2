@@ -19,6 +19,7 @@ if ($elegirAcciones == 'Crear Venta') {
                 'idProducto' => $_POST['idProducto'][$i],
                 'valorunitario' => $_POST['valorunitario'][$i],
                 'cantidad' => $_POST['cantidad'][$i],
+                'talla' => $_POST['talla'][$i],
                 'cliente' => $_POST['cliente']
             ];
         }
@@ -32,7 +33,7 @@ if ($elegirAcciones == 'Crear Venta') {
 
         );    
 
-        header("Location: ../UsuarioControlador/VentasControlador.php?success=1");
+        header("Location: ../UsuarioControlador/VentasControlador.php?message=agregadoexitosamente");
         exit(); // Es buena práctica terminar el script después de redirigir
 
     } else {
