@@ -75,38 +75,53 @@ public function añadirProducto($foto, $nombreProducto, $precio, $precioproveedo
         $idProducto = $this->Conexion->insert_id;
         $stmt->close();
 
+        // 📏 Insertar en producto_talla
         for ($i = 0; $i < count($tallas); $i++) {
-    $talla = $tallas[$i];
-    $cantidad = $cantidades[$i];
-    $color = $colores[$i];
+            $talla = $tallas[$i];
+            $cantidad = $cantidades[$i];
+            $color = $colores[$i];
 
-    // Validar que no estén vacíos y sean coherentes
-    if ($talla !== null && $cantidad !== null && $color !== null) {
-        $sql = "INSERT INTO producto_talla (id_producto, id_talla, cantidad, color) VALUES (?, ?, ?, ?)";
-        $stmt = $this->Conexion->prepare($sql);
-        $stmt->bind_param("iiis", $idProducto, $talla, $cantidad, $color);
-        $stmt->execute();
-        $stmt->close();
-    }
-}
-
-
+            // Validar que no estén vacíos y sean coherentes
+            if ($talla !== null && $cantidad !== null && $color !== null) {
+                $sql = "INSERT INTO producto_talla (id_producto, id_talla, cantidad, color) VALUES (?, ?, ?, ?)";
+                $stmt = $this->Conexion->prepare($sql);
+                $stmt->bind_param("iiis", $idProducto, $talla, $cantidad, $color);
+                $stmt->execute();
+                $stmt->close();
+            }
+        }
 
         // 💰 Calcular el total e insertar en proceso
-       $cantidadTotal = array_sum($cantidades);
-$total = $precioproveedor * $cantidadTotal;
-
+        $cantidadTotal = array_sum($cantidades);
+        $total = $precioproveedor * $cantidadTotal;
         $anadido = 5;
 
         $sql = "INSERT INTO proceso (entradaProducto, fecha_entrada, productoidProducto, proveedoridproveedor, anadido, total, precioproveedor) 
-                VALUES (?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->Conexion->prepare($sql);
         $stmt->bind_param("isiiiii", $cantidadTotal, $fechaEntrada, $idProducto, $proveedorId, $anadido, $total, $precioproveedor);
         $stmt->execute();
+
+        $idProceso = $this->Conexion->insert_id; // Obtener el ID del proceso insertado
         $stmt->close();
 
+        // 📏 Insertar en detalle_proceso (los mismos datos)
+        for ($i = 0; $i < count($tallas); $i++) {
+            $talla = $tallas[$i];
+            $cantidad = $cantidades[$i];
+            $color = $colores[$i];
+
+            // Validar que no estén vacíos y sean coherentes
+            if ($talla !== null && $cantidad !== null && $color !== null) {
+                $sql = "INSERT INTO detalle_proceso (id_proceso, id_talla, cantidad, color) VALUES (?, ?, ?, ?)";
+                $stmt = $this->Conexion->prepare($sql);
+                $stmt->bind_param("iiis", $idProceso, $talla, $cantidad, $color);
+                $stmt->execute();
+                $stmt->close();
+            }
+        }
+
         $this->Conexion->commit();
-        header("Location: ../Controlador/controladorInventario2.php?success=1");
         exit();
 
     } catch (Exception $e) {
